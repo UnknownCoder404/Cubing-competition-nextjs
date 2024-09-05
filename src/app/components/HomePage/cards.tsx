@@ -4,6 +4,9 @@ import styles from "./cards.module.css";
 import Card from "./card";
 import Link from "next/link";
 import handleInvite from "@/app/utils/handleInvite";
+import Image from "next/image";
+import qrcode from "@/app/public/qrcode_to_website.webp";
+
 const cards: CardProp[] = [
   {
     title: "Natjecanja",
@@ -35,12 +38,21 @@ const cards: CardProp[] = [
   {
     title: "Dijeljenje",
     description: (
-      <p>
-        <span className={styles["share"]} onClick={handleInvite}>
-          Pozovi
-        </span>{" "}
-        svoje prijatelje
-      </p>
+      <>
+        <p>
+          <span className={styles["share"]} onClick={handleInvite}>
+            Pozovi
+          </span>{" "}
+          svoje prijatelje
+        </p>
+        <Image
+          src={qrcode}
+          alt="qrcode to website"
+          className={styles["qrcode"]}
+          width={100}
+          height={100}
+        />
+      </>
     ),
     shouldRender: () => {
       return !!window.navigator.share;
