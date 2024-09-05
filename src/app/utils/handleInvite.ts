@@ -3,8 +3,9 @@ export default function handleInvite() {
     alert("Dijeljenje nije podržano u ovom pregledniku.");
     return;
   }
-  window.navigator.share({
-    title: "Cubing Competition",
-    text: "Pozovi svoje prijatelje za natjecanje!",
+  navigator.share({
+    title: "Dođi na natjecanje!",
+    text: `Pozivam te da se natječeš u slaganju Rubikove kocke! Mogu se natjecati osnovnoškolci.`,
+    url: "https://cutt.ly/CroComp",
   });
 }
