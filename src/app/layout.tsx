@@ -26,7 +26,7 @@ function Header() {
           </Link>
         </div>
         <div className={headerStyles["title-container"]}>
-          <h1 className={headerStyles["title"]}>Cro cube comp</h1>
+          <h1 className={headerStyles["title"]}>Cro Cube Comp</h1>
         </div>
       </div>
       <div className={headerStyles["account-container"]}>
