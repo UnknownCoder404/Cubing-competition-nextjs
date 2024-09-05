@@ -37,7 +37,7 @@
 .logout-span,
 .share {
   cursor: pointer;
-  color: rgb(0, 102, 204);
+  color: var(--anchor-unvisited-color);
   text-decoration: underline;
 }
 .qrcode {
@@ -48,7 +48,7 @@
 }
 .post {
   cursor: pointer;
-  color: rgb(0, 102, 204);
+  color: var(--anchor-unvisited-color);
   text-decoration: underline;
 }
 @keyframes animate-in-and-out {
