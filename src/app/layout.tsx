@@ -15,13 +15,15 @@ function Header() {
     <header className={headerStyles["header"]}>
       <div className={headerStyles["interaction-container"]}>
         <div className={headerStyles["logo-container"]}>
-          <Image
-            alt="logo"
-            className={headerStyles["logo"]}
-            src="/favicon.ico"
-            width={20}
-            height={20}
-          />
+          <Link href="/">
+            <Image
+              alt="logo"
+              className={headerStyles["logo"]}
+              src="/favicon.ico"
+              width={20}
+              height={20}
+            />
+          </Link>
         </div>
         <div className={headerStyles["title-container"]}>
           <h1 className={headerStyles["title"]}>Cro cube comp</h1>
