@@ -1,14 +1,9 @@
-import type { Metadata } from "next";
 import "../../Styles/globals.css";
 import headerStyles from "./Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import accountCircle from "./public/account_circle.svg";
-export const metadata: Metadata = {
-  title: "Cro Cube Comp",
-  description: "Natjecanje iz Rubikovih kocka.",
-  keywords: "Cro Cube Comp, Cro Cube Club, Rubikova kocka natjecanje, Hrvatska",
-};
+import ClientLoginStatus from "./components/Header/ClientLoginStatus";
 
 function Header() {
   return (
@@ -30,9 +25,7 @@ function Header() {
         </div>
       </div>
       <div className={headerStyles["account-container"]}>
-        <h2 className={headerStyles["log-in"]}>
-          <Link href="Login/">Prijava</Link>
-        </h2>
+        <ClientLoginStatus /> {/* Render the client-side login status */}
         <Image
           alt="account circle"
           className={headerStyles["account-circle"]}
