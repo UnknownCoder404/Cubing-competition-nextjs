@@ -1,0 +1,111 @@
+:root {
+  --logged-in: auto;
+}
+/* Style the header */
+.header {
+  padding: 10px 16px;
+  background: rgb(24, 24, 24);
+  color: #f1f1f1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border-radius: 30px;
+}
+@media screen and (max-width: 350px) {
+  .header {
+    border-radius: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+}
+.interaction-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+}
+@media screen and (max-width: 500px) {
+  .interaction-container {
+    justify-content: center;
+    align-items: center;
+  }
+}
+/* Page content */
+.content {
+  padding: 16px;
+}
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+/* Add some top padding to the page content to prevent sudden quick movement */
+.sticky + .content {
+  padding-top: 102px;
+}
+.logo {
+  width: 20px;
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title-container {
+  display: flex;
+}
+.title {
+  display: inline-block;
+  font-size: 32px; /* Default for h1 */
+}
+@media screen and (max-width: 276px) {
+  .title {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 260px) {
+  .title {
+    font-size: 28px;
+  }
+}
+@media screen and (max-width: 233px) {
+  .title {
+    font-size: 26px;
+  }
+}
+@media screen and (max-width: 222px) {
+  .title {
+    font-size: 24px;
+  }
+}
+.account-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.log-in {
+  display: inline-block;
+  margin: 5px;
+}
+
+.log-in a {
+  text-decoration: underline;
+  color: white;
+}
+.account-circle {
+  cursor: var(--logged-in);
+}
+@media screen and (max-width: 230px) {
+  .account-circle {
+    display: none;
+  }
+}
+@media screen and (max-width: 250px) {
+  .header {
+    padding: 10px;
+  }
+}
