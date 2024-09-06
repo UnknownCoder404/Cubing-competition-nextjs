@@ -4,18 +4,22 @@ import Link from "next/link";
 import headerStyles from "@/app/Header.module.css";
 
 function ClientLoginStatus() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [username, setUsername] = useState<null | string>(null);
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem("loggedIn");
-    if (loggedInStatus) {
-      setLoggedIn(true);
-    }
+    const username = localStorage.getItem("username");
+
+    setLoggedIn(!!loggedInStatus);
+    setUsername(username);
   }, []);
 
   return (
     <>
-      {loggedIn ? null : (
+      {loggedIn ? (
+        <h2 className={headerStyles["log-in"]}>{username}</h2>
+      ) : (
         <h2 className={headerStyles["log-in"]}>
           <Link href="Login/">Prijava</Link>
         </h2>
