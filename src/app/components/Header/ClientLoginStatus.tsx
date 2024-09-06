@@ -1,7 +1,7 @@
 "use client"; // This makes this component a client-side component
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import headerStyles from "@/app/Header.module.css";
+import headerStyles from "./Header.module.css";
 
 function ClientLoginStatus() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -12,7 +12,7 @@ function ClientLoginStatus() {
     const username = localStorage.getItem("username");
 
     setLoggedIn(!!loggedInStatus);
-    setUsername(username);
+    setUsername(username)
   }, []);
 
   return (
