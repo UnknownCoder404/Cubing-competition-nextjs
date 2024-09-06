@@ -43,7 +43,7 @@ function isAdmin(role: Role): boolean {
 }
 
 function addToken<T extends string | object | URL | null>(
-  data: T
+  data: T,
 ): T | string | null {
   const token = getToken();
   if (!token) {
