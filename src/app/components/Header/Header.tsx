@@ -5,7 +5,7 @@ import Link from "next/link";
 import accountCircle from "../../public/account_circle.svg";
 import ClientLoginStatus from "./ClientLoginStatus";
 
-export default function Header() {
+export default function Header({ title }: { title: string }) {
   return (
     <header className={headerStyles["header"]}>
       <div className={headerStyles["interaction-container"]}>
@@ -21,7 +21,7 @@ export default function Header() {
           </Link>
         </div>
         <div className={headerStyles["title-container"]}>
-          <h1 className={headerStyles["title"]}>Cro Cube Comp</h1>
+          <h1 className={headerStyles["title"]}>{title}</h1>
         </div>
       </div>
       <div className={headerStyles["account-container"]}>

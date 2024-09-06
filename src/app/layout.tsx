@@ -1,7 +1,16 @@
 import "@/globals.css";
 import Header from "./components/Header/Header";
 import { headers } from "next/headers";
-const hideHeaderRoutes: string[] = ["/Login"];
+const hideHeaderRoutes: string[] = [""];
+
+const titleToShow: {
+  [index: string]: string | undefined;
+} = {
+  "/": "Cro Cube Comp",
+  "/Login": "Prijava",
+  "/Register/": "Cro Cube Comp - Registracija",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -14,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="hr">
       <body>
-        {shouldShowHeader && <Header />}
+        {shouldShowHeader && (
+          <Header title={titleToShow[pathName] || "Cro Cube Comp"} />
+        )}
         {children}
       </body>
     </html>
