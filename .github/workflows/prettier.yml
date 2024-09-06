@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Prettier - Code Formatter
 
 on:
   pull_request:
