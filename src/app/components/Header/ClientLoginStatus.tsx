@@ -12,7 +12,7 @@ function ClientLoginStatus() {
     const username = localStorage.getItem("username");
 
     setLoggedIn(!!loggedInStatus);
-    setUsername(username)
+    setUsername(username);
   }, []);
 
   return (
