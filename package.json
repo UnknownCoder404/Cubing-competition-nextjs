@@ -6,7 +6,8 @@
     "dev": "next dev --turbo --port 2500",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier . --write"
   },
   "dependencies": {
     "@types/dompurify": "^3.0.5",
