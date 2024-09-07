@@ -6,23 +6,19 @@ This is [Cubing Competition repository](https://github.com/Cro-Cube-Comp/Cubing-
 
 ## Getting Started
 
+You have to have [pnpm](https://pnpm.io/) installed.
+
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:2500](http://localhost:2500) with your browser to see the result.
 
 ## Before commiting
 
-You should run `npm run lint` and `npm run prettier` before commiting.
+You should run `pnpm prepare` before commiting or it will be done automatically.
 
 ## Learn More
 
