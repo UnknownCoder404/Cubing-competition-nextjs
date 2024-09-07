@@ -2,22 +2,22 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import headerStyles from "./Header.module.css";
+import { loggedIn } from "@/app/utils/credentials";
 
 function ClientLoginStatus() {
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<null | string>(null);
-
+  const [loggedInStatus, setLoggedInStatus] = useState<boolean>(false);
   useEffect(() => {
-    const loggedInStatus = localStorage.getItem("loggedIn");
+    const loggedInStatus = loggedIn();
     const username = localStorage.getItem("username");
 
-    setLoggedIn(!!loggedInStatus);
+    setLoggedInStatus(!!loggedInStatus);
     setUsername(username);
   }, []);
 
   return (
     <>
-      {loggedIn ? (
+      {loggedInStatus ? (
         <h2 className={headerStyles["log-in"]}>{username}</h2>
       ) : (
         <h2 className={headerStyles["log-in"]}>
