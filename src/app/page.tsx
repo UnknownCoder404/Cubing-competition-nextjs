@@ -1,4 +1,3 @@
-import "./Homepage.module.css";
 import Cards from "./components/HomePage/cards";
 import getPosts from "./utils/getPosts";
 import "@/globals.css";

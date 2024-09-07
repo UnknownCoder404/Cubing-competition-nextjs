@@ -82,7 +82,7 @@ function LoginForm() {
         await handleSubmit(event, setMessage);
         setLoading(false);
       }}
-      id="loginForm"
+      id="login-form"
     >
       <input
         autoComplete="username"

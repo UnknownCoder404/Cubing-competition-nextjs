@@ -5,7 +5,7 @@ body {
 .container {
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
   width: 300px;
 }
 
@@ -15,7 +15,8 @@ body {
   align-items: center;
   height: 90vh;
 }
-#loginForm {
+
+#login-form {
   display: grid;
   justify-items: center;
 }
@@ -32,10 +33,11 @@ body {
     border-color 0.3s,
     box-shadow 0.3s;
 }
+
 .username-input:focus,
 .password-input:focus {
   border-color: #66afe9;
-  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
   outline: none;
 }
 
@@ -53,21 +55,24 @@ body {
     box-shadow 0.3s,
     transform 0.3s var(--exponential);
 }
+
 .submit-btn:hover {
   transform: scale(1.05);
   background-color: #559dd6;
-  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
 }
+
 .submit-btn:focus {
   outline: none;
 }
+
 #message {
   margin-top: 10px;
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: rgb(255 255 255);
   font-weight: 700;
 }
 
 .error {
-  color: rgb(255, 73, 73);
+  color: rgb(255 73 73);
 }

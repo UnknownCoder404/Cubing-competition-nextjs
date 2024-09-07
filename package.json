@@ -6,8 +6,9 @@
     "dev": "next dev --turbo --port 2500",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prettier": "prettier . --write"
+    "lint": "tsc && next lint --fix && stylelint \"**/*.css\" --fix && markdownlint **/*.md -f --ignore node_modules",
+    "format": "prettier . --write",
+    "prepare": "pnpm run format && pnpm run lint"
   },
   "dependencies": {
     "@types/dompurify": "^3.0.5",
@@ -22,6 +23,15 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
+    "husky": "^9.1.5",
+    "markdownlint-cli": "^0.41.0",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.1",
     "typescript": "^5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm prepare"
+    }
   }
 }
