@@ -5,8 +5,9 @@
   display: grid;
   overflow: hidden;
 }
-.loader:before,
-.loader:after {
+
+.loader::before,
+.loader::after {
   content: "";
   background-color: var(--loader-color, #000); /* Default color */
   grid-area: 1/1;
@@ -22,9 +23,11 @@
   animation: l5 1s infinite;
   transform: translate(calc(0% + var(--s, 0%)));
 }
-.loader:after {
+
+.loader::after {
   --s: -100%;
 }
+
 @keyframes l5 {
   80%,
   100% {

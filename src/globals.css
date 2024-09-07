@@ -3,15 +3,15 @@
 :root {
   --background: linear-gradient(
     135deg,
-    rgb(96, 96, 96),
+    rgb(96 96 96),
     #4c3f56,
-    rgb(81, 72, 89),
-    rgb(96, 96, 96)
+    rgb(81 72 89),
+    rgb(96 96 96)
   );
   --exponential: cubic-bezier(1, 0, 0, 1);
-  --anchor-unvisited-color: rgb(0, 102, 204);
-  --anchor-visited-color: rgb(190, 188, 188);
-  --header-background-color: rgb(24, 24, 24);
+  --anchor-unvisited-color: rgb(0 102 204);
+  --anchor-visited-color: rgb(190 188 188);
+  --header-background-color: rgb(24 24 24);
 }
 
 body {
@@ -19,6 +19,7 @@ body {
   background-attachment: fixed;
   color: white;
 }
+
 body,
 p,
 a,
@@ -37,9 +38,11 @@ button {
     "Helvetica Neue",
     sans-serif;
 }
+
 a {
   color: var(--anchor-unvisited-color);
 }
+
 a:visited {
   color: var(--anchor-visited-color);
 }

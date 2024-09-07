@@ -8,7 +8,7 @@ import { ArrowLoader } from "../components/Loader/Loader";
 // This function handles form submission and should be client-side
 async function handleSubmit(
   event: React.FormEvent<HTMLFormElement>,
-  setMsg: Dispatch<SetStateAction<string>>,
+  setMsg: Dispatch<SetStateAction<string>>
 ) {
   event.preventDefault();
   try {
@@ -82,7 +82,7 @@ function LoginForm() {
         await handleSubmit(event, setMessage);
         setLoading(false);
       }}
-      id="loginForm"
+      id="login-form"
     >
       <input
         autoComplete="username"
