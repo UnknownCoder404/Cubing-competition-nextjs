@@ -9,6 +9,7 @@ import Image from "next/image";
 function ClientLoginStatus() {
   const [username, setUsername] = useState<null | string>(null);
   const [isloggedIn, setLoggedInStatus] = useState<boolean>(false);
+
   useEffect(() => {
     const loggedInStatus = loggedIn();
     const username = localStorage.getItem("username");
@@ -29,14 +30,16 @@ function ClientLoginStatus() {
 
       <Image
         alt="account circle"
-        className={headerStyles["account-circle"]}
+        className={`${headerStyles["account-circle"]} ${
+          isloggedIn ? headerStyles["logged-in"] : ""
+        }`}
         src={accountCircle}
         width={24}
         height={24}
         onClick={() => {
           if (isloggedIn) {
             logOut();
-            setLoggedInStatus(false);
+            window.location.reload(); // Refresh the page after logout
           }
         }}
       />
