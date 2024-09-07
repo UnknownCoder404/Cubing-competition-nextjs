@@ -33,3 +33,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_CHECKOV: false
           VALIDATE_JSON: false
+          TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.json
