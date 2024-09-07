@@ -3,7 +3,8 @@
 import loginStyles from "./Login.module.css";
 import { url } from "@/globals";
 import { Dispatch, SetStateAction, useState } from "react";
-import { isAdmin } from "../utils/credentials";
+import { isAdmin, loggedIn } from "../utils/credentials";
+import { ArrowLoader } from "../components/Loader/Loader";
 // This function handles form submission and should be client-side
 async function handleSubmit(
   event: React.FormEvent<HTMLFormElement>,
@@ -53,10 +54,16 @@ function ErrorMessage({ message }: { message: string }) {
     </div>
   );
 }
-function LoginButton() {
+function LoginButton({ loading }: { loading: boolean }) {
   return (
     <button className={loginStyles["submit-btn"]} type="submit">
-      Prijava
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <ArrowLoader color="#000" />
+        </div>
+      ) : (
+        "Prijava"
+      )}
     </button>
   );
 }
@@ -64,8 +71,19 @@ function LoginButton() {
 function LoginForm() {
   "use client";
   const [message, setMessage] = useState<string>("");
+  const [isLoading, setLoading] = useState<boolean>(false);
+  if (loggedIn()) {
+    window.location.href = "/";
+  }
   return (
-    <form onSubmit={(event) => handleSubmit(event, setMessage)} id="loginForm">
+    <form
+      onSubmit={async (event) => {
+        setLoading(true);
+        await handleSubmit(event, setMessage);
+        setLoading(false);
+      }}
+      id="loginForm"
+    >
       <input
         autoComplete="username"
         type="text"
@@ -86,7 +104,7 @@ function LoginForm() {
       />
       <br />
       <br />
-      <LoginButton />
+      <LoginButton loading={isLoading} />
       <ErrorMessage message={message} />
     </form>
   );
