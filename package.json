@@ -6,8 +6,9 @@
     "dev": "next dev --turbo --port 2500",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && npx stylelint \"**/*.css\" --fix && npx markdownlint **/*.md -f --ignore node_modules --fix",
-    "prettier": "prettier . --write"
+    "lint": "npx tsc && next lint --fix && npx stylelint \"**/*.css\" --fix && npx markdownlint **/*.md -f --ignore node_modules",
+    "prettier": "prettier . --write",
+    "prepare": "pnpm run prettier && pnpm run lint"
   },
   "dependencies": {
     "@types/dompurify": "^3.0.5",
