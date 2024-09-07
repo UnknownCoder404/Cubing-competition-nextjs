@@ -1,5 +1,4 @@
 "use client";
-
 import styles from "./cards.module.css";
 import Card from "./card";
 import Link from "next/link";
@@ -86,9 +85,6 @@ function Cards({ posts }: CardsProps) {
   return (
     <div className={styles["cards"]}>
       {cards.map((card, index) => {
-        if (card.shouldRender && !card.shouldRender()) {
-          return null;
-        }
         return <Card key={`card-${index}`} {...card}></Card>;
       })}
       {posts.map((post) => {

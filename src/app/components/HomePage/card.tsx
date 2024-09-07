@@ -12,7 +12,15 @@ function Description(props: { description: React.ReactNode | string }) {
   return <>{description}</>;
 }
 
-export default function Card({ title, description, author }: CardProp) {
+export default function Card({
+  title,
+  description,
+  author,
+  shouldRender,
+}: CardProp) {
+  if (shouldRender && !shouldRender()) {
+    return null;
+  }
   return (
     <div className={styles.card}>
       <div className={styles["card-inside-container"]}>
