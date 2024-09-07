@@ -6,7 +6,7 @@
     "dev": "next dev --turbo --port 2500",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && npx stylelint \"**/*.css\" --fix",
+    "lint": "next lint && npx stylelint \"**/*.css\" --fix && npx markdownlint **/*.md -f --ignore node_modules --fix",
     "prettier": "prettier . --write"
   },
   "dependencies": {
@@ -22,6 +22,9 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
-    "typescript": "^5"
+    "typescript": "^5",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.1",
+    "markdownlint-cli": "^0.41.0"
   }
 }
