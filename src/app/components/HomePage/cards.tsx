@@ -6,9 +6,8 @@ import handleInvite from "@/app/utils/handleInvite";
 import Image from "next/image";
 import qrcode from "@/app/public/qrcode_to_website.webp";
 import { loggedIn, logOut } from "@/app/utils/credentials";
-import { useState } from "react";
 
-const cards: CardProp[] = [
+const cardData = () => [
   {
     title: "Natjecanja",
     description: (
@@ -41,7 +40,7 @@ const cards: CardProp[] = [
     description: (
       <>
         <p>
-          <span className={styles["share"]} onClick={handleInvite}>
+          <span className={styles.share} onClick={handleInvite}>
             Pozovi
           </span>{" "}
           svoje prijatelje
@@ -49,15 +48,13 @@ const cards: CardProp[] = [
         <Image
           src={qrcode}
           alt="qrcode to website"
-          className={styles["qrcode"]}
+          className={styles.qrcode}
           width={100}
           height={100}
         />
       </>
     ),
-    shouldRender: () => {
-      return !!window.navigator.share;
-    },
+    shouldRender: () => !!window.navigator.share,
   },
   {
     title: "Odjava",
@@ -68,6 +65,7 @@ const cards: CardProp[] = [
           className={styles["logout-span"]}
           onClick={() => {
             logOut();
+            window.location.reload(); // Refresh the page after logout
           }}
         >
           ovu poveznicu
@@ -75,9 +73,7 @@ const cards: CardProp[] = [
         da se odjavite.
       </p>
     ),
-    shouldRender: (loggedIn) => {
-      return !!loggedIn;
-    },
+    shouldRender: (loggedIn?: boolean) => !!loggedIn,
   },
 ];
 
@@ -105,17 +101,14 @@ export type PostProp = {
 type CardsProps = { posts: PostProp[] };
 
 function Cards({ posts }: CardsProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(loggedIn());
   return (
-    <div className={styles["cards"]}>
-      {cards.map((card, index) => {
-        return (
-          <Card key={`card-${index}`} {...card} loggedIn={isLoggedIn}></Card>
-        );
-      })}
-      {posts.map((post) => {
-        return <Card key={post.id} {...post}></Card>;
-      })}
+    <div className={styles.cards}>
+      {cardData().map((card, index) => (
+        <Card key={`card-${index}`} {...card} loggedIn={loggedIn()} />
+      ))}
+      {posts.map((post) => (
+        <Card key={post.id} {...post} />
+      ))}
     </div>
   );
 }
