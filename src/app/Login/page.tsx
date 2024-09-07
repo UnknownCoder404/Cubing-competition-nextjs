@@ -16,7 +16,7 @@ async function handleSubmit(
     const formUsername = formData.get("username");
     const formPassword = formData.get("password");
 
-    let loginUrl = url;
+    const loginUrl = url;
     loginUrl.pathname = "/login";
     const response = await fetch(loginUrl, {
       method: "POST",
