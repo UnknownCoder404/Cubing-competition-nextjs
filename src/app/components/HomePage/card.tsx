@@ -17,8 +17,9 @@ export default function Card({
   description,
   author,
   shouldRender,
+  loggedIn,
 }: CardProp) {
-  if (shouldRender && !shouldRender()) {
+  if (shouldRender && !shouldRender(loggedIn)) {
     return null;
   }
   return (

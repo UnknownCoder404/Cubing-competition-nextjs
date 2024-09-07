@@ -5,6 +5,8 @@ import Link from "next/link";
 import handleInvite from "@/app/utils/handleInvite";
 import Image from "next/image";
 import qrcode from "@/app/public/qrcode_to_website.webp";
+import { loggedIn, logOut } from "@/app/utils/credentials";
+import { useState } from "react";
 
 const cards: CardProp[] = [
   {
@@ -57,6 +59,26 @@ const cards: CardProp[] = [
       return !!window.navigator.share;
     },
   },
+  {
+    title: "Odjava",
+    description: (
+      <p>
+        Odjava je jednostavna! Kliknite na{" "}
+        <span
+          className={styles["logout-span"]}
+          onClick={() => {
+            logOut();
+          }}
+        >
+          ovu poveznicu
+        </span>{" "}
+        da se odjavite.
+      </p>
+    ),
+    shouldRender: (loggedIn) => {
+      return !!loggedIn;
+    },
+  },
 ];
 
 export type CardProp = {
@@ -65,7 +87,8 @@ export type CardProp = {
   author?: {
     username: string;
   };
-  shouldRender?: () => boolean;
+  shouldRender?: (loggedIn?: boolean) => boolean;
+  loggedIn?: boolean;
 };
 
 export type PostProp = {
@@ -82,10 +105,13 @@ export type PostProp = {
 type CardsProps = { posts: PostProp[] };
 
 function Cards({ posts }: CardsProps) {
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedIn());
   return (
     <div className={styles["cards"]}>
       {cards.map((card, index) => {
-        return <Card key={`card-${index}`} {...card}></Card>;
+        return (
+          <Card key={`card-${index}`} {...card} loggedIn={isLoggedIn}></Card>
+        );
       })}
       {posts.map((post) => {
         return <Card key={post.id} {...post}></Card>;
