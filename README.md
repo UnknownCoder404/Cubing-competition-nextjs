@@ -2,8 +2,6 @@
 
 This is [Cubing Competition repository](https://github.com/Cro-Cube-Comp/Cubing-competition) rewritten in [Next.js](https://nextjs.org/).
 
-[![Super-Linter](https://github.com/UnknownCoder404/Cubing-competition-nextjs/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
-
 ## Getting Started
 
 You have to have [pnpm](https://pnpm.io/) installed.
