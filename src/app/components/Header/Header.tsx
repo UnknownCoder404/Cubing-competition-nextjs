@@ -2,7 +2,6 @@ import "@/globals.css";
 import headerStyles from "./Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import accountCircle from "../../public/account_circle.svg";
 import ClientLoginStatus from "./ClientLoginStatus";
 
 export default function Header({ title }: { title: string }) {
@@ -26,13 +25,6 @@ export default function Header({ title }: { title: string }) {
       </div>
       <div className={headerStyles["account-container"]}>
         <ClientLoginStatus /> {/* Render the client-side login status */}
-        <Image
-          alt="account circle"
-          className={headerStyles["account-circle"]}
-          src={accountCircle}
-          width={24}
-          height={24}
-        />
       </div>
     </header>
   );
