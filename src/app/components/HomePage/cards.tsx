@@ -5,9 +5,9 @@ import Link from "next/link";
 import handleInvite from "@/app/utils/handleInvite";
 import Image from "next/image";
 import qrcode from "@/app/public/qrcode_to_website.webp";
-import { loggedIn, logOut } from "@/app/utils/credentials";
+import { getRole, isAdmin, loggedIn, logOut } from "@/app/utils/credentials";
 
-const cardData = () => [
+const cardData: () => CardProp[] = () => [
   {
     title: "Natjecanja",
     description: (
@@ -74,6 +74,18 @@ const cardData = () => [
       </p>
     ),
     shouldRender: (loggedIn?: boolean) => !!loggedIn,
+  },
+  {
+    title: "Radna ploča",
+    description: (
+      <p>
+        <Link href="/Dashboard">Ovdje</Link> možete pronaći radnu ploču.
+      </p>
+    ),
+    shouldRender: () => {
+      const role = getRole();
+      return !!role && isAdmin(role);
+    },
   },
 ];
 

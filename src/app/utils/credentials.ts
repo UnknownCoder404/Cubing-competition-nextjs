@@ -4,8 +4,8 @@ function getUsername(): string | null {
   const username = localStorage.getItem("username");
   return username;
 }
-function getRole(): string | null {
-  const role = localStorage.getItem("role");
+function getRole(): Role | null {
+  const role = localStorage.getItem("role") as Role | null;
 
   return role;
 }

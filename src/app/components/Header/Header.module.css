@@ -113,6 +113,7 @@
 .account-circle.logged-in {
   cursor: pointer;
 }
+
 @media screen and (width <= 230px) {
   .account-circle {
     display: none;
