@@ -4,11 +4,19 @@ function getUsername(): string | null {
   const username = localStorage.getItem("username");
   return username;
 }
-function getRole(): Role | null {
-  const role = localStorage.getItem("role") as Role | null;
-
-  return role;
+export type Role = "admin" | "user";
+// Type guard function to check if an object is a Role
+function isRole(str: string | null): str is Role {
+  return !!str && typeof str === "string";
 }
+function getRole(): Role | null {
+  const role = localStorage.getItem("role");
+  if (isRole(role)) {
+    return role;
+  }
+  return null;
+}
+
 function getId(): string | null {
   const id = localStorage.getItem("id");
   return id;
@@ -34,7 +42,7 @@ async function tokenValid(): Promise<boolean> {
 function loggedIn(): boolean {
   return !!getToken() && !!getRole() && !!getId();
 }
-export type Role = "admin" | "user";
+
 function isUser(role: Role): boolean {
   return role.toUpperCase() === "USER";
 }
