@@ -1,6 +1,7 @@
 import { url } from "@/globals";
 
 function getUsername(): string | null {
+  if (typeof window === "undefined") return null;
   const username = localStorage.getItem("username");
   return username;
 }
@@ -10,6 +11,7 @@ function isRole(str: string | null): str is Role {
   return !!str && typeof str === "string";
 }
 function getRole(): Role | null {
+  if (typeof window === "undefined") return null;
   const role = localStorage.getItem("role");
   if (isRole(role)) {
     return role;
@@ -18,14 +20,17 @@ function getRole(): Role | null {
 }
 
 function getId(): string | null {
+  if (typeof window === "undefined") return null;
   const id = localStorage.getItem("id");
   return id;
 }
 function getToken(): string | null {
+  if (typeof window === "undefined") return null;
   const token = localStorage.getItem("token");
   return token;
 }
 function logOut(): void {
+  if (typeof window === "undefined") return;
   localStorage.removeItem("token");
   localStorage.removeItem("username");
   localStorage.removeItem("role");
