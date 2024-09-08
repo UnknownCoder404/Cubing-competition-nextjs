@@ -1,23 +1,13 @@
 "use client"; // This makes this component a client-side component
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import headerStyles from "./Header.module.css";
-import { loggedIn, logOut } from "@/app/utils/credentials";
+import { getUsername, loggedIn, logOut } from "@/app/utils/credentials";
 import accountCircle from "../../public/account_circle.svg";
 import Image from "next/image";
 
 function ClientLoginStatus() {
-  const [username, setUsername] = useState<null | string>(null);
-  const [isloggedIn, setLoggedInStatus] = useState<boolean>(false);
-
-  useEffect(() => {
-    const loggedInStatus = loggedIn();
-    const username = localStorage.getItem("username");
-
-    setLoggedInStatus(!!loggedInStatus);
-    setUsername(username);
-  }, []);
-
+  const username = getUsername();
+  const isloggedIn = loggedIn();
   return (
     <>
       {isloggedIn ? (
