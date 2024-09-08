@@ -5,7 +5,13 @@ import Link from "next/link";
 import handleInvite from "@/app/utils/handleInvite";
 import Image from "next/image";
 import qrcode from "@/app/public/qrcode_to_website.webp";
-import { getRole, isAdmin, loggedIn, logOut } from "@/app/utils/credentials";
+import {
+  getRole,
+  getUsername,
+  isAdmin,
+  loggedIn,
+  logOut,
+} from "@/app/utils/credentials";
 
 const cardData: () => CardProp[] = () => [
   {
@@ -60,7 +66,8 @@ const cardData: () => CardProp[] = () => [
     title: "Odjava",
     description: (
       <p>
-        Odjava je jednostavna! Kliknite na{" "}
+        Odjava je jednostavna! Ako se želite odjaviti iz korisničkog računa{" "}
+        {getUsername()} kliknite na{" "}
         <span
           className={styles["logout-span"]}
           onClick={() => {
