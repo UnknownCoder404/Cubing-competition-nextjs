@@ -100,6 +100,19 @@ const cardData: () => CardProp[] = () => [
       return !!role && isAdmin(role);
     },
   },
+  {
+    title: "Natjecanja",
+    description: (
+      <p>
+        Ti si administrator! Možeš{" "}
+        <Link href="/competitions-dashboard">upravljati</Link> natjecanjima.
+      </p>
+    ),
+    shouldRender: () => {
+      const role = getRole();
+      return !!role && isAdmin(role);
+    },
+  },
 ];
 
 export type CardProp = {
