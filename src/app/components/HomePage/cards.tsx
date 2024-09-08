@@ -1,13 +1,19 @@
 "use client";
-
 import styles from "./cards.module.css";
 import Card from "./card";
 import Link from "next/link";
 import handleInvite from "@/app/utils/handleInvite";
 import Image from "next/image";
 import qrcode from "@/app/public/qrcode_to_website.webp";
+import {
+  getRole,
+  getUsername,
+  isAdmin,
+  loggedIn,
+  logOut,
+} from "@/app/utils/credentials";
 
-const cards: CardProp[] = [
+const cardData: () => CardProp[] = () => [
   {
     title: "Natjecanja",
     description: (
@@ -40,7 +46,7 @@ const cards: CardProp[] = [
     description: (
       <>
         <p>
-          <span className={styles["share"]} onClick={handleInvite}>
+          <span className={styles.share} onClick={handleInvite}>
             Pozovi
           </span>{" "}
           svoje prijatelje
@@ -48,14 +54,70 @@ const cards: CardProp[] = [
         <Image
           src={qrcode}
           alt="qrcode to website"
-          className={styles["qrcode"]}
+          className={styles.qrcode}
           width={100}
           height={100}
         />
       </>
     ),
+    shouldRender: () => !!window.navigator.share,
+  },
+  {
+    title: "Odjava",
+    description: (
+      <p>
+        Odjava je jednostavna! Ako se želite odjaviti iz korisničkog računa{" "}
+        {getUsername()} kliknite na{" "}
+        <span
+          className={styles["logout-span"]}
+          onClick={() => {
+            logOut();
+            window.location.reload(); // Refresh the page after logout
+          }}
+        >
+          ovu poveznicu
+        </span>{" "}
+        da se odjavite.
+      </p>
+    ),
+    shouldRender: (loggedIn?: boolean) => !!loggedIn,
+  },
+  {
+    title: "Radna ploča",
+    description: (
+      <p>
+        <Link href="/Dashboard">Ovdje</Link> možete pronaći radnu ploču.
+      </p>
+    ),
     shouldRender: () => {
-      return !!window.navigator.share;
+      const role = getRole();
+      return !!role && isAdmin(role);
+    },
+  },
+  {
+    title: "Objava",
+    description: (
+      <p>
+        Ti si administrator! Oni mogu objaviti bilo što! Klikni{" "}
+        <Link href="/posts">ovdje</Link>da objaviš nešto.
+      </p>
+    ),
+    shouldRender: () => {
+      const role = getRole();
+      return !!role && isAdmin(role);
+    },
+  },
+  {
+    title: "Natjecanja",
+    description: (
+      <p>
+        Ti si administrator! Možeš{" "}
+        <Link href="/competitions-dashboard">upravljati</Link> natjecanjima.
+      </p>
+    ),
+    shouldRender: () => {
+      const role = getRole();
+      return !!role && isAdmin(role);
     },
   },
 ];
@@ -66,7 +128,8 @@ export type CardProp = {
   author?: {
     username: string;
   };
-  shouldRender?: () => boolean;
+  shouldRender?: (loggedIn?: boolean) => boolean;
+  loggedIn?: boolean;
 };
 
 export type PostProp = {
@@ -84,16 +147,13 @@ type CardsProps = { posts: PostProp[] };
 
 function Cards({ posts }: CardsProps) {
   return (
-    <div className={styles["cards"]}>
-      {cards.map((card, index) => {
-        if (card.shouldRender && !card.shouldRender()) {
-          return null;
-        }
-        return <Card key={`card-${index}`} {...card}></Card>;
-      })}
-      {posts.map((post) => {
-        return <Card key={post.id} {...post}></Card>;
-      })}
+    <div className={styles.cards}>
+      {cardData().map((card, index) => (
+        <Card key={`card-${index}`} {...card} loggedIn={loggedIn()} />
+      ))}
+      {posts.map((post) => (
+        <Card key={post.id} {...post} />
+      ))}
     </div>
   );
 }
