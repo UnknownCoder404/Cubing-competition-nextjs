@@ -27,11 +27,11 @@ async function handleSubmit(
     });
     const data = await response.json();
     if (response.status === 429) {
-      setMsg("Prekoračen je broj pokušaja. Pokušajte ponovo za par minuta.");
+      setMsg("Prekoračen je broj pokušaja.\nPokušajte ponovo za par minuta.");
       return;
     }
     if (response.status === 401) {
-      setMsg("Netčno korisničko ime ili lozinka.");
+      setMsg("Netočno korisničko ime ili lozinka.");
       return;
     }
     setMsg(data.message);
@@ -45,7 +45,7 @@ async function handleSubmit(
     // Redirect to dashboard if user is admin
     window.location.href = isAdmin(role) ? "../Dashboard" : "/";
   } catch (error) {
-    setMsg(`Greška prilikom prijave. (${error})`);
+    setMsg(`Greška prilikom prijave.\n${error}`);
     console.error(error);
   }
 }
