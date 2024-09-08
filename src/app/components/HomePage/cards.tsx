@@ -87,6 +87,19 @@ const cardData: () => CardProp[] = () => [
       return !!role && isAdmin(role);
     },
   },
+  {
+    title: "Objava",
+    description: (
+      <p>
+        Ti si administrator! Oni mogu objaviti bilo što! Klikni{" "}
+        <Link href="/posts">ovdje</Link>da objaviš nešto.
+      </p>
+    ),
+    shouldRender: () => {
+      const role = getRole();
+      return !!role && isAdmin(role);
+    },
+  },
 ];
 
 export type CardProp = {
