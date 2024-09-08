@@ -36,13 +36,18 @@ async function handleSubmit(
     }
     setMsg(data.message);
     const { id, token, username, role } = data.info;
+
     localStorage.setItem("id", id);
     localStorage.setItem("token", token);
     localStorage.setItem("username", username);
     localStorage.setItem("role", role);
+
     // Redirect to dashboard if user is admin
     window.location.href = isAdmin(role) ? "../Dashboard" : "/";
-  } catch (error) {}
+  } catch (error) {
+    setMsg(`Greška prilikom prijave. (${error})`);
+    console.error(error);
+  }
 }
 
 // ErrorMessage component needs to be client-side because it handles dynamic content
