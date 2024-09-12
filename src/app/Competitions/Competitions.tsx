@@ -1,5 +1,6 @@
 "use server";
 import Competition from "./Competition";
+
 type Props = {
   competitions: {
     parsed: any;

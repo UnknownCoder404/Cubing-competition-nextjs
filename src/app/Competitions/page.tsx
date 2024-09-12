@@ -1,7 +1,18 @@
 import { url } from "@/globals";
 import Competitions from "./Competitions";
+
+interface EventDetails {
+  [key: string]: any[]; // Using an index signature to allow any EventType as a key
+}
+export type CompetitionsType = {
+  date: string; // ISO date string
+  isLocked: boolean;
+  events: EventDetails;
+};
+
 async function getResults(): Promise<
-  { success: false } | { parsed: any; success: true; status: number }
+  | { success: false }
+  | { parsed: CompetitionsType; success: true; status: number }
 > {
   try {
     const data = await fetch(`${url.toString()}competitions/results`);
