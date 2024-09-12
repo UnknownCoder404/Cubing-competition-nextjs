@@ -27,22 +27,29 @@ async function handleSubmit(
     });
     const data = await response.json();
     if (response.status === 429) {
-      setMsg("Prekoračen je broj pokušaja. Pokušajte ponovo za par minuta.");
+      setMsg("Prekoračen je broj pokušaja.\nPokušajte ponovo za par minuta.");
       return;
     }
     if (response.status === 401) {
-      setMsg("Netčno korisničko ime ili lozinka.");
+      setMsg("Netočno korisničko ime ili lozinka.");
       return;
     }
     setMsg(data.message);
     const { id, token, username, role } = data.info;
-    localStorage.setItem("id", id);
-    localStorage.setItem("token", token);
-    localStorage.setItem("username", username);
-    localStorage.setItem("role", role);
-    // Redirect to dashboard if user is admin
-    window.location.href = isAdmin(role) ? "../Dashboard" : "/";
-  } catch (error) {}
+    if (typeof window !== "undefined") {
+      // This code works, however it throws error on server, so make sure window is defined.
+      localStorage.setItem("id", id);
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
+      localStorage.setItem("role", role);
+
+      // Redirect to dashboard if user is admin
+      window.location.href = isAdmin(role) ? "../Dashboard" : "/";
+    }
+  } catch (error) {
+    setMsg(`Greška prilikom prijave.\n${error}`);
+    console.error(error);
+  }
 }
 
 // ErrorMessage component needs to be client-side because it handles dynamic content
