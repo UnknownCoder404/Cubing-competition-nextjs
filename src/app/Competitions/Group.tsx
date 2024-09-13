@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Result } from "./EventResults";
 
 import CompetitionStyles from "./Competitions.module.css";
-
 import Round from "./Round";
 import ShowAndHide from "../components/Competitions/showAndHide";
 
@@ -15,9 +14,24 @@ export default function Group({
   groupNumber: number;
 }) {
   const [areGroupResultsShown, setGroupResultsVisibility] = useState(true);
+
+  // Initialize an array of visibility states, one for each round
+  const [roundVisibilities, setRoundVisibilities] = useState<boolean[]>(
+    group.map(() => false), // Default to false (hidden) for each round
+  );
+
   function toggleGroupResultsVisibility() {
     setGroupResultsVisibility(!areGroupResultsShown);
   }
+
+  function toggleRoundVisibility(index: number) {
+    setRoundVisibilities((prevVisibilities) => {
+      const newVisibilities = [...prevVisibilities];
+      newVisibilities[index] = !newVisibilities[index];
+      return newVisibilities;
+    });
+  }
+
   const groupIndex = groupNumber - 1;
 
   return (
@@ -37,15 +51,11 @@ export default function Group({
         }`}
       >
         {group.map((round, index) => {
-          const [isRoundShown, setRoundVisibility] = useState(false);
-          function toggleRoundVisibility() {
-            setRoundVisibility(!isRoundShown);
-          }
           return (
             <Round
               round={round}
-              show={isRoundShown}
-              toggleRoundVisibility={toggleRoundVisibility}
+              show={roundVisibilities[index]}
+              toggleRoundVisibility={() => toggleRoundVisibility(index)}
               key={index}
               roundIndex={index}
             />

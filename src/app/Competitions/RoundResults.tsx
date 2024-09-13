@@ -40,7 +40,7 @@ export default function RoundResults({
     >
       {round.map((result, index) => {
         return (
-          <div className={CompetitionStyles["solver"]}>
+          <div key={index} className={CompetitionStyles["solver"]}>
             <p className={CompetitionStyles["solve"]}>
               {index + 1}. {result.username}{" "}
               {result.solves.map((solve) => formatTime(solve)).join(" ")} (Ao5{" "}
