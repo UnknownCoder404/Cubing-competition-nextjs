@@ -19,10 +19,12 @@
   padding-left: 0.5rem;
 }
 .group-results {
-  display: grid;
-  grid-template-columns: 1fr;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  row-gap: 1rem;
 }
 .groups {
   display: grid;
@@ -43,11 +45,7 @@
 .group-title-container {
   max-height: 100px;
 }
-.group-results {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-}
+
 .round {
   margin: 0.5rem 0;
 }
