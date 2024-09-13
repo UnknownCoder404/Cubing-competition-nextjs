@@ -1,5 +1,7 @@
 "use server";
 
+import CompetitionEvent from "./CompetitionEvent";
+
 function CompetitionName({ name }: { name: string }) {
   if (!name) {
     return <h2 className="comp-name-h2">Ime natjecanja nije dostupno</h2>;
@@ -31,6 +33,16 @@ export default async function Competition(props: {
     <>
       <CompetitionName name={competitionName} />
       <CompetitionDate date={competitionDate} />
+      {
+        /* Render the competition events */
+        Object.keys(competition.events).map((eventName, index) => {
+          console.log(`Looping through ${eventName}`);
+          const event = competition.events[eventName];
+          return (
+            <CompetitionEvent eventName={eventName} key={index} event={event} />
+          );
+        })
+      }
     </>
   );
 }
