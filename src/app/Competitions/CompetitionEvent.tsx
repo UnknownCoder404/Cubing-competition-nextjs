@@ -10,9 +10,9 @@ export default async function CompetitionEvent({
   event: any[];
 }) {
   return (
-    <>
-      <h2 className="comp-event-h2">{eventName}</h2>
+    <div className="event">
+      <h3 className="event-name">{eventName}</h3>
       <EventResults event={event} />
-    </>
+    </div>
   );
 }

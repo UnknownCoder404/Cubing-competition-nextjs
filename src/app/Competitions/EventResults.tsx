@@ -32,11 +32,12 @@ export default async function EventResults({ event }: EventProps) {
   });
 
   return (
-    <>
-      <h1>Event results</h1>
-      {groups.map((group, index) => {
-        return <Group group={group} key={index} groupNumber={index + 1} />;
-      })}
-    </>
+    <div className="event-results">
+      <div className="groups">
+        {groups.map((group, index) => {
+          return <Group group={group} key={index} groupNumber={index + 1} />;
+        })}
+      </div>
+    </div>
   );
 }

@@ -36,7 +36,6 @@ export default async function Competition(props: {
       {
         /* Render the competition events */
         Object.keys(competition.events).map((eventName, index) => {
-          console.log(`Looping through ${eventName}`);
           const event = competition.events[eventName];
           return (
             <CompetitionEvent eventName={eventName} key={index} event={event} />
