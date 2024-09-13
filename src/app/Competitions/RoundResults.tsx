@@ -11,7 +11,7 @@ function formatTime(seconds: number) {
   const remainingSeconds = Math.floor((ms % 60000) / 1000); // Get remaining seconds
   const milliseconds = ms % 1000; // Get milliseconds
   // Initialize an array to hold the time parts
-  let timeParts = [];
+  const timeParts = [];
 
   // If there are minutes, add them to the time parts
   if (minutes > 0) {
