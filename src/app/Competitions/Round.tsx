@@ -3,6 +3,7 @@ import RoundResults from "./RoundResults";
 
 import CompetitionStyles from "./Competitions.module.css";
 import ShowAndHide from "../components/Competitions/showAndHide";
+import { Result } from "./EventResults";
 
 export default function Round({
   round,
@@ -10,7 +11,7 @@ export default function Round({
   toggleRoundVisibility,
   roundIndex,
 }: {
-  round: any[];
+  round: Result[];
   show: boolean;
   toggleRoundVisibility: () => void;
   roundIndex: number;

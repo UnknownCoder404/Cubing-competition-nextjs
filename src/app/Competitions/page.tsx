@@ -1,15 +1,18 @@
 import { url } from "@/globals";
 import Competitions from "./Competitions";
+import { Result } from "./EventResults";
 
 interface EventDetails {
-  [key: string]: any[]; // Using an index signature to allow any EventType as a key
+  [key: string]: Result[][];
 }
-export type CompetitionsType = {
+export type CompetitionType = {
   date: string; // ISO date string
   isLocked: boolean;
   events: EventDetails;
 };
-
+export type CompetitionsType = {
+  [key: string]: CompetitionType;
+};
 async function getResults(): Promise<
   | { success: false }
   | { parsed: CompetitionsType; success: true; status: number }

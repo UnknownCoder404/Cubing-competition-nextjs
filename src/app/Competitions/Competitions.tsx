@@ -1,15 +1,17 @@
 "use server";
 import Competition from "./Competition";
+import { CompetitionsType } from "./page";
 
 type Props = {
   competitions: {
-    parsed: any;
+    parsed: CompetitionsType;
     success: true;
     status: number;
   };
 };
 export default async function Competitions(props: Props) {
   const competitions = props.competitions.parsed;
+
   const competitionNames = Object.keys(props.competitions.parsed);
   return (
     <>

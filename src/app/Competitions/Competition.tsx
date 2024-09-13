@@ -2,7 +2,7 @@
 
 import CompetitionEvent from "./CompetitionEvent";
 import CompetitionStyles from "./Competitions.module.css";
-
+import { CompetitionType } from "./page";
 function CompetitionName({ name }: { name: string }) {
   return (
     <h2 className={CompetitionStyles["comp-name-h2"]}>
@@ -11,7 +11,7 @@ function CompetitionName({ name }: { name: string }) {
   );
 }
 
-function CompetitionDate({ date }: { date: any }) {
+function CompetitionDate({ date }: { date: string }) {
   const dateInLocalString = new Date(date).toLocaleString();
   return (
     <>
@@ -21,17 +21,17 @@ function CompetitionDate({ date }: { date: any }) {
 }
 
 export default async function Competition(props: {
-  competition: any;
+  competition: CompetitionType;
   competitionName: string;
 }) {
   const competition = props.competition;
   const competitionName = props.competitionName;
-  const competitionDate = competition.date;
+  const competitionDateString = competition.date;
   return (
     <>
       <div className={CompetitionStyles["comp-info"]}>
         <CompetitionName name={competitionName} />
-        <CompetitionDate date={competitionDate} />
+        <CompetitionDate date={competitionDateString} />
       </div>
       {
         /* Render the competition events */

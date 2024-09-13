@@ -1,85 +1,85 @@
 .comp-info {
   padding-left: 1rem;
 }
+
 .event-name {
   padding-left: 1rem;
 }
-.groups {
-  column-gap: 1rem;
-}
-.group {
-  outline: 2px solid rgba(158, 154, 154, 0.294);
-  border-radius: 0.5rem;
-}
+
 .group-title-container {
   display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgb(0 0 0 / 20%);
   border-radius: 0.5rem;
   padding-left: 0.5rem;
+  column-gap: 1rem;
+  max-height: 100px;
 }
+
 .group-results {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgb(0 0 0 / 20%);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   padding: 1rem;
   row-gap: 1rem;
 }
+
 .groups {
   display: grid;
   grid-template-columns: 1fr;
-  row-gap: 1rem;
+  gap: 1rem;
 }
-@media screen and (min-width: 1000px) {
+
+@media screen and (width >= 1000px) {
   .groups {
     grid-template-columns: 1fr 1fr;
   }
 }
+
 .group {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
   padding: 1rem;
-}
-.group-title-container {
-  max-height: 100px;
+  outline: 2px solid rgb(158 154 154 / 29.4%);
+  border-radius: 0.5rem;
 }
 
 .round {
   margin: 0.5rem 0;
 }
+
 .round-title-container {
   padding: 0.3rem;
-  border: 2px solid rgb(158, 154, 154);
+  border: 2px solid rgb(158 154 154);
   display: flex;
   align-items: center;
   column-gap: 1rem;
   border-radius: 0.25rem;
 }
+
 .round-title {
   margin: 0.2rem 0;
 }
+
 .round-results {
   display: grid;
   grid-template-columns: 1fr;
   margin-top: 0.5rem;
   padding: 0.2rem;
-  border: 3px solid rgb(181, 150, 150);
+  border: 3px solid rgb(181 150 150);
   border-radius: 0.5rem;
 }
+
 .round-results.hidden {
   display: none;
 }
-.group-title-container {
-  display: flex;
-  align-items: center;
-  column-gap: 1rem;
-}
+
 .show-hide {
   height: 30px;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.203);
+  background-color: rgb(255 255 255 / 20.3%);
   border-radius: 15px;
   border: none;
   display: flex;
@@ -87,12 +87,15 @@
   transition: box-shadow 0.2s var(--exponential);
   align-items: center;
 }
+
 .show-hide:active {
   outline: 2px solid black;
 }
+
 .group-title {
   display: inline-block;
 }
+
 .group-results.hidden {
   display: none;
 }

@@ -1,6 +1,7 @@
 .indent {
   margin-left: 20px;
 }
+
 .numbering {
   color: orange;
 }
@@ -8,6 +9,7 @@
 .yellow {
   color: yellow;
 }
+
 .red {
   color: red;
 }
@@ -15,6 +17,7 @@
 .bold {
   font-weight: bold;
 }
+
 /* 
 p {
   margin-bottom: 10px;

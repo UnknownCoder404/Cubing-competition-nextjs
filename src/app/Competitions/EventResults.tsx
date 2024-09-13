@@ -3,6 +3,7 @@
 import Group from "./Group";
 import CompetitionStyles from "./Competitions.module.css";
 export type Result = {
+  userId: "string";
   group: number;
   average: string;
   username: string;
