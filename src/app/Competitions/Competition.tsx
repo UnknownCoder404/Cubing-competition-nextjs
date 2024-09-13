@@ -1,15 +1,13 @@
 "use server";
 
 import CompetitionEvent from "./CompetitionEvent";
+import CompetitionStyles from "./Competitions.module.css";
 
 function CompetitionName({ name }: { name: string }) {
-  if (!name) {
-    return <h2 className="comp-name-h2">Ime natjecanja nije dostupno</h2>;
-  }
   return (
-    <>
-      <h2 className="comp-name-h2">{name}</h2>
-    </>
+    <h2 className={CompetitionStyles["comp-name-h2"]}>
+      {name ? name : "Ime natjecanja nije dostupno"}
+    </h2>
   );
 }
 
@@ -17,7 +15,7 @@ function CompetitionDate({ date }: { date: any }) {
   const dateInLocalString = new Date(date).toLocaleString();
   return (
     <>
-      <p className="comp-date-p">{dateInLocalString}</p>
+      <p className={CompetitionStyles["comp-date-p"]}>{dateInLocalString}</p>
     </>
   );
 }
@@ -31,8 +29,10 @@ export default async function Competition(props: {
   const competitionDate = competition.date;
   return (
     <>
-      <CompetitionName name={competitionName} />
-      <CompetitionDate date={competitionDate} />
+      <div className={CompetitionStyles["comp-info"]}>
+        <CompetitionName name={competitionName} />
+        <CompetitionDate date={competitionDate} />
+      </div>
       {
         /* Render the competition events */
         Object.keys(competition.events).map((eventName, index) => {

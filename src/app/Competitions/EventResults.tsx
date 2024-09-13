@@ -1,7 +1,7 @@
 "use server";
 
 import Group from "./Group";
-
+import CompetitionStyles from "./Competitions.module.css";
 export type Result = {
   group: number;
   average: string;
@@ -32,8 +32,8 @@ export default async function EventResults({ event }: EventProps) {
   });
 
   return (
-    <div className="event-results">
-      <div className="groups">
+    <div className={CompetitionStyles["event-results"]}>
+      <div className={CompetitionStyles["groups"]}>
         {groups.map((group, index) => {
           return <Group group={group} key={index} groupNumber={index + 1} />;
         })}
