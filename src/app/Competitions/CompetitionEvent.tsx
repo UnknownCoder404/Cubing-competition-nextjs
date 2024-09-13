@@ -1,5 +1,7 @@
 "use server";
 
+import EventResults from "./EventResults";
+
 export default async function CompetitionEvent({
   eventName,
   event,
@@ -10,7 +12,7 @@ export default async function CompetitionEvent({
   return (
     <>
       <h2 className="comp-event-h2">{eventName}</h2>
-      <p className="comp-event-p">{JSON.stringify(event)}</p>
+      <EventResults event={event} />
     </>
   );
 }
