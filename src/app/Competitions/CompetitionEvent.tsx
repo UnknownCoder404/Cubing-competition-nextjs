@@ -1,6 +1,6 @@
 "use server";
 
-export default function CompetitionEvent({
+export default async function CompetitionEvent({
   eventName,
   event,
 }: {
