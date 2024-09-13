@@ -1,7 +1,9 @@
 "use client";
+import { useState } from "react";
 import { Result } from "./EventResults";
+import RoundResults from "./RoundResults";
 
-export default async function Group({
+export default function Group({
   group,
   groupNumber,
 }: {
@@ -13,9 +15,12 @@ export default async function Group({
     <div className="group" id={`group-${groupIndex}`}>
       <h1>Grupa {groupNumber}</h1>
       {group.map((round, index) => {
+        const [isShown, setVisibility] = useState(false);
         return (
           <>
-            <h2>Runda {index + 1}</h2>
+            <h4 className="round-title">Runda {index + 1}</h4>
+            <button onClick={() => setVisibility(!isShown)}>Show</button>
+            <RoundResults show={isShown} round={round} />
           </>
         );
       })}
