@@ -8,7 +8,8 @@ const titleToShow: {
 } = {
   "/": "Cro Cube Comp",
   "/Login": "Prijava",
-  "/Register/": "Cro Cube Comp - Registracija",
+  "/Register": "Registracija",
+  "/Competitions": "Natjecanja",
 };
 
 export default function RootLayout({
