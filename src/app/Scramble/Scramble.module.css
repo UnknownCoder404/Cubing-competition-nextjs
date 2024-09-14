@@ -1,0 +1,76 @@
+/* Main container styling */
+.main {
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 792px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Scramble text block styling */
+.scramble {
+  font-size: 30px;
+  line-height: 1.5em; /* Consolidated line-height */
+  margin-bottom: 30px;
+  white-space: pre-wrap;
+  width: 70vw;
+  text-align: center;
+}
+.scramble-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 650px) {
+  .scramble-controls {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.btn-rescramble-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 270px;
+  height: 100px;
+}
+/* Button styling */
+.btn-rescramble {
+  background-color: #428bca;
+  border: 1px solid #357ebd;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 26px;
+  line-height: 26px;
+  margin: 0;
+  outline: none;
+  padding: 20px 0;
+  min-width: 170px;
+  max-width: 270px;
+  width: 50vw;
+}
+
+.btn-rescramble:active {
+  transform: translateY(2px);
+}
+
+/* Scramble display container */
+.scramble-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.scramble-display-container > scramble-display {
+  min-width: 200px;
+  max-width: 500px;
+  width: 50vh;
+  height: 40vh;
+  overflow: hidden;
+}
