@@ -5,8 +5,10 @@ import { getUsername, logOut } from "@/app/utils/credentials";
 import accountCircle from "../../public/account_circle.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function ClientLoginStatus() {
+  const router = useRouter();
   const [username, setUsername] = useState<string | null>(null);
   const [loaded, setLoaded] = useState<boolean>(false);
   const loggedIn = !!username;
@@ -34,7 +36,8 @@ function ClientLoginStatus() {
         onClick={() => {
           if (loggedIn) {
             logOut();
-            window.location.reload(); // Refresh the page after logout
+            router.refresh();
+            setUsername(null);
           }
         }}
       />
