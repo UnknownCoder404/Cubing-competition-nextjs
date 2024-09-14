@@ -10,6 +10,7 @@ const titleToShow: {
   "/Login": "Prijava",
   "/Register": "Registracija",
   "/Competitions": "Natjecanja",
+  "/Scramble": "Vježbanje",
 };
 
 export default function RootLayout({
