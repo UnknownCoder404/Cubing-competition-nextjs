@@ -3,10 +3,15 @@
   margin: 0 auto;
   padding: 30px;
   max-width: 792px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Scramble text block styling */
 .scramble {
+  width: 100%;
   font-size: 30px;
   line-height: 1.5em; /* Consolidated line-height */
   margin-bottom: 30px;
@@ -38,7 +43,13 @@
 }
 
 /* Scramble display container */
-.scramble-display {
+.scramble-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scramble-display-container > scramble-display {
   min-width: 200px;
   max-width: 500px;
   width: 50vh;

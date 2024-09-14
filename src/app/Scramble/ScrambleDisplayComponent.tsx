@@ -27,12 +27,14 @@ interface ScrambleDisplayProps {
   event: EventType;
   scramble: null | string;
   visualization: "3D" | "2D";
+  containerClassName: string;
 }
 
 const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
   event,
   scramble,
   visualization,
+  containerClassName,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null); // A ref for the container element
 
@@ -47,7 +49,12 @@ const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
     }
   }, [event, scramble, visualization]); // Rerun the effect if the props change
 
-  return <div ref={containerRef} />;
+  return (
+    <div
+      className={`scramble-display-container ${containerClassName || ""}`}
+      ref={containerRef}
+    />
+  );
 };
 
 export default ScrambleDisplayComponent;

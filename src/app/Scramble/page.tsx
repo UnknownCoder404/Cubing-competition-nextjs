@@ -11,22 +11,13 @@ export default function ScramblePage() {
   const [scramble, setScramble] = useState<string>(getScramble());
 
   return (
-    <main
-      style={{
-        maxWidth: "792px",
-        margin: "0 auto",
-        padding: "30px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
+    <main className={scrambleStyles["main"]}>
       <p className={scrambleStyles["scramble"]}>{scramble}</p>
       <ScrambleDisplayComponent
         scramble={scramble}
         event="333"
         visualization="2D"
+        containerClassName={scrambleStyles["scramble-display-container"]}
       />
       <button
         className={scrambleStyles["btn-rescramble"]}
