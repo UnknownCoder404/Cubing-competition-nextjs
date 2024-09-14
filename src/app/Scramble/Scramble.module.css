@@ -1,0 +1,42 @@
+.main {
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 792px;
+}
+.scramble {
+  font-size: 30px;
+  line-height: 60px;
+  margin-bottom: 30px;
+  line-height: 1.5em;
+  white-space: pre-wrap;
+  width: 70vw;
+
+  text-align: center;
+}
+.btn-rescramble {
+  background-color: #428bca;
+  border: 1px solid #357ebd;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+
+  font-size: 26px;
+  line-height: 26px;
+  margin: 0;
+  outline: none;
+  padding: 20px 0;
+  min-width: 170px;
+  max-width: 270px;
+  width: 50vw;
+}
+.btn-rescramble:active {
+  transform: translateY(2px);
+}
+.scramble-display {
+  min-width: 200px;
+  max-width: 500px;
+  width: 50vh;
+  height: 40vh;
+  overflow: hidden;
+}
