@@ -29,10 +29,8 @@ You should run `pnpm prepare`.
 After you have fixed all errors in terminal, then run:
 
 ```bash
-pnpm build
+pnpm build # This will take a minute
 ```
-
-_This will take a minute_
 
 Then run:
 

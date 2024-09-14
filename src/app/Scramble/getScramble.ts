@@ -4,7 +4,7 @@ const cube: {
   edges: Record<string, number[]>;
   reset: () => void;
   twist: (state: string, move: string) => string;
-  scramble: () => string[] | any;
+  scramble: () => string[];
 } = {
   // Define the six faces of the cube
   faces: "DLBURF",
@@ -25,12 +25,12 @@ const cube: {
   },
   // Twist the cube according to a move in WCA notation
   twist: function (state, move) {
-    let i,
-      k,
-      prevState,
-      face = move.charAt(0),
-      faceIndex = cube.faces.indexOf(move.charAt(0)),
-      turns = move.length > 1 ? (move.charAt(1) === "2" ? 2 : 3) : 1;
+    let i;
+    const face = move.charAt(0);
+    let prevState;
+    let k;
+    const faceIndex = cube.faces.indexOf(move.charAt(0));
+    const turns = move.length > 1 ? (move.charAt(1) === "2" ? 2 : 3) : 1;
     const currentState = state.split("");
 
     for (i = 0; i < turns; i++) {
@@ -50,13 +50,13 @@ const cube: {
   },
   // Scramble the cube
   scramble: function () {
-    let count = 0,
-      total = 25,
-      state,
-      prevState = cube.states[cube.states.length - 1],
-      move,
-      moves = [],
-      modifiers = ["", "'", "2"];
+    let count = 0;
+    const total = 25;
+    let state;
+    let prevState = cube.states[cube.states.length - 1];
+    let move;
+    const moves = [];
+    const modifiers = ["", "'", "2"];
     while (count < total) {
       // Generate a random move
       move =
@@ -90,10 +90,11 @@ const cube: {
 
 function getScramble() {
   cube.reset();
-  let i,
-    scramble = cube.scramble(),
-    len = scramble.length,
-    result = "";
+  let i;
+  const scramble = cube.scramble();
+  const len = scramble.length;
+  let result = "";
+
   for (i = 0; i < len; i += 5) {
     // Only allow a line break every 5 moves
     result += scramble.slice(i, i + 5).join(" ") + " ";

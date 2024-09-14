@@ -19,7 +19,7 @@ export default function ScramblePage() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-     flexDirection: "column",
+        flexDirection: "column",
       }}
     >
       <p className={scrambleStyles["scramble"]}>{scramble}</p>
@@ -29,7 +29,7 @@ export default function ScramblePage() {
         visualization="2D"
       />
       <button
-      className={scrambleStyles["btn-rescramble"]}
+        className={scrambleStyles["btn-rescramble"]}
         onClick={() => {
           generateNewScramble(setScramble);
         }}
