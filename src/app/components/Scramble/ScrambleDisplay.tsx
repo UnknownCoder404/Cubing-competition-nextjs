@@ -28,6 +28,7 @@ interface ScrambleDisplayProps {
   scramble: null | string;
   visualization: "3D" | "2D";
   containerClassName: string;
+  onClick?: () => void;
 }
 
 const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
@@ -35,6 +36,7 @@ const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
   scramble,
   visualization,
   containerClassName,
+  onClick,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null); // A ref for the container element
 
@@ -45,6 +47,7 @@ const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
       el.scramble = scramble; // Set the scramble from props
       el.visualization = visualization; // Set the visualization from props
       el.classList.add("scramble-display"); // Add the class to the ScrambleDisplay instance
+
       containerRef.current.replaceChildren(el); // Append the ScrambleDisplay instance to the DOM
     }
   }, [event, scramble, visualization]); // Rerun the effect if the props change
@@ -53,6 +56,9 @@ const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
     <div
       className={`scramble-display-container ${containerClassName || ""}`}
       ref={containerRef}
+      onClick={() => {
+        onClick && onClick();
+      }}
     />
   );
 };

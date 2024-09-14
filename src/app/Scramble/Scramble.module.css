@@ -64,6 +64,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .scramble-display-container > scramble-display {

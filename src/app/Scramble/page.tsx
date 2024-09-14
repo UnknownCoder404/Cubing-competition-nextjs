@@ -3,7 +3,20 @@ import { useState } from "react";
 import ScrambleDisplay from "../components/Scramble/ScrambleDisplay";
 import getScramble from "./getScramble";
 import scrambleStyles from "./Scramble.module.css";
-
+function handleScrambleShare(scramble: string) {
+  const url = window.location.href;
+  if (!navigator.share) {
+    alert("Ovaj preglednik ne podržava dijeljenje. ");
+    return;
+  }
+  navigator.share({
+    title: "",
+    text: `Složio sam Rubikovu kocku za scramble-om:
+${scramble}.
+Pokušaj i ti!
+${url || ""}`,
+  });
+}
 function generateNewScramble(setScramble: (scramble: string) => void) {
   setScramble(getScramble());
 }
@@ -19,6 +32,7 @@ export default function ScramblePage() {
           event="333"
           visualization="2D"
           containerClassName={scrambleStyles["scramble-display-container"]}
+          onClick={() => handleScrambleShare(scramble)}
         />
         <div className={scrambleStyles["btn-rescramble-container"]}>
           <button
