@@ -60,7 +60,8 @@ const cardData: () => CardProp[] = () => [
         />
       </>
     ),
-    shouldRender: () => !!window.navigator.share,
+    shouldRender: () =>
+      typeof window !== "undefined" && !!window.navigator.share,
   },
   {
     title: "Odjava",

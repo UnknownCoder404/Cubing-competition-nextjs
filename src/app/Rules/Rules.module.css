@@ -1,11 +1,7 @@
-body {
-  background: var(--background);
-  color: #f4f4f4;
-  line-height: 1.6;
-}
 .indent {
   margin-left: 20px;
 }
+
 .numbering {
   color: orange;
 }
@@ -13,6 +9,7 @@ body {
 .yellow {
   color: yellow;
 }
+
 .red {
   color: red;
 }
@@ -20,6 +17,7 @@ body {
 .bold {
   font-weight: bold;
 }
+
 /* 
 p {
   margin-bottom: 10px;

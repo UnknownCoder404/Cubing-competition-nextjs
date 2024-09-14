@@ -98,13 +98,14 @@ export default function Rules() {
         <p>
           <span className={rulesStyles["numbering"]}>2b&#41; </span>
           Sudac prije inspekcije će pitati natjecatelja je li spreman govoreći
-          rečenicu "SPREMAN?". Natjecatelj ima vremena da se smiri i odgovori
-          nakon čega sudac podiže prekrivač Rubikove kocke i pokreće štopericu.
+          rečenicu &quot;SPREMAN?&quot;. Natjecatelj ima vremena da se smiri i
+          odgovori nakon čega sudac podiže prekrivač Rubikove kocke i pokreće
+          štopericu.
         </p>
         <p className={rulesStyles["indent"]}>
           <span className={rulesStyles["numbering"]}>2b1&#41; </span>
           Sudac će natjecatelju reći kada je na vremenu inpekcije 8 i 12 sekundi
-          govoreći "8 SEKUNDI!" i "12 SEKUNDI!"
+          govoreći &quot;8 SEKUNDI!&quot; i &quot;12 SEKUNDI!&quot;
         </p>
         <a id="pravila3"></a>
         <h2>3. PROSJEK</h2>
@@ -112,10 +113,11 @@ export default function Rules() {
           Natjecanje 03.05. bit će natjecanje gdje se gleda prosjek od 5
         </p>
         <p>
-          <span className={rulesStyles["numbering"]}>3a&#41; </span> Za "Prosjek
-          od 5" runde, natjecatelji dobiju 5 pokušaja. Od tih 5 pokušaja,
-          najbolji i najgori pokušaji se izbacuju i aritmetička sredina od
-          ostala 3 pokušaja se broji za natjecateljev poredak u rundi.
+          <span className={rulesStyles["numbering"]}>3a&#41; </span> Za
+          &quot;Prosjek od 5&quot; runde, natjecatelji dobiju 5 pokušaja. Od tih
+          5 pokušaja, najbolji i najgori pokušaji se izbacuju i aritmetička
+          sredina od ostala 3 pokušaja se broji za natjecateljev poredak u
+          rundi.
         </p>
         <p className={rulesStyles["indent"]}>
           <span className={rulesStyles["numbering"]}>3a1&#41; </span>
@@ -124,7 +126,7 @@ export default function Rules() {
         </p>
         <p className={rulesStyles["indent"]}>
           <span className={rulesStyles["numbering"]}>3a2&#41; </span>
-          Za "Prosjek od 5" runde, jedan{" "}
+          Za &quot;Prosjek od 5&quot; runde, jedan{" "}
           <span className={rulesStyles["red"]}>DNF</span> ili
           <span className={rulesStyles["red"]}> DNS</span> je dozvoljen kako bi
           se brojao kao natjecateljev najgori rezultat runde. Ako natjecatelj
