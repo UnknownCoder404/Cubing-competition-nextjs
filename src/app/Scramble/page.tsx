@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import ScrambleDisplayComponent from "./ScrambleDisplayComponent";
+import ScrambleDisplayComponent from "../components/Scramble/ScrambleDisplay";
 import getScramble from "./getScramble";
 import scrambleStyles from "./Scramble.module.css";
 
