@@ -2,6 +2,10 @@
 
 This is [Cubing Competition repository](https://github.com/Cro-Cube-Comp/Cubing-competition) rewritten in [Next.js](https://nextjs.org/).
 
+## Previews
+
+These are the previews of the app. When you visit it for the first time, you will have to wait a minute.
+
 Preview: [https://cubing-competition-nextjs.onrender.com](https://cubing-competition-nextjs.onrender.com)
 
 Beta preview: [https://cubing-competition-nextjs-beta.onrender.com](https://cubing-competition-nextjs-beta.onrender.com)
@@ -20,7 +24,23 @@ Open [http://localhost:2500](http://localhost:2500) with your browser to see the
 
 ## Before commiting
 
-You should run `pnpm prepare` before commiting.
+You should run `pnpm prepare`.
+
+After you have fixed all errors in terminal, then run:
+
+```bash
+pnpm build
+```
+
+_This will take a minute_
+
+Then run:
+
+```bash
+pnpm start
+```
+
+And if there are no errors, you can commit.
 
 ## Learn More
 
