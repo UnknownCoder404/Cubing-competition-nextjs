@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 2500",
+    "dev": "concurrently \"next dev --turbo --port 2500\" \"cd server && pnpm start\"",
     "build": "next build",
     "start": "next start --port 2500",
     "lint": "tsc && next lint --fix && stylelint \"**/*.css\" --fix && markdownlint **/*.md -f --ignore node_modules",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@types/dompurify": "^3.0.5",
+    "concurrently": "^9.0.1",
     "dompurify": "^3.1.6",
     "next": "14.2.8",
     "react": "^18",

@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.env
+node_modules
+/backend/*.xlsx
+backups*
+competition_results.json
+/backend/public
