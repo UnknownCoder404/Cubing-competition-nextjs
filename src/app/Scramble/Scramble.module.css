@@ -18,18 +18,21 @@
   width: 70vw;
   text-align: center;
 }
+
 .scramble-controls {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-@media (max-width: 650px) {
+
+@media (width <= 650px) {
   .scramble-controls {
     flex-direction: column;
     justify-content: center;
   }
 }
+
 .btn-rescramble-container {
   display: flex;
   justify-content: center;
@@ -37,6 +40,7 @@
   width: 270px;
   height: 100px;
 }
+
 /* Button styling */
 .btn-rescramble {
   background-color: #428bca;

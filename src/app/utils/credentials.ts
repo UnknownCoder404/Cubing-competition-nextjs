@@ -1,5 +1,4 @@
 import { url } from "@/globals";
-
 function getUsername(): string | null {
   if (typeof window === "undefined") return null;
   const username = localStorage.getItem("username");

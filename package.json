@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-
     "dev": "concurrently \"next dev --turbo --port 2500\" \"cd server && pnpm start\"",
     "build": "next build",
     "start": "next start --port 2500",

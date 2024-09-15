@@ -24,7 +24,7 @@ async function handleSubmit(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username: formUsername, password: formPassword }),
-      credentials: "include"
+      credentials: "include",
     });
     const data = await response.json();
     if (response.status === 429) {
