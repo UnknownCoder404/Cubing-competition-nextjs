@@ -9,6 +9,17 @@ const {
   allowedMimeTypes,
 } = require("../../../config/allowedPfpExtensions");
 const fs = require("fs");
+const sanitize = require("sanitize-filename");
+
+const ROOT = path.join(
+  __dirname,
+  "..",
+  "..",
+  "..",
+  "public",
+  "profile-pictures",
+);
+
 // Set storage engine
 const storage = multer.memoryStorage();
 
@@ -47,17 +58,9 @@ router.post("/", verifyToken, (req, res) => {
         .status(500)
         .json({ message: "Error uploading profile picture" });
     }
-    // Delete any that are other extension
+    // Delete any existing profile pictures with allowed extensions
     allowedPfpExtensions.forEach((ext) => {
-      const currentPfpPath = path.join(
-        __dirname,
-        "..",
-        "..",
-        "..",
-        "public",
-        "profile-pictures",
-        `${userId}${ext}`,
-      );
+      const currentPfpPath = path.join(ROOT, `${sanitize(userId)}${ext}`);
       if (fs.existsSync(currentPfpPath)) {
         fs.unlinkSync(currentPfpPath);
       }
@@ -69,20 +72,17 @@ router.post("/", verifyToken, (req, res) => {
 async function storeProfilePicture(req, res) {
   const userId = req.userId;
 
-  const filename = userId + path.extname(req.file.originalname);
-
-  const outputPath = path.join(
-    __dirname,
-    "..",
-    "..",
-    "..",
-    "public",
-    "profile-pictures",
-    filename,
-  );
+  const filename = sanitize(userId + path.extname(req.file.originalname));
+  const outputPath = path.join(ROOT, filename);
 
   try {
-    await sharp(req.file.buffer).resize(200).toFile(outputPath);
+    // Ensure the output path is within the ROOT directory
+    const realOutputPath = fs.realpathSync(outputPath);
+    if (!realOutputPath.startsWith(ROOT)) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    await sharp(req.file.buffer).resize(200).toFile(realOutputPath);
     return res
       .status(200)
       .json({ message: "Profile picture uploaded successfully" });

@@ -6,17 +6,22 @@ const {
   allowedPfpExtensions,
 } = require("../../../config/allowedPfpExtensions");
 const User = require("../../../Models/user");
+const sanitize = require("sanitize-filename");
+
+const ROOT = path.join(
+  __dirname,
+  "..",
+  "..",
+  "..",
+  "public",
+  "profile-pictures",
+);
+
 async function sendProfilePicture(req, res, id) {
   try {
     let pfpPath = null;
     allowedPfpExtensions.forEach((ext) => {
-      const currentPfpPath = path.join(
-        __dirname,
-        "../../../",
-        "public",
-        "profile-pictures",
-        `${id}${ext}`,
-      );
+      const currentPfpPath = path.join(ROOT, `${sanitize(id)}${ext}`);
       if (fs.existsSync(currentPfpPath)) {
         pfpPath = currentPfpPath;
       }
@@ -25,8 +30,16 @@ async function sendProfilePicture(req, res, id) {
     if (!pfpPath || !fs.existsSync(pfpPath)) {
       return res.status(404).json({ message: "Profile picture not found" });
     }
-    return res.status(200).sendFile(pfpPath);
+
+    // Ensure the profile picture path is within the ROOT directory
+    const realPfpPath = fs.realpathSync(pfpPath);
+    if (!realPfpPath.startsWith(ROOT)) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
+    return res.status(200).sendFile(realPfpPath);
   } catch (error) {
+    console.error(`Error while sending profile picture: ${error}`);
     return res
       .status(500)
       .json({ message: "Error while sending profile picture" });
