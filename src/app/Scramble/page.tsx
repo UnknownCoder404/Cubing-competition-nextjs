@@ -1,8 +1,14 @@
 "use client";
-import { useState } from "react";
-import ScrambleDisplay from "../components/Scramble/ScrambleDisplay";
+import { lazy, Suspense, useState } from "react";
+
 import getScramble from "./getScramble";
 import scrambleStyles from "./Scramble.module.css";
+import { ArrowLoader } from "../components/Loader/Loader";
+
+const ScrambleDisplay = lazy(
+  () => import("../components/Scramble/ScrambleDisplay"),
+);
+
 function handleScrambleShare(scramble: string) {
   const url = window.location.href;
   if (!navigator.share) {
@@ -27,13 +33,15 @@ export default function ScramblePage() {
     <main className={scrambleStyles["main"]}>
       <p className={scrambleStyles["scramble"]}>{scramble}</p>
       <div className={scrambleStyles["scramble-controls"]}>
-        <ScrambleDisplay
-          scramble={scramble}
-          event="333"
-          visualization="2D"
-          containerClassName={scrambleStyles["scramble-display-container"]}
-          onClick={() => handleScrambleShare(scramble)}
-        />
+        <Suspense fallback={<ArrowLoader color="#000" />}>
+          <ScrambleDisplay
+            scramble={scramble}
+            event="333"
+            visualization="2D"
+            containerClassName={scrambleStyles["scramble-display-container"]}
+            onClick={() => handleScrambleShare(scramble)}
+          />
+        </Suspense>
         <div className={scrambleStyles["btn-rescramble-container"]}>
           <button
             className={scrambleStyles["btn-rescramble"]}

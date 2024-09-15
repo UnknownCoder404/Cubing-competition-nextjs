@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { ScrambleDisplay } from "scramble-display"; // Import the class
+
 type EventType =
   | null
   | "222"
@@ -41,15 +41,17 @@ const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null); // A ref for the container element
 
   useEffect(() => {
-    if (containerRef.current) {
-      const el = new ScrambleDisplay(); // Instantiate ScrambleDisplay
-      el.event = event; // Set the event from props
-      el.scramble = scramble; // Set the scramble from props
-      el.visualization = visualization; // Set the visualization from props
-      el.classList.add("scramble-display"); // Add the class to the ScrambleDisplay instance
+    import("scramble-display").then(({ ScrambleDisplay }) => {
+      if (containerRef.current) {
+        const el = new ScrambleDisplay(); // Instantiate ScrambleDisplay
+        el.event = event; // Set the event from props
+        el.scramble = scramble; // Set the scramble from props
+        el.visualization = visualization; // Set the visualization from props
+        el.classList.add("scramble-display"); // Add the class to the ScrambleDisplay instance
 
-      containerRef.current.replaceChildren(el); // Append the ScrambleDisplay instance to the DOM
-    }
+        containerRef.current.replaceChildren(el); // Append the ScrambleDisplay instance to the DOM
+      }
+    });
   }, [event, scramble, visualization]); // Rerun the effect if the props change
 
   return (
