@@ -1,5 +1,5 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-
 export function middleware(request: Request) {
   const url = new URL(request.url);
   const origin = url.origin;
@@ -8,7 +8,11 @@ export function middleware(request: Request) {
   requestHeaders.set("x-url", request.url);
   requestHeaders.set("x-origin", origin);
   requestHeaders.set("x-pathname", pathname);
-
+  const reqCookies = cookies();
+  const token = reqCookies.get("token")?.value;
+  if (token) {
+    requestHeaders.set("x-token", token);
+  }
   return NextResponse.next({
     request: {
       headers: requestHeaders,

@@ -1,1 +1,1 @@
-export const url = new URL("https://cubing-competition.onrender.com");
+export const url = new URL("http://localhost:3000");

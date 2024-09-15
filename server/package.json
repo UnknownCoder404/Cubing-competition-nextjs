@@ -1,0 +1,32 @@
+{
+  "name": "cube-competition",
+  "version": "3.4.1",
+  "main": "server.js",
+  "scripts": {
+    "bun": "npm install -g bun",
+    "i": "bun install",
+    "start": "bun run precheck.js && bun run backup.js && bun run server.js "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "bcrypt": "^5.1.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cache": "^5.1.2",
+    "node-schedule": "^2.1.1",
+    "path": "^0.12.7",
+    "sharp": "^0.33.4"
+  }
+}
