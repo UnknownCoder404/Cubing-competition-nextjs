@@ -7,7 +7,8 @@ const verifyToken = async (req, res, next) => {
     // Get the token from the request header or from parameters in the URL
     const token = req.headers["authorization"]
       ? req.headers["authorization"].replace(/^Bearer\s/, "")
-      : new URLSearchParams(req.url.split("?")[1]).get("token");
+      : new URLSearchParams(req.url.split("?")[1]).get("token") |
+        req.cookies.token;
     // Check if the token exists
     if (!token) {
       return res
@@ -16,6 +17,15 @@ const verifyToken = async (req, res, next) => {
     }
     // Verify the token with the secret key
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Cookies csrfToken", req.cookies.csrfToken);
+    console.log("Decoded csrfToken", decoded.csrfToken);
+    // Check if the token is valid
+    if (req.cookies.csrfToken !== decoded.csrfToken) {
+      console.log("Token is invalid");
+      return res
+        .status(403)
+        .json({ message: "Nema tokena. Prijavi se ponovno." });
+    }
     // Set the user id to the request object
     req.userId = decoded.id;
     req.userRole = decoded.role;

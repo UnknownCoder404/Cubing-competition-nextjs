@@ -28,10 +28,10 @@ router.post("/", loginLimiter, async (req, res) => {
         .status(401)
         .json({ message: "Korisničko ime ili lozinka nisu ispravni." });
     }
-
+    const csrfToken = crypto.randomUUID();
     // Generate a JSON web token with the user id as the payload
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: user._id, role: user.role, csrfToken: csrfToken },
       process.env.JWT_SECRET,
       {
         expiresIn: process.env.TOKEN_EXPIRATION || "1d",
@@ -43,6 +43,14 @@ router.post("/", loginLimiter, async (req, res) => {
       sameSite: "None", // Required for cross-origin cookies
       signed: false,
       secure: true, // Enable this even in development, or try setting it dynamically
+    });
+
+    res.cookie("csrfToken", csrfToken, {
+      httpOnly: true,
+      expires: new Date(Date.now() + 900000),
+      sameSite: "None", // Required for cross-origin cookies
+      signed: false,
+      secure: true, // Enable this even in development, or try setting it dynamicallyw
     });
     res.status(200).json({
       message: "Korisnik se uspješno prijavio.",
