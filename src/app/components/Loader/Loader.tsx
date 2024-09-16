@@ -7,11 +7,17 @@ interface CustomCSSProperties extends CSSProperties {
 
 type ArrowLoaderProps = {
   color?: string;
-};
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export function ArrowLoader(props: ArrowLoaderProps) {
-  const color = props.color || "#000";
+  const { color = "#000", className, ...rest } = props;
   const style: CustomCSSProperties = { "--loader-color": color };
 
-  return <div className={ArrowLoaderStyle["loader"]} style={style}></div>;
+  return (
+    <div
+      className={`${ArrowLoaderStyle["loader"]} ${className || ""}`}
+      style={style}
+      {...rest}
+    ></div>
+  );
 }
