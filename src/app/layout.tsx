@@ -11,6 +11,7 @@ const titleToShow: {
   "/Register": "Registracija",
   "/Competitions": "Natjecanja",
   "/Scramble": "Vježbanje",
+  "/Dashboard": ".",
 };
 
 export default function RootLayout({
