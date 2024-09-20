@@ -55,8 +55,19 @@
   color: white;
   padding: 5px 10px;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
 }
-
+.remove-btn:hover {
+  background-color: rgb(234, 45, 16);
+}
+.add-btn:hover {
+  background-color: rgb(142, 213, 36);
+  color: black;
+}
+.comp-btn:hover {
+  background-color: rgb(44, 153, 153);
+  color: white;
+}
 .round {
   margin-top: 10px;
   margin-bottom: 10px;
