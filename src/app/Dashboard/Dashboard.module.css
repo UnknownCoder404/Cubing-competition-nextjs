@@ -57,6 +57,9 @@
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
+.user-btn:active {
+  transform: translateY(2px);
+}
 .remove-btn:hover {
   background-color: rgb(234, 45, 16);
 }
