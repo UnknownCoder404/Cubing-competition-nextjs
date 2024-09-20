@@ -8,7 +8,9 @@ import { addToken, getId } from "./credentials";
  */
 export async function deleteUserById(id: string): Promise<{
   success: boolean;
-  data?: any;
+  data?: {
+    message?: string;
+  };
   response?: Response;
   message?: string;
 }> {
@@ -49,7 +51,9 @@ export async function deleteUserById(id: string): Promise<{
  */
 export async function assignAdminToUser(id: string): Promise<{
   success: boolean;
-  data?: any;
+  data?: {
+    message?: string;
+  };
   response?: Response;
   message?: string;
 }> {

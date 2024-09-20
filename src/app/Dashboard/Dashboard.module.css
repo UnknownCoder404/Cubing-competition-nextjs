@@ -6,7 +6,7 @@
 .user {
   padding: 10px;
   margin-bottom: 10px;
-  background-color: rgb(63, 63, 63);
+  background-color: rgb(63 63 63);
 }
 
 .username-div {
@@ -30,17 +30,17 @@
 .register-btn {
   width: 100%;
   padding: 5px 15px;
-  background-color: rgb(39, 219, 39); /* Green button */
+  background-color: rgb(39 219 39); /* Green button */
   transition: background-color 1s;
 }
 
 .register-btn:hover {
-  background-color: rgb(29, 107, 29);
+  background-color: rgb(29 107 29);
 }
 
 .user-btns {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   column-gap: 5px;
 }
@@ -59,25 +59,30 @@
     background-color 0.3s,
     color 0.3s;
 }
+
 .user-btn:active {
   transform: translateY(2px);
 }
+
 .remove-btn:hover {
-  background-color: rgb(234, 45, 16);
+  background-color: rgb(234 45 16);
 }
+
 .add-btn:hover {
-  background-color: rgb(142, 213, 36);
+  background-color: rgb(142 213 36);
   color: black;
 }
+
 .comp-btn:hover {
-  background-color: rgb(44, 153, 153);
+  background-color: rgb(44 153 153);
   color: white;
 }
+
 .round {
   margin-top: 10px;
   margin-bottom: 10px;
   color: black;
-  background-color: rgb(181, 181, 149);
+  background-color: rgb(181 181 149);
   padding: 10px;
 }
 
@@ -102,7 +107,7 @@
 
 .solve-input:focus {
   border-color: #66afe9;
-  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
   outline: none;
 }
 
@@ -124,24 +129,25 @@
 
 .solve-add-btn:hover {
   background-color: #559dd6;
-  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
 }
 
 .solve-add-btn:focus {
   outline: none;
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (width <= 300px) {
   .manage-accounts {
     display: none;
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (width <= 350px) {
   .admin-panel {
     display: none;
   }
 }
+
 .advanced-dashboard-btn {
   width: 100%;
 }
