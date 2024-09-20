@@ -2,6 +2,7 @@ import { User } from "./page";
 import dashboardStyles from "./Dashboard.module.css";
 import manageAccounts from "../public/manage_accounts.svg";
 import Image from "next/image";
+import UserButtons from "../components/Dashboard/UserButtons";
 
 function UsernameDiv({ username }: { username: string }) {
   return (
@@ -32,6 +33,7 @@ export default function UserDashboard({ user }: { user: User }) {
   return (
     <div className={dashboardStyles["user"]}>
       <UserInfo user={user} />
+      <UserButtons user={user} />
     </div>
   );
 }

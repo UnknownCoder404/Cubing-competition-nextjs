@@ -38,6 +38,25 @@
   background-color: rgb(29, 107, 29);
 }
 
+.user-btns {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.user-btn {
+  width: fit-content;
+  min-width: 50px;
+  max-width: 200px;
+  border-radius: 2px;
+  border: none;
+  background-color: royalblue;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
 .round {
   margin-top: 10px;
   margin-bottom: 10px;
