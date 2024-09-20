@@ -3,7 +3,7 @@
 import { User } from "@/app/Dashboard/page";
 import { isAdmin, Role } from "@/app/utils/credentials";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
-import { deleteUserById } from "@/app/utils/users";
+import { assignAdminToUser, deleteUserById } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 function DeleteUserButton({
@@ -19,7 +19,7 @@ function DeleteUserButton({
       onClick={async () => {
         const userDeletion = await deleteUserById(id);
         if (!userDeletion.success) {
-          alert("Greška pri brisanju korisnika.");
+          return alert("Greška pri brisanju korisnika.");
         }
 
         router.refresh();
@@ -29,7 +29,15 @@ function DeleteUserButton({
     </button>
   );
 }
-function AdminButton({ role }: { role: Role }) {
+function AdminButton({
+  role,
+  id,
+  router,
+}: {
+  role: Role;
+  id: string;
+  router: AppRouterInstance;
+}) {
   return (
     <button
       className={`${dashboardStyles["user-btn"]} ${
@@ -37,6 +45,14 @@ function AdminButton({ role }: { role: Role }) {
           ? dashboardStyles["remove-btn"]
           : dashboardStyles["add-btn"]
       }`}
+      onClick={async () => {
+        const adminAssignment = await assignAdminToUser(id);
+        if (!adminAssignment.success) {
+          return alert("Greška pri dodavanju korisnika.");
+        }
+
+        router.refresh();
+      }}
     >
       {isAdmin(role) ? "Makni ulogu admina" : "Postavi za admina"}
     </button>
@@ -57,7 +73,7 @@ export default function UserButtons({ user }: { user: User }) {
   return (
     <div className={dashboardStyles["user-btns"]}>
       <DeleteUserButton id={user._id} router={router} />
-      <AdminButton role={user.role} />
+      <AdminButton role={user.role} id={user._id} router={router} />
       <CompButton />
     </div>
   );
