@@ -2,6 +2,10 @@ import { url } from "@/globals";
 import { Role } from "../utils/credentials";
 import UserDashboard from "./UserDashboard";
 import dashboardStyles from "./Dashboard.module.css";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0; // Ensure no caching between requests
+
 export type User = {
   _id: string;
   username: string;
