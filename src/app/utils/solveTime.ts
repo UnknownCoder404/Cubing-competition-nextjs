@@ -4,8 +4,8 @@ export function getAverage(solves: number[] | undefined) {
   return typeof noFormatAverage === "string"
     ? formatTime(noFormatAverage)
     : noFormatAverage === -1
-    ? "Potrebno 5 slaganja"
-    : "DNF";
+      ? "Potrebno 5 slaganja"
+      : "DNF";
 }
 export function getAverageNoFormat(solves: number[]) {
   if (solves.length !== 5) {
@@ -13,7 +13,7 @@ export function getAverageNoFormat(solves: number[]) {
   }
 
   // Create a copy of the solves array
-  let sortedSolves = solves.slice();
+  const sortedSolves = solves.slice();
 
   sortedSolves.sort((a, b) => {
     if (a === 0) return 1; // Place 0 at the last element
@@ -21,10 +21,10 @@ export function getAverageNoFormat(solves: number[]) {
     return a - b; // Regular sorting for other numbers
   });
   // Remove the smallest and largest elements
-  let trimmedSolves = sortedSolves.slice(1, sortedSolves.length - 1);
+  const trimmedSolves = sortedSolves.slice(1, sortedSolves.length - 1);
 
   // Calculate average
-  let average =
+  const average =
     trimmedSolves.reduce((acc, val) => acc + val, 0) / trimmedSolves.length;
 
   // Check if trimmedSolves contains DNF
@@ -44,7 +44,7 @@ export function formatTime(seconds: number | string) {
   const remainingSeconds = Math.floor((ms % 60000) / 1000); // Get remaining seconds
   const milliseconds = ms % 1000; // Get milliseconds
   // Initialize an array to hold the time parts
-  let timeParts = [];
+  const timeParts = [];
 
   // If there are minutes, add them to the time parts
   if (minutes > 0) {
