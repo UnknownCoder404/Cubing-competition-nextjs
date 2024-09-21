@@ -1,6 +1,8 @@
 "use server";
 
-import EventResults, { Result } from "./EventResults";
+import EventResults from "./EventResults";
+import { Result } from "../Types/solve";
+
 import CompetitionStyles from "./Competitions.module.css";
 export default async function CompetitionEvent({
   eventName,

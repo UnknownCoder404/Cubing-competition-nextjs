@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Result } from "./EventResults";
+import { Result } from "../Types/solve";
 
 import CompetitionStyles from "./Competitions.module.css";
 import Round from "./Round";

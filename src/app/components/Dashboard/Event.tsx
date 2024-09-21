@@ -7,7 +7,6 @@ import {
 import Image from "next/image";
 import trashIcon from "@/app/public/delete.svg";
 import { useState } from "react";
-import { format } from "path";
 import { addSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
 import { UserComp, UserEvent } from "@/app/Types/solve";

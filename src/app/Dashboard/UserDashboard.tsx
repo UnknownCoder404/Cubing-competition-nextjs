@@ -1,9 +1,9 @@
-import { User } from "./page";
 import dashboardStyles from "./Dashboard.module.css";
 import manageAccounts from "../public/manage_accounts.svg";
 import Image from "next/image";
 import { isUser } from "../utils/credentials";
 import UserCompAndButtons from "./UserCompAndButtons";
+import { User } from "../Types/solve";
 
 function UsernameDiv({ username }: { username: string }) {
   return (

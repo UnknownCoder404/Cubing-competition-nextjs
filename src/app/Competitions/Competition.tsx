@@ -1,8 +1,9 @@
 "use server";
 
+import { CompetitionType } from "../Types/solve";
 import CompetitionEvent from "./CompetitionEvent";
 import CompetitionStyles from "./Competitions.module.css";
-import { CompetitionType } from "./page";
+
 function CompetitionName({ name }: { name: string }) {
   return (
     <h2 className={CompetitionStyles["comp-name-h2"]}>

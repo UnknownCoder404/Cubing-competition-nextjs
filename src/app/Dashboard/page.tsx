@@ -1,5 +1,4 @@
 import { url } from "@/globals";
-import { Role } from "../utils/credentials";
 import UserDashboard from "./UserDashboard";
 import dashboardStyles from "./Dashboard.module.css";
 import { Users } from "../Types/solve";

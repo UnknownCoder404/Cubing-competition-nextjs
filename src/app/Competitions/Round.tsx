@@ -3,7 +3,7 @@ import RoundResults from "./RoundResults";
 
 import CompetitionStyles from "./Competitions.module.css";
 import ShowAndHide from "../components/Competitions/showAndHide";
-import { Result } from "./EventResults";
+import { Result } from "../Types/solve";
 
 export default function Round({
   round,

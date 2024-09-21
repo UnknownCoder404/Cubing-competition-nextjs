@@ -1,11 +1,11 @@
 "use client";
 
-import { User } from "@/app/Dashboard/page";
 import { getId, isAdmin, Role } from "@/app/utils/credentials";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import { assignAdminToUser, deleteUserById } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { User } from "@/app/Types/solve";
 function DeleteUserButton({
   id,
   router,

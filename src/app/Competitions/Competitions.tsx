@@ -1,6 +1,6 @@
 "use server";
+import { CompetitionsType } from "../Types/solve";
 import Competition from "./Competition";
-import { CompetitionsType } from "./page";
 
 type Props = {
   competitions: {

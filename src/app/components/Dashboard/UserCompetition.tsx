@@ -4,7 +4,7 @@ import { url } from "@/globals";
 import { useEffect, useState } from "react";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
-import { CompetitionsType, CompetitionType, User } from "@/app/Types/solve";
+import { CompetitionType, User } from "@/app/Types/solve";
 
 type Props = {
   user: User;
@@ -86,17 +86,19 @@ function CompResults({
         </h2>
         <p className={dashboardStyles["comp-date"]}>{dateString}</p>
       </div>
-      {selectedCompetition.events.map((event: any) => (
-        <Event
-          competitionId={selectedCompetition._id}
-          userId={user._id}
-          event={event}
-          key={event.name}
-          userComp={user.competitions.find(
-            (c) => c.competitionId === selectedCompetition._id,
-          )}
-        />
-      ))}
+      {selectedCompetition.events.map(
+        (event: { name: string; rounds: number }) => (
+          <Event
+            competitionId={selectedCompetition._id}
+            userId={user._id}
+            event={event}
+            key={event.name}
+            userComp={user.competitions.find(
+              (c) => c.competitionId === selectedCompetition._id,
+            )}
+          />
+        ),
+      )}
     </div>
   );
 }
