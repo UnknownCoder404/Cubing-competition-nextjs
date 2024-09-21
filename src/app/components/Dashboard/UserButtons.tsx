@@ -65,23 +65,33 @@ function AdminButton({
     </button>
   );
 }
-function CompButton() {
+function CompButton({
+  toggleCompVisibility,
+}: {
+  toggleCompVisibility: () => void;
+}) {
   return (
     <button
       className={`${dashboardStyles["user-btn"]} ${dashboardStyles["comp-btn"]}`}
+      onClick={toggleCompVisibility}
     >
       Natjecanje
     </button>
   );
 }
-export default function UserButtons({ user }: { user: User }) {
+
+type Props = {
+  user: User;
+  toggleCompVisibility: () => void;
+};
+export default function UserButtons({ user, toggleCompVisibility }: Props) {
   const router = useRouter();
 
   return (
     <div className={dashboardStyles["user-btns"]}>
       <DeleteUserButton id={user._id} router={router} />
       <AdminButton role={user.role} id={user._id} router={router} />
-      <CompButton />
+      <CompButton toggleCompVisibility={toggleCompVisibility} />
     </div>
   );
 }
