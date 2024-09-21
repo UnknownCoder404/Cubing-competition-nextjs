@@ -4,8 +4,8 @@ export function getAverage(solves: number[] | undefined) {
   return typeof noFormatAverage === "string"
     ? formatTime(noFormatAverage)
     : noFormatAverage === -1
-    ? "Potrebno 5 slaganja"
-    : "DNF";
+      ? "Potrebno 5 slaganja"
+      : "DNF";
 }
 export function getAverageNoFormat(solves: number[]) {
   if (solves.length !== 5) {

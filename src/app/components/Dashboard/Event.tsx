@@ -1,7 +1,34 @@
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import { UserComp, UserEvent } from "@/app/Dashboard/page";
-import { getAverage } from "@/app/utils/solveTime";
+import { formatTime, getAverage } from "@/app/utils/solveTime";
+import Image from "next/image";
+import trashIcon from "@/app/public/delete.svg";
 
+function DeleteSolveButton({
+  competitionId,
+  event,
+  round,
+  solve,
+}: {
+  competitionId: string;
+  event: string;
+  round: number;
+  solve: number;
+}) {
+  return (
+    <button className={dashboardStyles["delete-solve"]}>
+      <Image src={trashIcon} width={24} height={24} alt="delete" />
+    </button>
+  );
+}
+
+function Solve({ solve }: { solve: number }) {
+  return (
+    <li className={dashboardStyles["solve"]}>
+      {formatTime(solve)} <DeleteSolveButton solve={solve} />
+    </li>
+  );
+}
 function Round({
   roundNumber,
   round,
@@ -13,6 +40,9 @@ function Round({
     <div className={dashboardStyles["round"]}>
       <h4>Runda {roundNumber}</h4>
       <p>Ao5: {getAverage(round)}</p>
+      <ol className={dashboardStyles["solves-list"]}>
+        {round?.map((solve, index) => <Solve solve={solve} key={index} />)}
+      </ol>
     </div>
   );
 }
