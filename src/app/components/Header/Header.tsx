@@ -16,6 +16,7 @@ export default function Header({ title }: { title: string }) {
               src="/favicon.ico"
               width={20}
               height={20}
+              priority={true}
             />
           </Link>
         </div>

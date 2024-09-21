@@ -40,6 +40,7 @@ function ClientLoginStatus() {
             setUsername(null);
           }
         }}
+        priority={true}
       />
     </>
   );
