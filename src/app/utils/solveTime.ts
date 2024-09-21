@@ -4,8 +4,8 @@ export function getAverage(solves: number[] | undefined) {
   return typeof noFormatAverage === "string"
     ? formatTime(noFormatAverage)
     : noFormatAverage === -1
-      ? "Potrebno 5 slaganja"
-      : "DNF";
+    ? "Potrebno 5 slaganja"
+    : "DNF";
 }
 export function getAverageNoFormat(solves: number[]) {
   if (solves.length !== 5) {
@@ -57,4 +57,40 @@ export function formatTime(seconds: number | string) {
   const formattedTime = timeParts.join("");
   // Return the formatted time string
   return formattedTime;
+}
+function onlyNumbersSpacesAndDots(str: string) {
+  return /^[0-9 .]*$/.test(str);
+}
+export function formatInputToSeconds(str: string) {
+  if (!onlyNumbersSpacesAndDots(str)) {
+    return null;
+  }
+  // Check if the string is already in the format of a decimal number
+  if (str.includes(".")) {
+    return parseFloat(parseFloat(str).toFixed(2));
+  }
+
+  // Handle formatting based on the length of the string
+  switch (str.length) {
+    case 1:
+      return parseFloat(`0.0${str}`);
+    case 2:
+      return parseFloat(`0.${str}`);
+    case 3:
+      return parseFloat(`${str.charAt(0)}.${str.substring(1)}`);
+    case 4:
+      return parseFloat(`${str.substring(0, 2)}.${str.substring(2)}`);
+    case 5:
+      return (
+        60 * parseInt(str.charAt(0)) +
+        parseFloat(`${str.substring(1, 3)}.${str.substring(3)}`)
+      );
+    case 6:
+      return (
+        60 * parseInt(str.substring(0, 2)) +
+        parseFloat(`${str.substring(2, 4)}.${str.substring(4)}`)
+      );
+    default:
+      return null; // or any other default value for invalid input
+  }
 }

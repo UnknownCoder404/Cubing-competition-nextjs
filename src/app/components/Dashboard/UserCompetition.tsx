@@ -89,6 +89,8 @@ function CompResults({
       </div>
       {selectedCompetition.events.map((event: any) => (
         <Event
+          competitionId={selectedCompetition._id}
+          userId={user._id}
           event={event}
           key={event.name}
           userComp={user.competitions.find(

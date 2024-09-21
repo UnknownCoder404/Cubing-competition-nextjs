@@ -1,5 +1,5 @@
 import { url } from "@/globals";
-import { addToken, getId } from "./credentials";
+import { addToken, getId, getToken } from "./credentials";
 
 /**
  * Delete a user by id
@@ -77,4 +77,40 @@ export async function assignAdminToUser(id: string): Promise<{
       success: false,
     };
   }
+}
+
+export async function addSolve(
+  userId: string,
+  competitionId: string,
+  event: string,
+  roundIndex: number,
+  solves: number[],
+) {
+  const roundNumber = roundIndex + 1;
+  const solveData = {
+    round: roundNumber,
+    solves: {
+      event: event,
+      rounds: solves,
+    },
+    competitionId,
+  };
+
+  // Šalje podatke na server
+  const response = await fetch(`${url}solves/add/${userId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: getToken() || "",
+    },
+    body: JSON.stringify(solveData),
+  });
+
+  const data = await response.json();
+  return {
+    success: response.ok,
+    parsed: data,
+    response,
+    statusCode: response.status,
+  };
 }
