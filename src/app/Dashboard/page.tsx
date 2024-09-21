@@ -5,12 +5,25 @@ import dashboardStyles from "./Dashboard.module.css";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Ensure no caching between requests
+type AllowedEvents = "3x3" | "4x4" | "3x3oh" | "2x2";
+
+export type UserEvent = {
+  event: AllowedEvents;
+  rounds: number[][];
+};
+
+export type UserComp = {
+  competitionId: string;
+  events: UserEvent[];
+};
 
 export type User = {
   _id: string;
   username: string;
-  group: 1 | 2;
+  password: string;
   role: Role;
+  competitions: UserComp[];
+  group: 1 | 2;
 };
 
 type Users = User[];

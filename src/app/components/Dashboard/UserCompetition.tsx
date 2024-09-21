@@ -4,6 +4,8 @@ import { CompetitionType } from "@/app/Competitions/page";
 import { User } from "@/app/Dashboard/page";
 import { url } from "@/globals";
 import { useEffect, useState } from "react";
+import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
+import Event from "./Event";
 
 type Props = {
   user: User;
@@ -45,6 +47,7 @@ function CompetitionSelect({
   }
   return (
     <select
+      className={dashboardStyles["select-comp"]}
       onChange={async (e) => {
         setSelectedCompetition(
           (await fetchCompetitions()).find((c: CompetitionType) => {
@@ -67,12 +70,34 @@ function CompResults({
   selectedCompetition,
 }: {
   user: User;
-  selectedCompetition: CompetitionType | undefined;
+  selectedCompetition: any | undefined;
 }) {
   if (!selectedCompetition) {
     return <></>;
   }
-  return <div>{JSON.stringify(selectedCompetition)}</div>;
+
+  const compDate = new Date(selectedCompetition.date);
+  const dateString = compDate.toLocaleString();
+
+  return (
+    <div className={dashboardStyles["comp-results"]}>
+      <div className={dashboardStyles["comp-results-info"]}>
+        <h2 className={dashboardStyles["comp-name"]}>
+          {selectedCompetition.name}
+        </h2>
+        <p className={dashboardStyles["comp-date"]}>{dateString}</p>
+      </div>
+      {selectedCompetition.events.map((event: any) => (
+        <Event
+          event={event}
+          key={event.name}
+          userComp={user.competitions.find(
+            (c) => c.competitionId === selectedCompetition._id,
+          )}
+        />
+      ))}
+    </div>
+  );
 }
 
 function CompetitionWindow({ user }: { user: User }) {
@@ -81,10 +106,10 @@ function CompetitionWindow({ user }: { user: User }) {
   >(undefined);
 
   return (
-    <>
+    <div className={dashboardStyles["comp"]}>
       <CompetitionSelect setSelectedCompetition={setSelectedCompetition} />
       <CompResults user={user} selectedCompetition={selectedCompetition} />
-    </>
+    </div>
   );
 }
 
