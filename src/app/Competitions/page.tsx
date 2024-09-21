@@ -1,20 +1,7 @@
 import { url } from "@/globals";
 import Competitions from "./Competitions";
-import { Result } from "./EventResults";
+import { CompetitionsType } from "../Types/solve";
 
-interface EventDetails {
-  [key: string]: Result[][];
-}
-export type CompetitionType = {
-  _id: string;
-  name: string;
-  date: string; // ISO date string
-  isLocked: boolean;
-  events: EventDetails;
-};
-export type CompetitionsType = {
-  [key: string]: CompetitionType;
-};
 async function getResults(): Promise<
   | { success: false }
   | { parsed: CompetitionsType; success: true; status: number }

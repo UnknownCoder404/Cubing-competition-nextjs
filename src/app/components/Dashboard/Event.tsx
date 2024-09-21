@@ -1,5 +1,4 @@
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
-import { UserComp, UserEvent } from "@/app/Dashboard/page";
 import {
   formatInputToSeconds,
   formatTime,
@@ -11,6 +10,7 @@ import { useState } from "react";
 import { format } from "path";
 import { addSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
+import { UserComp, UserEvent } from "@/app/Types/solve";
 
 function DeleteSolveButton({
   competitionId,

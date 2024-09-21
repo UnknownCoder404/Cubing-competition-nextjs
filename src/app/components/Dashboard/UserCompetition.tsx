@@ -1,11 +1,10 @@
 "use client";
 
-import { CompetitionType } from "@/app/Competitions/page";
-import { User } from "@/app/Dashboard/page";
 import { url } from "@/globals";
 import { useEffect, useState } from "react";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
+import { CompetitionsType, CompetitionType, User } from "@/app/Types/solve";
 
 type Props = {
   user: User;
