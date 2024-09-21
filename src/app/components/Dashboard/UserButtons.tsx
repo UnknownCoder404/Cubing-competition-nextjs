@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "@/app/Dashboard/page";
-import { isAdmin, Role } from "@/app/utils/credentials";
+import { getId, isAdmin, Role } from "@/app/utils/credentials";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import { assignAdminToUser, deleteUserById } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
@@ -17,9 +17,14 @@ function DeleteUserButton({
     <button
       className={`${dashboardStyles["user-btn"]} ${dashboardStyles["remove-btn"]}`}
       onClick={async () => {
+        if (id === getId()) {
+          return alert("Ne možete izbrisati vlastiti računa.");
+        }
         const userDeletion = await deleteUserById(id);
         if (!userDeletion.success) {
-          return alert("Greška pri brisanju korisnika.");
+          return alert(
+            userDeletion.message || "Greška pri brisanju korisnika.",
+          );
         }
 
         router.refresh();
@@ -48,7 +53,9 @@ function AdminButton({
       onClick={async () => {
         const adminAssignment = await assignAdminToUser(id);
         if (!adminAssignment.success) {
-          return alert("Greška pri dodavanju korisnika.");
+          return alert(
+            adminAssignment.message || "Greška pri dodavanju korisnika.",
+          );
         }
 
         router.refresh();
