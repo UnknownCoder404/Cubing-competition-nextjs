@@ -1,5 +1,6 @@
 "use client";
 
+import { CompetitionType } from "@/app/Competitions/page";
 import { User } from "@/app/Dashboard/page";
 import { url } from "@/globals";
 import { useEffect, useState } from "react";
@@ -8,7 +9,7 @@ type Props = {
   user: User;
   show: boolean;
 };
-let competitionsCache: any[] = [];
+let competitionsCache: CompetitionType[] = [];
 async function fetchCompetitions() {
   if (competitionsCache.length) {
     return competitionsCache;
@@ -25,9 +26,11 @@ async function fetchCompetitions() {
 function CompetitionSelect({
   setSelectedCompetition,
 }: {
-  setSelectedCompetition: (arg0: any) => void;
+  setSelectedCompetition: (arg0: CompetitionType) => void;
 }) {
-  const [competitions, setCompetitions] = useState<any[]>([]);
+  const [competitions, setCompetitions] = useState<
+    CompetitionType[] | undefined
+  >(undefined);
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchCompetitions();
@@ -35,23 +38,22 @@ function CompetitionSelect({
       setSelectedCompetition(data[0]);
     };
     fetchData();
-  }, []);
+  }, [setSelectedCompetition]);
 
-  if (!competitions.length) {
+  if (!competitions) {
     return <p>Učitavanje...</p>;
   }
-
   return (
     <select
       onChange={async (e) => {
         setSelectedCompetition(
-          (await fetchCompetitions()).find((c: any) => {
+          (await fetchCompetitions()).find((c: CompetitionType) => {
             return c._id === e.target.value;
           }),
         );
       }}
     >
-      {competitions.map((competition) => (
+      {competitions.map((competition: CompetitionType) => (
         <option key={competition._id} value={competition._id}>
           {competition.name}
         </option>
@@ -65,15 +67,17 @@ function CompResults({
   selectedCompetition,
 }: {
   user: User;
-  selectedCompetition: any;
+  selectedCompetition: CompetitionType | undefined;
 }) {
-  console.log("selectedCompetition", selectedCompetition);
+  if (!selectedCompetition) {
+    return <></>;
+  }
   return <div>{JSON.stringify(selectedCompetition)}</div>;
 }
 
 function CompetitionWindow({ user }: { user: User }) {
   const [selectedCompetition, setSelectedCompetition] = useState<
-    string | undefined
+    CompetitionType | undefined
   >(undefined);
 
   return (

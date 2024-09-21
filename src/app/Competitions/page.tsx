@@ -6,6 +6,8 @@ interface EventDetails {
   [key: string]: Result[][];
 }
 export type CompetitionType = {
+  _id: string;
+  name: string;
   date: string; // ISO date string
   isLocked: boolean;
   events: EventDetails;
