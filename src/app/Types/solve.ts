@@ -23,19 +23,28 @@ export type User = {
 
 export type Users = User[];
 
-interface EventDetails {
-  [key: string]: Result[][];
-}
+export type EventDetail = {
+  name: AllowedEvents;
+  rounds: number;
+};
 export type CompetitionType = {
   _id: string;
   name: string;
   date: string; // ISO date string
   isLocked: boolean;
-  events: EventDetails;
+  events: EventDetail[];
 };
-export type CompetitionsType = {
-  [key: string]: CompetitionType;
+export type CompetitionResultType = {
+  date: string;
+  isLocked: boolean;
+  events: {
+    [key in AllowedEvents]: Result[][];
+  };
 };
+export type CompetitionResultsType = {
+  [key: string]: CompetitionResultType;
+};
+
 export type Result = {
   userId: "string";
   group: number;

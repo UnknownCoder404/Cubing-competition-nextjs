@@ -9,7 +9,12 @@ import trashIcon from "@/app/public/delete.svg";
 import { useState } from "react";
 import { addSolve, deleteSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
-import { AllowedEvents, UserComp, UserEvent } from "@/app/Types/solve";
+import {
+  AllowedEvents,
+  EventDetail,
+  UserComp,
+  UserEvent,
+} from "@/app/Types/solve";
 
 function DeleteSolveButton({
   competitionId,
@@ -203,7 +208,7 @@ function EventResults({
   competitionId,
   userId,
 }: {
-  event: any;
+  event: EventDetail;
   userEvent: UserEvent | undefined;
   competitionId: string;
   userId: string;
@@ -233,7 +238,7 @@ export default function Event({
   userId,
   competitionId,
 }: {
-  event: any;
+  event: EventDetail;
   userComp: UserComp | undefined;
   userId: string;
   competitionId: string;

@@ -1,10 +1,10 @@
 import { url } from "@/globals";
 import Competitions from "./Competitions";
-import { CompetitionsType } from "../Types/solve";
+import { CompetitionResultsType } from "../Types/solve";
 
 async function getResults(): Promise<
   | { success: false }
-  | { parsed: CompetitionsType; success: true; status: number }
+  | { parsed: CompetitionResultsType; success: true; status: number }
 > {
   try {
     const data = await fetch(`${url.toString()}competitions/results`);

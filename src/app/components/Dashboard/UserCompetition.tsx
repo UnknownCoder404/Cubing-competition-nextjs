@@ -69,7 +69,7 @@ function CompResults({
   selectedCompetition,
 }: {
   user: User;
-  selectedCompetition: any | undefined;
+  selectedCompetition: CompetitionType | undefined;
 }) {
   if (!selectedCompetition) {
     return <></>;
@@ -86,19 +86,17 @@ function CompResults({
         </h2>
         <p className={dashboardStyles["comp-date"]}>{dateString}</p>
       </div>
-      {selectedCompetition.events.map(
-        (event: { name: string; rounds: number }) => (
-          <Event
-            competitionId={selectedCompetition._id}
-            userId={user._id}
-            event={event}
-            key={event.name}
-            userComp={user.competitions.find(
-              (c) => c.competitionId === selectedCompetition._id,
-            )}
-          />
-        ),
-      )}
+      {selectedCompetition.events.map((event) => (
+        <Event
+          competitionId={selectedCompetition._id}
+          userId={user._id}
+          event={event}
+          key={event.name}
+          userComp={user.competitions.find(
+            (c) => c.competitionId === selectedCompetition._id,
+          )}
+        />
+      ))}
     </div>
   );
 }
