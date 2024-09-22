@@ -1,5 +1,6 @@
 import { url } from "@/globals";
 import { addToken, getId, getToken } from "./credentials";
+import { AllowedEvents } from "../Types/solve";
 
 /**
  * Delete a user by id
@@ -113,4 +114,41 @@ export async function addSolve(
     response,
     statusCode: response.status,
   };
+}
+export async function deleteSolve(
+  userId: string,
+  compId: string,
+  eventName: AllowedEvents,
+  roundIndex: number,
+  solveIndex: number,
+) {
+  try {
+    const roundNumber = +roundIndex + 1;
+    const solveNumber = +solveIndex + 1;
+
+    const response = await fetch(`${url}solves/delete/${userId}`, {
+      method: "DELETE",
+      headers: addToken({}) || {},
+      body: JSON.stringify({
+        round: roundNumber,
+        solve: solveNumber,
+        event: eventName,
+        competitionId: compId,
+      }),
+    });
+
+    // Handle errors
+    const parsed = await response.json();
+    return {
+      parsed,
+      success: response.ok,
+      statusCode: response.status,
+      response,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error,
+    };
+  }
 }

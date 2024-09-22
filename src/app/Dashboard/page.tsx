@@ -10,7 +10,9 @@ async function getUsers(): Promise<
   { success: false } | { parsed: Users; success: true; status: number }
 > {
   try {
-    const data = await fetch(`${url.toString()}users`);
+    const data = await fetch(`${url.toString()}users`, {
+      signal: AbortSignal.timeout(5000),
+    });
     const parsedJSON = await data.json();
     return {
       parsed: parsedJSON,

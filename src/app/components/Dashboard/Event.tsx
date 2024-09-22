@@ -7,23 +7,51 @@ import {
 import Image from "next/image";
 import trashIcon from "@/app/public/delete.svg";
 import { useState } from "react";
-import { addSolve } from "@/app/utils/users";
+import { addSolve, deleteSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
-import { UserComp, UserEvent } from "@/app/Types/solve";
+import { AllowedEvents, UserComp, UserEvent } from "@/app/Types/solve";
 
 function DeleteSolveButton({
   competitionId,
   event,
-  round,
-  solve,
+  roundNumber,
+  solveNumber,
+  userId,
 }: {
   competitionId: string;
-  event: string;
-  round: number;
-  solve: number;
+  event: AllowedEvents;
+  roundNumber: number;
+  solveNumber: number;
+  userId: string;
 }) {
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  async function deleteThisSolve() {
+    setLoading(true);
+    const solveDeletion = await deleteSolve(
+      userId,
+      competitionId,
+      event,
+      roundNumber - 1,
+      solveNumber - 1,
+    );
+
+    setLoading(false);
+
+    if (!solveDeletion.success) {
+      return alert(
+        solveDeletion.parsed.message || "Greška pri brisanju slaganja.",
+      );
+    }
+
+    router.refresh();
+  }
   return (
-    <button className={dashboardStyles["delete-solve"]}>
+    <button
+      onClick={deleteThisSolve}
+      className={dashboardStyles["delete-solve"]}
+      disabled={loading}
+    >
       <Image src={trashIcon} width={24} height={24} alt="delete" />
     </button>
   );
@@ -105,20 +133,25 @@ function Solve({
   competitionId,
   eventName,
   roundNumber,
+  userId,
+  solveNumber,
 }: {
   solve: number;
   competitionId: string;
-  eventName: string;
+  eventName: AllowedEvents;
   roundNumber: number;
+  userId: string;
+  solveNumber: number;
 }) {
   return (
     <li className={dashboardStyles["solve"]}>
       {formatTime(solve)}{" "}
       <DeleteSolveButton
-        solve={solve}
+        solveNumber={solveNumber}
         competitionId={competitionId}
         event={eventName}
-        round={roundNumber}
+        roundNumber={roundNumber}
+        userId={userId}
       />
     </li>
   );
@@ -133,7 +166,7 @@ function Round({
   roundNumber: number;
   round: number[] | undefined;
   competitionId: string;
-  eventName: string;
+  eventName: AllowedEvents;
   userId: string;
 }) {
   return (
@@ -143,11 +176,13 @@ function Round({
       <ol className={dashboardStyles["solves-list"]}>
         {round?.map((solve, index) => (
           <Solve
+            solveNumber={index + 1}
             solve={solve}
             competitionId={competitionId}
             eventName={eventName}
             key={index}
             roundNumber={roundNumber}
+            userId={userId}
           />
         ))}
       </ol>
