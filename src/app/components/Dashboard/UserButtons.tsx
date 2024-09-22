@@ -1,5 +1,3 @@
-"use client";
-
 import { getId, isAdmin, Role } from "@/app/utils/credentials";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import { assignAdminToUser, deleteUserById } from "@/app/utils/users";

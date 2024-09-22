@@ -1,4 +1,3 @@
-"use client";
 import RoundResults from "./RoundResults";
 
 import CompetitionStyles from "./Competitions.module.css";
