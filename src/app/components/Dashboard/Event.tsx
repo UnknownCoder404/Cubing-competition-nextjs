@@ -6,7 +6,7 @@ import {
 } from "@/app/utils/solveTime";
 import Image from "next/image";
 import trashIcon from "@/app/public/delete.svg";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { addSolve, deleteSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
 import {

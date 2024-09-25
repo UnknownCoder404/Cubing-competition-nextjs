@@ -43,8 +43,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  column-gap: 5px;
-  row-gap: 5px;
+  gap: 5px;
 }
 
 .user-btn {
@@ -111,17 +110,20 @@
   counter-increment: item;
   margin-right: 10px;
 }
+
 .delete-solve {
-  background-color: rgb(233, 71, 42);
+  background-color: rgb(233 71 42);
   border-radius: 10px;
   border: none;
   padding: 3px 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 .delete-solve:hover {
-  background-color: rgb(233, 128, 42);
+  background-color: rgb(233 128 42);
 }
+
 .solve-input {
   min-width: 100px;
   max-width: 180px;
