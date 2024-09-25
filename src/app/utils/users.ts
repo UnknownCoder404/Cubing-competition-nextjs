@@ -125,10 +125,13 @@ export async function deleteSolve(
   try {
     const roundNumber = +roundIndex + 1;
     const solveNumber = +solveIndex + 1;
-
+    const headers =
+      addToken({
+        "Content-Type": "application/json",
+      }) || {};
     const response = await fetch(`${url}solves/delete/${userId}`, {
       method: "DELETE",
-      headers: addToken({}) || {},
+      headers: headers,
       body: JSON.stringify({
         round: roundNumber,
         solve: solveNumber,
