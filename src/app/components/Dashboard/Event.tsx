@@ -6,7 +6,7 @@ import {
 } from "@/app/utils/solveTime";
 import Image from "next/image";
 import trashIcon from "@/app/public/delete.svg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addSolve, deleteSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
 import {
@@ -75,6 +75,7 @@ function AddSolveInputAndButton({
   const router = useRouter();
   const [inputValue, setInputValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null); // Create a ref for the input
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -109,13 +110,18 @@ function AddSolveInputAndButton({
     // Reset the input value
     setInputValue("");
     router.refresh();
-
     setLoading(false);
+
+    // Use a combination of setTimeout and requestAnimationFrame to ensure focus
+    setTimeout(() => {
+      requestAnimationFrame(() => inputRef.current?.focus());
+    }, 0);
   }
 
   return (
     <>
       <input
+        ref={inputRef} // Attach the ref to the input
         placeholder="Dodaj slaganje"
         className={dashboardStyles["solve-input"]}
         value={inputValue} // Add this line to bind the input value to the state
