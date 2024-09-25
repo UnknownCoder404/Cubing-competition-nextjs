@@ -121,6 +121,11 @@ function AddSolveInputAndButton({
         value={inputValue} // Add this line to bind the input value to the state
         onChange={handleChange}
         disabled={loading}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            addSolveToUser();
+          }
+        }}
       />
       <button
         onClick={addSolveToUser}
