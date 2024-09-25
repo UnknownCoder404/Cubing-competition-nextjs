@@ -3,7 +3,7 @@ import manageAccounts from "../public/manage_accounts.svg";
 import Image from "next/image";
 import { isUser } from "../utils/credentials";
 import UserCompAndButtons from "./UserCompAndButtons";
-import { User } from "../Types/solve";
+import { CompetitionType, User } from "../Types/solve";
 
 function UsernameDiv({ username }: { username: string }) {
   return (
@@ -32,11 +32,17 @@ function UserInfo({ user }: { user: User }) {
   );
 }
 
-export default function UserDashboard({ user }: { user: User }) {
+export default function UserDashboard({
+  user,
+  competitions,
+}: {
+  user: User;
+  competitions: CompetitionType[];
+}) {
   return (
     <div className={dashboardStyles["user"]}>
       <UserInfo user={user} />
-      <UserCompAndButtons user={user} />
+      <UserCompAndButtons user={user} competitions={competitions} />
     </div>
   );
 }

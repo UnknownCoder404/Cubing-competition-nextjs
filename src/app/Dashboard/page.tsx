@@ -25,15 +25,41 @@ async function getUsers(): Promise<
     };
   }
 }
+async function getCompetitions() {
+  try {
+    const data = await fetch(`${url.toString()}competitions`, {
+      signal: AbortSignal.timeout(5000),
+    });
+    const parsedJSON = await data.json();
+    return { success: true, parsed: parsedJSON };
+  } catch (error) {
+    return {
+      success: false,
+      error,
+    };
+  }
+}
 export default async function Dashboard() {
-  const users = await getUsers();
+  const [users, competitions] = await Promise.all([
+    getUsers(),
+    getCompetitions(),
+  ]);
+
   if (!users.success) {
     return <p>Nemoguće dohvatiti korisnike</p>;
   }
+  if (!competitions.success) {
+    return <p>Nemoguće dohvatiti natjecanja</p>;
+  }
+
   return (
     <div className={dashboardStyles["users"]}>
       {users.parsed.map((user) => (
-        <UserDashboard key={user._id} user={user} />
+        <UserDashboard
+          key={user._id}
+          user={user}
+          competitions={competitions.parsed}
+        />
       ))}
     </div>
   );

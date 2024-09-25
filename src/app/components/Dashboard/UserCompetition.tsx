@@ -1,57 +1,28 @@
 "use client";
 
-import { url } from "@/globals";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
 import { CompetitionType, User } from "@/app/Types/solve";
 
-type Props = {
-  user: User;
-  show: boolean;
-};
-let competitionsCache: CompetitionType[] = [];
-async function fetchCompetitions() {
-  if (competitionsCache.length) {
-    return competitionsCache;
-  }
-  const response = await fetch(`${url}competitions`);
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  const parsed = await response.json();
-  competitionsCache = parsed;
-  return parsed;
-}
-
 function CompetitionSelect({
   setSelectedCompetition,
+  competitions,
 }: {
   setSelectedCompetition: (arg0: CompetitionType) => void;
+  competitions: CompetitionType[];
 }) {
-  const [competitions, setCompetitions] = useState<
-    CompetitionType[] | undefined
-  >(undefined);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchCompetitions();
-      setCompetitions(data);
-      setSelectedCompetition(data[0]);
-    };
-    fetchData();
-  }, [setSelectedCompetition]);
-
   if (!competitions) {
     return <p>Učitavanje...</p>;
   }
   return (
     <select
       className={dashboardStyles["select-comp"]}
-      onChange={async (e) => {
+      onChange={(e) => {
         setSelectedCompetition(
-          (await fetchCompetitions()).find((c: CompetitionType) => {
+          competitions.find((c) => {
             return c._id === e.target.value;
-          }),
+          })!,
         );
       }}
     >
@@ -101,20 +72,35 @@ function CompResults({
   );
 }
 
-function CompetitionWindow({ user }: { user: User }) {
+function CompetitionWindow({
+  user,
+  competitions,
+}: {
+  user: User;
+  competitions: CompetitionType[];
+}) {
   const [selectedCompetition, setSelectedCompetition] = useState<
     CompetitionType | undefined
-  >(undefined);
+  >(competitions[0]);
 
   return (
     <div className={dashboardStyles["comp"]}>
-      <CompetitionSelect setSelectedCompetition={setSelectedCompetition} />
+      <CompetitionSelect
+        setSelectedCompetition={setSelectedCompetition}
+        competitions={competitions}
+      />
       <CompResults user={user} selectedCompetition={selectedCompetition} />
     </div>
   );
 }
 
-export default function UserCompetition({ user, show }: Props) {
+type Props = {
+  user: User;
+  show: boolean;
+  competitions: CompetitionType[];
+};
+
+export default function UserCompetition({ user, show, competitions }: Props) {
   if (!show) return <></>;
-  return <CompetitionWindow user={user} />;
+  return <CompetitionWindow user={user} competitions={competitions} />;
 }
