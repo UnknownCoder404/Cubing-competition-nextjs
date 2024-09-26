@@ -1,6 +1,8 @@
 import "@/globals.css";
 import Header from "./components/Header/Header";
 import { headers } from "next/headers";
+import { Roboto } from "next/font/google";
+
 const hideHeaderRoutes: string[] = [""];
 
 const titleToShow: {
@@ -11,7 +13,14 @@ const titleToShow: {
   "/Register": "Registracija",
   "/Competitions": "Natjecanja",
   "/Scramble": "Vježbanje",
+  "/Dashboard": "Radna ploča",
 };
+
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "fallback",
+});
 
 export default function RootLayout({
   children,
@@ -23,7 +32,7 @@ export default function RootLayout({
   const shouldShowHeader = !hideHeaderRoutes.includes(pathName);
 
   return (
-    <html lang="hr">
+    <html lang="hr" className={roboto.className}>
       <body>
         {shouldShowHeader && (
           <Header title={titleToShow[pathName] || "Cro Cube Comp"} />

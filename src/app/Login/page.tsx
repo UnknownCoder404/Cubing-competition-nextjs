@@ -3,7 +3,7 @@
 import loginStyles from "./Login.module.css";
 import { url } from "@/globals";
 import { Dispatch, SetStateAction, useState } from "react";
-import { isAdmin, loggedIn } from "../utils/credentials";
+import { getRole, isAdmin, isUser, loggedIn } from "../utils/credentials";
 import { ArrowLoader } from "../components/Loader/Loader";
 // This function handles form submission and should be client-side
 async function handleSubmit(
@@ -42,9 +42,6 @@ async function handleSubmit(
       localStorage.setItem("token", token);
       localStorage.setItem("username", username);
       localStorage.setItem("role", role);
-
-      // Redirect to dashboard if user is admin
-      window.location.href = isAdmin(role) ? "../Dashboard" : "/";
     }
   } catch (error) {
     setMsg(`Greška prilikom prijave.\n${error}`);
@@ -54,7 +51,6 @@ async function handleSubmit(
 
 // ErrorMessage component needs to be client-side because it handles dynamic content
 function ErrorMessage({ message }: { message: string }) {
-  "use client";
   return (
     <div id="message">
       <p>{message}</p>
@@ -76,11 +72,15 @@ function LoginButton({ loading }: { loading: boolean }) {
 }
 // LoginForm component handles user input and should be client-side
 function LoginForm() {
-  "use client";
   const [message, setMessage] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
-  if (loggedIn()) {
+  const role = getRole();
+  if (loggedIn() && role && isUser(role)) {
     window.location.href = "/";
+  }
+
+  if (loggedIn() && role && isAdmin(role)) {
+    window.location.href = "../Dashboard";
   }
   return (
     <form

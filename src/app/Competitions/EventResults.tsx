@@ -2,13 +2,7 @@
 
 import Group from "./Group";
 import CompetitionStyles from "./Competitions.module.css";
-export type Result = {
-  userId: "string";
-  group: number;
-  average: string;
-  username: string;
-  solves: number[];
-};
+import { Result } from "../Types/solve";
 
 function separateResultsByGroup(round: Result[]) {
   const groups: Result[][] = [[], []];

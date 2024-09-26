@@ -11,6 +11,7 @@
     "prepare": "pnpm run format && pnpm run lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.56.2",
     "@types/dompurify": "^3.0.5",
     "dompurify": "^3.1.6",
     "next": "14.2.8",
@@ -28,6 +29,6 @@
     "markdownlint-cli": "^0.41.0",
     "stylelint": "^16.9.0",
     "stylelint-config-standard": "^36.0.1",
-    "typescript": "^5"
+    "typescript": "^5.6.2"
   }
 }

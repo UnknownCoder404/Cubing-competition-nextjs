@@ -1,6 +1,6 @@
 "use client";
 import CompetitionStyles from "./Competitions.module.css";
-import { Result } from "./EventResults";
+import { Result } from "../Types/solve";
 
 function formatTime(seconds: number) {
   // Convert seconds to milliseconds without rounding

@@ -1,10 +1,10 @@
 "use server";
+import { CompetitionResultsType } from "../Types/solve";
 import Competition from "./Competition";
-import { CompetitionsType } from "./page";
 
 type Props = {
   competitions: {
-    parsed: CompetitionsType;
+    parsed: CompetitionResultsType;
     success: true;
     status: number;
   };

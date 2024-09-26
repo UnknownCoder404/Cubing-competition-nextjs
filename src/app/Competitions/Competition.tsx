@@ -1,8 +1,9 @@
 "use server";
 
+import { AllowedEvents, CompetitionResultType } from "../Types/solve";
 import CompetitionEvent from "./CompetitionEvent";
 import CompetitionStyles from "./Competitions.module.css";
-import { CompetitionType } from "./page";
+
 function CompetitionName({ name }: { name: string }) {
   return (
     <h2 className={CompetitionStyles["comp-name-h2"]}>
@@ -21,27 +22,25 @@ function CompetitionDate({ date }: { date: string }) {
 }
 
 export default async function Competition(props: {
-  competition: CompetitionType;
+  competition: CompetitionResultType;
   competitionName: string;
 }) {
   const competition = props.competition;
   const competitionName = props.competitionName;
   const competitionDateString = competition.date;
+  const competitionEvents = Object.keys(competition.events) as AllowedEvents[];
   return (
     <>
       <div className={CompetitionStyles["comp-info"]}>
         <CompetitionName name={competitionName} />
         <CompetitionDate date={competitionDateString} />
       </div>
-      {
-        /* Render the competition events */
-        Object.keys(competition.events).map((eventName, index) => {
-          const event = competition.events[eventName];
-          return (
-            <CompetitionEvent eventName={eventName} key={index} event={event} />
-          );
-        })
-      }
+      {competitionEvents.map((eventName, index) => {
+        const event = competition.events[eventName];
+        return (
+          <CompetitionEvent eventName={eventName} key={index} event={event} />
+        );
+      })}
     </>
   );
 }
