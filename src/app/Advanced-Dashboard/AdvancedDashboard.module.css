@@ -1,0 +1,39 @@
+.options {
+  padding: 20px;
+  color: white;
+  height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.change-password-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+.change-password-title-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.change-password-cred {
+  display: flex;
+  justify-content: center;
+}
+.password-input-container {
+  width: 100%;
+  height: auto;
+}
+.change-password-container,
+.change-password-container .new-password {
+  width: 80%;
+}
+.username {
+  min-width: 135px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 420px) {
+  .options {
+    grid-template-columns: 1fr;
+  }
+}
