@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CompetitionType, Users } from "../Types/solve";
+import { CompetitionType, User, Users } from "../Types/solve";
 import styles from "./AdvancedDashboard.module.css";
 import { addToken } from "../utils/credentials";
 import { url } from "@/globals";
+import { ChangePasswordForm } from "./ChangePasswordForm";
 
 function ResultsBtn({ competition }: { competition: CompetitionType }) {
   const [results, setResults] = useState<Blob | undefined>(undefined);
@@ -114,6 +115,7 @@ export default function AdvancedDashboard({
         />
         <ResultsBtn competition={selectedCompetition} />
       </div>
+      <ChangePasswordForm users={users} />
     </div>
   );
 }
