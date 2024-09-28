@@ -14,7 +14,7 @@ export default function AdvancedDashboard({
 }) {
   return (
     <div className={styles["options"]}>
-      <Excel competitions={competitions} users={users} />
+      <Excel competitions={competitions} />
       <ChangePasswordForm users={users} />
     </div>
   );

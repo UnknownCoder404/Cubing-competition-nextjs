@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CompetitionType, Users } from "../Types/solve";
+import { CompetitionType } from "../Types/solve";
 import styles from "./AdvancedDashboard.module.css";
 import { addToken } from "../utils/credentials";
 import { url } from "@/globals";
@@ -11,20 +11,28 @@ function ResultsBtn({
   competition: CompetitionType | undefined;
   setLoading: (arg0: boolean) => void;
 }) {
-  if (!competition) return <></>;
+  // Ensure useState is always called unconditionally
   const [results, setResults] = useState<Blob | undefined>(undefined);
   const resultsStyles = styles["results"];
+
   useEffect(() => {
-    setResults(undefined);
+    if (!competition) return; // Avoid unnecessary fetch if no competition is selected
+
     const getResults = async () => {
+      setResults(undefined);
       setLoading(true);
       const results = await getResultsForCompById(competition._id);
       setResults(results);
       setLoading(false);
     };
+
     getResults();
-  }, [competition]);
+  }, [competition, setLoading]);
+
+  // Conditional rendering based on results state
+  if (!competition) return null;
   if (!results) return <button className={resultsStyles}>Učitavanje...</button>;
+
   return (
     <button
       className={resultsStyles}
@@ -106,10 +114,8 @@ function CompSelect({
 
 export default function Excel({
   competitions,
-  users,
 }: {
   competitions: CompetitionType[];
-  users: Users;
 }) {
   const [selectedCompetition, setSelectedCompetition] = useState<
     CompetitionType | undefined
