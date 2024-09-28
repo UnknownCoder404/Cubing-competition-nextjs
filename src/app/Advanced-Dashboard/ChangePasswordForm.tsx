@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { User, Users } from "../Types/solve";
 import styles from "./AdvancedDashboard.module.css";
 import UserSelect from "./UserSelect";
@@ -48,7 +48,7 @@ export function ChangePasswordForm({ users }: { users: Users }) {
 
   return (
     <div className={styles["change-password-form"]}>
-      <div className={styles["change-password-cred"]}>
+      <div className={styles["change-password-credentials"]}>
         <UserSelect
           users={users}
           setSelectedUser={setSelectedUserToChangePassword}
@@ -58,7 +58,7 @@ export function ChangePasswordForm({ users }: { users: Users }) {
           <input
             onChange={(e) => setPassword(e.target.value)}
             value={newPassword}
-            type="text" // Use password type for better UX
+            type="text"
             placeholder="Nova lozinka"
             className={styles["new-password"]}
             disabled={loading}
@@ -68,7 +68,7 @@ export function ChangePasswordForm({ users }: { users: Users }) {
       <button
         onClick={handlePasswordChange}
         className={styles["change-password-btn"]}
-        disabled={loading || !newPassword.trim()} // Disable if no new password
+        disabled={loading} // Disable if no new password
       >
         {loading ? "Učitavanje..." : "Promijeni lozinku"}
       </button>

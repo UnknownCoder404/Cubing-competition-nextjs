@@ -5,28 +5,24 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   row-gap: 20px;
 }
-.change-password-container {
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
+
 .change-password-title-container {
   display: grid;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-.change-password-cred {
-  display: flex;
-  justify-content: center;
-}
+
 .password-input-container {
   width: 100%;
   height: auto;
 }
-.change-password-container,
-.change-password-container .new-password {
+
+.change-password-form,
+.change-password-form .new-password {
   width: 80%;
 }
+
 .username {
   min-width: 135px;
   cursor: pointer;
@@ -55,14 +51,16 @@
   transform: scale(
     1.05
   ); /* Scale the element to 1.05 times its original size */
+
   background-color: #559dd6;
-  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
 }
 
 .results:focus,
 .change-password-btn:focus {
   outline: none;
 }
+
 .new-password {
   min-width: 100px;
   width: 20%;
@@ -77,10 +75,11 @@
 
 .new-password:focus {
   border-color: #66afe9;
-  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
   outline: none;
 }
-@media screen and (max-width: 420px) {
+
+@media screen and (width <= 420px) {
   .options {
     grid-template-columns: 1fr;
   }
