@@ -3,6 +3,7 @@ import { CompetitionType } from "../Types/solve";
 import styles from "./AdvancedDashboard.module.css";
 import { addToken } from "../utils/credentials";
 import { url } from "@/globals";
+import Select from "react-select";
 
 function ResultsBtn({
   competition,
@@ -91,24 +92,36 @@ function CompSelect({
   setSelectedCompetition: (arg0: CompetitionType) => void;
   disabled: boolean;
 }) {
+  const competitionsAsOptions = competitions.map((competition) => ({
+    value: competition._id,
+    label: competition.name,
+  }));
   return (
-    <select
-      disabled={disabled}
-      className={styles["competition-select"]}
-      onChange={(e) =>
-        setSelectedCompetition(
-          competitions.find((c) => c._id === e.target.value)!,
-        )
-      }
-    >
-      {competitions.map((comp) => {
-        return (
-          <option value={comp._id} key={comp._id}>
-            {comp.name}
-          </option>
-        );
-      })}
-    </select>
+    <Select
+      isDisabled={disabled}
+      isLoading={disabled}
+      className="select-one"
+      options={competitionsAsOptions}
+      defaultValue={competitionsAsOptions[0]}
+      instanceId="prefix"
+    />
+    // <select
+    //   disabled={disabled}
+    //   className={styles["competition-select"]}
+    //   onChange={(e) =>
+    //     setSelectedCompetition(
+    //       competitions.find((c) => c._id === e.target.value)!,
+    //     )
+    //   }
+    // >
+    //   {competitions.map((comp) => {
+    //     return (
+    //       <option value={comp._id} key={comp._id}>
+    //         {comp.name}
+    //       </option>
+    //     );
+    //   })}
+    // </select>
   );
 }
 
