@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { User, Users } from "../Types/solve";
 import styles from "./AdvancedDashboard.module.css";
 import UserSelect from "./UserSelect";

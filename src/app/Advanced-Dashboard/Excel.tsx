@@ -104,24 +104,10 @@ function CompSelect({
       options={competitionsAsOptions}
       defaultValue={competitionsAsOptions[0]}
       instanceId="prefix"
+      onChange={(e) => {
+        setSelectedCompetition(competitions.find((c) => c._id === e!.value)!);
+      }}
     />
-    // <select
-    //   disabled={disabled}
-    //   className={styles["competition-select"]}
-    //   onChange={(e) =>
-    //     setSelectedCompetition(
-    //       competitions.find((c) => c._id === e.target.value)!,
-    //     )
-    //   }
-    // >
-    //   {competitions.map((comp) => {
-    //     return (
-    //       <option value={comp._id} key={comp._id}>
-    //         {comp.name}
-    //       </option>
-    //     );
-    //   })}
-    // </select>
   );
 }
 
