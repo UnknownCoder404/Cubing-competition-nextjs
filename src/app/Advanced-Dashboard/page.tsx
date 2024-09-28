@@ -1,5 +1,5 @@
 import { url } from "@/globals";
-import { CompetitionResultType, CompetitionType, Users } from "../Types/solve";
+import { CompetitionType, Users } from "../Types/solve";
 import AdvancedDashboard from "./AdvancedDashboard";
 
 export const dynamic = "force-dynamic";

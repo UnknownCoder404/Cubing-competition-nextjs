@@ -12,10 +12,7 @@ function ResultsBtn({ competition }: { competition: CompetitionType }) {
   useEffect(() => {
     setResults(undefined);
     const getResults = async () => {
-      const results = await getResultsForCompById(
-        competition._id,
-        competition.name,
-      );
+      const results = await getResultsForCompById(competition._id);
       setResults(results);
     };
     getResults();
@@ -41,7 +38,6 @@ function ResultsBtn({ competition }: { competition: CompetitionType }) {
 
 async function getFile(url: string): Promise<Blob> {
   if (!url) throw new Error("URL or fileName is not defined");
-  const anchor = document.createElement("a");
   const data = await fetch(url, {
     headers: addToken({}) || {},
   });
@@ -51,7 +47,7 @@ async function getFile(url: string): Promise<Blob> {
 
 const resultsCache: Record<string, Blob> = {}; // Cache object
 
-async function getResultsForCompById(id: string, compName: string) {
+async function getResultsForCompById(id: string) {
   // Check if the results are already cached
   if (resultsCache[id]) {
     return resultsCache[id];
