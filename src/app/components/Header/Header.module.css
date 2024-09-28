@@ -1,6 +1,6 @@
 /* Style the header */
 .header {
-  padding: 10px 16px;
+  padding: 5px 12px;
   background: rgb(24 24 24);
   color: #f1f1f1;
   display: grid;
@@ -66,29 +66,33 @@
 
 .title {
   display: inline-block;
-  font-size: 32px; /* Default for h1 */
+  min-height: 40px;
 }
 
 @media screen and (width <= 276px) {
   .title {
+    min-height: 30px;
     font-size: 30px;
   }
 }
 
 @media screen and (width <= 260px) {
   .title {
+    min-height: 28px;
     font-size: 28px;
   }
 }
 
 @media screen and (width <= 233px) {
   .title {
+    min-height: 26px;
     font-size: 26px;
   }
 }
 
 @media screen and (width <= 222px) {
   .title {
+    min-height: 24px;
     font-size: 24px;
   }
 }
