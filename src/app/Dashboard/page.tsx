@@ -2,6 +2,7 @@ import { url } from "@/globals";
 import UserDashboard from "./UserDashboard";
 import dashboardStyles from "./Dashboard.module.css";
 import { Users } from "../Types/solve";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Ensure no caching between requests
@@ -39,6 +40,17 @@ async function getCompetitions() {
     };
   }
 }
+function Buttons() {
+  return (
+    <nav>
+      <Link href="/Advanced-Dashboard">
+        <button className={dashboardStyles["advanced-dashboard-btn"]}>
+          Napredna radna ploča
+        </button>
+      </Link>
+    </nav>
+  );
+}
 export default async function Dashboard() {
   const [users, competitions] = await Promise.all([
     getUsers(),
@@ -53,14 +65,17 @@ export default async function Dashboard() {
   }
 
   return (
-    <div className={dashboardStyles["users"]}>
-      {users.parsed.map((user) => (
-        <UserDashboard
-          key={user._id}
-          user={user}
-          competitions={competitions.parsed}
-        />
-      ))}
-    </div>
+    <>
+      <Buttons />
+      <div className={dashboardStyles["users"]}>
+        {users.parsed.map((user) => (
+          <UserDashboard
+            key={user._id}
+            user={user}
+            competitions={competitions.parsed}
+          />
+        ))}
+      </div>
+    </>
   );
 }

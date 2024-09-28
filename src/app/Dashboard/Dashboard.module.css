@@ -182,4 +182,10 @@
 
 .advanced-dashboard-btn {
   width: 100%;
+  cursor: pointer;
+  background-color: royalblue;
+  padding: 3px;
+  border: none;
+  color: white;
+  margin: 10px 0;
 }
