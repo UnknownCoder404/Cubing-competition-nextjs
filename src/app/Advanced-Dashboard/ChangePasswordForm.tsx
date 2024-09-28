@@ -22,16 +22,17 @@ export function ChangePasswordForm({ users }: { users: Users }) {
 
     if (!passwordChange.success) {
       setMessage(
-        typeof passwordChange.error === "string"
-          ? passwordChange.error
-          : "Greška prilikom promjene lozinke.",
+        passwordChange.parsed.message ||
+          (typeof passwordChange.error === "string"
+            ? passwordChange.error
+            : "Greška prilikom promjene lozinke."),
       );
       setLoading(false);
       return;
     }
 
     setMessage(
-      passwordChange.parsed.error || "Lozinka je uspješno promijenjena.",
+      passwordChange.parsed.message || "Lozinka je uspješno promijenjena.",
     );
     setLoading(false);
     setPassword("");
