@@ -8,7 +8,7 @@ import { url } from "@/globals";
 
 function ResultsBtn({ competition }: { competition: CompetitionType }) {
   const [results, setResults] = useState<Blob | undefined>(undefined);
-
+  const resultsStyles = styles["results"];
   useEffect(() => {
     setResults(undefined);
     const getResults = async () => {
@@ -17,9 +17,10 @@ function ResultsBtn({ competition }: { competition: CompetitionType }) {
     };
     getResults();
   }, [competition]);
-  if (!results) return <button>Učitavanje...</button>;
+  if (!results) return <button className={resultsStyles}>Učitavanje...</button>;
   return (
     <button
+      className={resultsStyles}
       onClick={() => {
         const url = window.URL.createObjectURL(results);
 
@@ -75,6 +76,7 @@ function CompSelect({
 }) {
   return (
     <select
+      className={styles["competition-select"]}
       onChange={(e) =>
         setSelectedCompetition(
           competitions.find((c) => c._id === e.target.value)!,

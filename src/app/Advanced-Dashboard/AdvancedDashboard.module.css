@@ -32,6 +32,47 @@
   cursor: pointer;
 }
 
+.results {
+  padding: 5px 7px;
+  width: max(25%, fit-content);
+  min-width: 80px;
+  max-width: 150px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #66afe9; /* Blue button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s,
+    transform 0.3s var(--exponential);
+}
+
+.results:hover {
+  transform: scale(
+    1.05
+  ); /* Scale the element to 1.05 times its original size */
+  background-color: #559dd6;
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.results:focus {
+  outline: none;
+}
+.input {
+  min-width: 100px;
+  width: 20%;
+  padding: 5px 7px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: none;
+}
 @media screen and (max-width: 420px) {
   .options {
     grid-template-columns: 1fr;
