@@ -71,24 +71,28 @@
 
 @media screen and (width <= 276px) {
   .title {
+    min-height: 30px;
     font-size: 30px;
   }
 }
 
 @media screen and (width <= 260px) {
   .title {
+    min-height: 28px;
     font-size: 28px;
   }
 }
 
 @media screen and (width <= 233px) {
   .title {
+    min-height: 26px;
     font-size: 26px;
   }
 }
 
 @media screen and (width <= 222px) {
   .title {
+    min-height: 24px;
     font-size: 24px;
   }
 }
