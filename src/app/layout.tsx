@@ -14,6 +14,7 @@ const titleToShow: {
   "/Competitions": "Natjecanja",
   "/Scramble": "Vježbanje",
   "/Dashboard": "Radna ploča",
+  "/Advanced-Dashboard": "Radna ploča",
 };
 
 const roboto = Roboto({

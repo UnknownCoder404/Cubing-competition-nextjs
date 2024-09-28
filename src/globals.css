@@ -25,3 +25,8 @@ a {
 a:visited {
   color: var(--anchor-visited-color);
 }
+
+.select-one {
+  color: #333;
+  max-width: 300px;
+}

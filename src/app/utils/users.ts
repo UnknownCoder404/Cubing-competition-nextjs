@@ -155,3 +155,36 @@ export async function deleteSolve(
     };
   }
 }
+
+export async function changePasswordByUsername(
+  username: string,
+  newPassword: string,
+) {
+  try {
+    const body = {
+      username,
+      newPassword,
+    };
+    const request = {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: addToken({ "Content-Type": "application/json" }) || {},
+    };
+
+    const changePasswordUrl = new URL(url);
+    changePasswordUrl.pathname = "users/change-password";
+    const response = await fetch(changePasswordUrl, request);
+    const parsed = await response.json();
+    return {
+      parsed,
+      success: response.ok,
+      statusCode: response.status,
+      response,
+    };
+  } catch (error) {
+    return {
+      error,
+      success: false,
+    };
+  }
+}
