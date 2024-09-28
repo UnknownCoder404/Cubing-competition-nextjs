@@ -3,8 +3,9 @@ import headerStyles from "./Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import ClientLoginStatus from "./ClientLoginStatus";
+import ClientTitle from "./Title";
 
-export default function Header({ title }: { title: string }) {
+export default function Header() {
   return (
     <header className={headerStyles["header"]}>
       <div className={headerStyles["interaction-container"]}>
@@ -21,7 +22,7 @@ export default function Header({ title }: { title: string }) {
           </Link>
         </div>
         <div className={headerStyles["title-container"]}>
-          <h1 className={headerStyles["title"]}>{title}</h1>
+          <ClientTitle />
         </div>
       </div>
       <div className={headerStyles["account-container"]}>
