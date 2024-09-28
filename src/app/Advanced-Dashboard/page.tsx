@@ -1,5 +1,5 @@
 import { url } from "@/globals";
-import { CompetitionResultType, Users } from "../Types/solve";
+import { CompetitionResultType, CompetitionType, Users } from "../Types/solve";
 import AdvancedDashboard from "./AdvancedDashboard";
 
 export const dynamic = "force-dynamic";
@@ -32,7 +32,7 @@ async function getCompetitions(): Promise<
     }
   | {
       success: true;
-      parsed: CompetitionResultType[];
+      parsed: CompetitionType[];
     }
 > {
   try {
