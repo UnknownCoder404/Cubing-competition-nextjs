@@ -4,6 +4,11 @@ import AdvancedDashboard from "./AdvancedDashboard";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Ensure no caching between requests
+export const metadata = {
+  title: "Napredna radna ploča - Cro Cube Comp",
+  description:
+    "Rezultati za printanje, sigurnosne kopije baze podataka i mijenjanje lozinke.",
+};
 
 async function getUsers(): Promise<
   { success: false } | { parsed: Users; success: true; status: number }
