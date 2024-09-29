@@ -7,6 +7,7 @@ export const metadata = {
   description:
     "CroCubeComp je natjecanje Rubikove kocke u Hrvatskoj. Ova natjecanja prate WCA pravilnik.",
 };
+
 export default async function Home() {
   const posts = await getPosts();
 
