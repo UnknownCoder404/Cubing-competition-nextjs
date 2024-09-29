@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
 import { CompetitionType, User } from "@/app/Types/solve";
@@ -8,9 +8,11 @@ import { CompetitionType, User } from "@/app/Types/solve";
 function CompetitionSelect({
   setSelectedCompetition,
   competitions,
+  selectedCompetition,
 }: {
   setSelectedCompetition: (arg0: CompetitionType) => void;
   competitions: CompetitionType[];
+  selectedCompetition: CompetitionType | undefined;
 }) {
   if (!competitions) {
     return <p>Učitavanje...</p>;
@@ -18,11 +20,15 @@ function CompetitionSelect({
   return (
     <select
       className={dashboardStyles["select-comp"]}
+      value={selectedCompetition?._id || ""}
       onChange={(e) => {
-        setSelectedCompetition(
-          competitions.find((c) => {
-            return c._id === e.target.value;
-          })!,
+        const selectedComp = competitions.find(
+          (c) => c._id === e.target.value,
+        )!;
+        setSelectedCompetition(selectedComp);
+        sessionStorage.setItem(
+          "selectedCompetition",
+          JSON.stringify(selectedComp),
         );
       }}
     >
@@ -81,13 +87,26 @@ function CompetitionWindow({
 }) {
   const [selectedCompetition, setSelectedCompetition] = useState<
     CompetitionType | undefined
-  >(competitions[0]);
+  >(undefined);
+
+  useEffect(() => {
+    const rememberedCompetition = sessionStorage.getItem("selectedCompetition");
+
+    if (rememberedCompetition) {
+      setSelectedCompetition(JSON.parse(rememberedCompetition));
+    } else {
+      setSelectedCompetition(competitions[0]);
+    }
+  }, [competitions]);
+
+  if (!selectedCompetition) return <></>;
 
   return (
     <div className={dashboardStyles["comp"]}>
       <CompetitionSelect
         setSelectedCompetition={setSelectedCompetition}
         competitions={competitions}
+        selectedCompetition={selectedCompetition}
       />
       <CompResults user={user} selectedCompetition={selectedCompetition} />
     </div>
