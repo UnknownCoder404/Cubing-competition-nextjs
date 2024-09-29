@@ -6,7 +6,10 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Ensure no caching between requests
-
+export const metadata = {
+  title: "Radna ploča - Cro Cube Comp",
+  description: "Prikaz korisnika i njihovih natjecanja",
+};
 async function getUsers(): Promise<
   { success: false } | { parsed: Users; success: true; status: number }
 > {
