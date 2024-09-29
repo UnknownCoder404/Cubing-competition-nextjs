@@ -2,6 +2,11 @@ import { url } from "@/globals";
 import Competitions from "./Competitions";
 import { CompetitionResultsType } from "../Types/solve";
 
+export const metadata = {
+  title: "Rezultati - Cro Cube Comp",
+  description: "Rezultati za sva natjecanja",
+};
+
 async function getResults(): Promise<
   | { success: false }
   | { parsed: CompetitionResultsType; success: true; status: number }

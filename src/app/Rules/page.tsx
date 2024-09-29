@@ -1,5 +1,8 @@
 import rulesStyles from "./Rules.module.css";
-
+export const metadata = {
+  title: "Pravila - Cro Cube Comp",
+  description: "Pravila za Cro Cube Comp natjecanja",
+};
 export default function Rules() {
   return (
     <>
