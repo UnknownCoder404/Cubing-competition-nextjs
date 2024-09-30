@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
 import { CompetitionType, User } from "@/app/Types/solve";
-
+function saveSelectedCompetition(selectedCompetition: CompetitionType) {
+  sessionStorage.setItem(
+    "selectedCompetitionId",
+    JSON.stringify(selectedCompetition._id),
+  );
+}
 function CompetitionSelect({
   setSelectedCompetition,
   competitions,
@@ -26,10 +31,7 @@ function CompetitionSelect({
           (c) => c._id === e.target.value,
         )!;
         setSelectedCompetition(selectedComp);
-        sessionStorage.setItem(
-          "selectedCompetition",
-          JSON.stringify(selectedComp),
-        );
+        saveSelectedCompetition(selectedComp);
       }}
     >
       {competitions.map((competition: CompetitionType) => (
@@ -90,13 +92,19 @@ function CompetitionWindow({
   >(undefined);
 
   useEffect(() => {
-    const rememberedCompetition = sessionStorage.getItem("selectedCompetition");
+    const rememberedCompetitionId = sessionStorage.getItem(
+      "selectedCompetitionId",
+    );
 
-    if (rememberedCompetition) {
-      setSelectedCompetition(JSON.parse(rememberedCompetition));
-    } else {
-      setSelectedCompetition(competitions[0]);
+    if (rememberedCompetitionId) {
+      setSelectedCompetition(
+        competitions.find(
+          (c) => c._id === JSON.parse(rememberedCompetitionId),
+        ) || competitions[0],
+      );
+      return;
     }
+    setSelectedCompetition(competitions[0]);
   }, [competitions]);
 
   if (!selectedCompetition) return <></>;
