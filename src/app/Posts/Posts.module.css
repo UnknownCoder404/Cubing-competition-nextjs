@@ -1,0 +1,121 @@
+.form {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  padding-top: 5vh;
+  height: max(70vh, 100%);
+  row-gap: 5vh;
+}
+.form > div {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.infoinputs {
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.title {
+  width: 50vw;
+  height: 5vh;
+  transition: height 0.3s, width 0.3s var(--exponential);
+}
+.title:focus {
+  width: 70vw;
+}
+.description {
+  resize: none;
+  width: 70vw;
+  min-height: 10vh;
+  max-height: 30vh;
+  overflow-y: auto; /* Enable scrolling when max height is reached */
+  height: auto; /* Allows the height to adjust based on content */
+  transition: min-height 0.3s, width 0.3s var(--exponential);
+  transition-delay: 0.2s;
+}
+.description:focus {
+  min-height: 25vh;
+}
+.infoinputs:focus {
+  border: 2px solid #66afe9;
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: none;
+}
+.post-btn {
+  padding: 10px 12px;
+  width: 50vw;
+  font-size: 18px;
+  color: #fff;
+  background-color: #66afe9; /* Blue button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s,
+    transform 0.3s var(--exponential);
+}
+.post-btn:hover {
+  transform: scale(1.05);
+  background-color: #559dd6;
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.post-btn:focus {
+  outline: none;
+}
+.style-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.style-text-btn {
+  width: 9vw;
+  min-width: 30px;
+  max-width: 40px;
+  height: 30px;
+  border: 0;
+  padding: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.posts {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+  padding: 5px;
+}
+.post {
+  padding: 10px;
+  background-color: var(--post-background-color);
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.175);
+}
+.post-title,
+.post-author-p {
+  margin: 0;
+  padding: 0;
+}
+.post-author {
+  font-weight: 700;
+}
+.post-btns-container {
+  display: flex;
+  column-gap: 10px;
+}
+.delete-post-btn,
+.edit-post-btn {
+  background-color: white;
+  box-shadow: 1px 2px 1px rgba(255, 255, 255, 0.5); /* horizontal offset, vertical offset, blur radius, color */
+  border-radius: 2px;
+  border: none;
+  transition: border-radius 0.3s var(--exponential);
+}
+.delete-post-btn:hover,
+.edit-post-btn:hover {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.886);
+}
