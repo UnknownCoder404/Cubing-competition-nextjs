@@ -1,14 +1,15 @@
+import React, { forwardRef, RefObject } from "react";
 import postsStyles from "@/app/Posts/Posts.module.css";
 
-export default function TitleInput({
-  setValue,
-  value,
-}: {
-  setValue: (arg0: string) => void;
+interface TitleInputProps {
+  setValue: (value: string) => void;
   value: string;
-}) {
-  return (
+}
+
+const TitleInput = forwardRef<HTMLInputElement, TitleInputProps>(
+  ({ setValue, value }, ref) => (
     <input
+      ref={ref}
       onChange={(e) => setValue(e.target.value)}
       value={value}
       maxLength={16}
@@ -16,5 +17,7 @@ export default function TitleInput({
       className={`${postsStyles["title"]} ${postsStyles["infoinputs"]}`}
       placeholder="Naslov"
     />
-  );
-}
+  ),
+);
+
+export default TitleInput;
