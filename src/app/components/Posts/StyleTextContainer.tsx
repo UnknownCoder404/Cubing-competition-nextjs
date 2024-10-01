@@ -70,7 +70,7 @@ export default function StyleTextContainer({
     const inputElement = ref.current;
     const start = inputElement.selectionStart || 0;
     const end = inputElement.selectionEnd || 0;
-    const selectedText = inputElement.value.substring(start, end);
+    // const selectedText = inputElement.value.substring(start, end);
 
     const formattedText = formatFn(inputElement.value, start, end);
     inputElement.value = formattedText;

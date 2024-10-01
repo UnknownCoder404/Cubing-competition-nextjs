@@ -1,4 +1,4 @@
-import React, { forwardRef, RefObject } from "react";
+import React, { forwardRef } from "react";
 import postsStyles from "@/app/Posts/Posts.module.css";
 
 interface TitleInputProps {
@@ -19,5 +19,9 @@ const TitleInput = forwardRef<HTMLInputElement, TitleInputProps>(
     />
   ),
 );
+
+// Add displayName property to fix eslint error
+
+TitleInput.displayName = "TitleInput";
 
 export default TitleInput;

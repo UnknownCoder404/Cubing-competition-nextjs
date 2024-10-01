@@ -1,4 +1,4 @@
-import React, { forwardRef, RefObject } from "react";
+import React, { forwardRef } from "react";
 import postsStyles from "@/app/Posts/Posts.module.css";
 
 interface DescriptionAreaProps {
@@ -18,5 +18,8 @@ const DescriptionArea = forwardRef<HTMLTextAreaElement, DescriptionAreaProps>(
     />
   ),
 );
+
+// Add displayName property to fix eslint error
+DescriptionArea.displayName = "DescriptionArea";
 
 export default DescriptionArea;
