@@ -32,6 +32,17 @@ export default function RoundResults({
   round: Result[];
   show: boolean;
 }) {
+  if (round.length === 0) {
+    return (
+      <div
+        className={`${CompetitionStyles["round-results"]} ${
+          !show ? CompetitionStyles["hidden"] : ""
+        }`}
+      >
+        <p>Nema rezultata za ovu rundu.</p>
+      </div>
+    );
+  }
   return (
     <div
       className={`${CompetitionStyles["round-results"]} ${
