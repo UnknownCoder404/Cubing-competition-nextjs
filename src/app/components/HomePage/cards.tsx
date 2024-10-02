@@ -100,7 +100,7 @@ const cardData: () => CardProp[] = () => [
     description: (
       <p>
         Ti si administrator! Oni mogu objaviti bilo što! Klikni{" "}
-        <Link href="/posts">ovdje</Link>da objaviš nešto.
+        <Link href="/Posts">ovdje</Link> da objaviš nešto.
       </p>
     ),
     shouldRender: () => {
