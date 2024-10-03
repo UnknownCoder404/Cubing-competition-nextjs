@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import getPosts from "../utils/getPosts";
+import { getPosts } from "../utils/posts";
 import PostsPage from "./PostsPage";
 
 export const metadata: Metadata = {
@@ -8,10 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Posts() {
-  const posts = await getPosts();
-  return (
-    <>
-      <PostsPage posts={posts} />
-    </>
-  );
+  const posts = (await getPosts()).parsed;
+
+  return <PostsPage posts={posts} />;
 }

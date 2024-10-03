@@ -8,12 +8,17 @@ type Props = {
 };
 
 function PostBtns({ post }: { post: PostType }) {
+  async function deleteThisPost() {}
+  async function editThisPost() {}
   return (
     <div className={postsStyles["post-btns-container"]}>
-      <button className={postsStyles["delete-post-btn"]}>
+      <button
+        onClick={deleteThisPost}
+        className={postsStyles["delete-post-btn"]}
+      >
         <Image src={deleteIcon} alt="delete" width={24} height={24} />
       </button>
-      <button className={postsStyles["edit-post-btn"]}>
+      <button onClick={editThisPost} className={postsStyles["edit-post-btn"]}>
         <Image src={editIcon} alt="edit" width={24} height={24} />
       </button>
     </div>

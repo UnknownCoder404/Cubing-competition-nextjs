@@ -1,5 +1,5 @@
 import Cards from "./components/HomePage/cards";
-import getPosts from "./utils/getPosts";
+import { getPosts } from "./utils/posts";
 import "@/globals.css";
 
 export const metadata = {
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const posts = await getPosts();
+  const posts = (await getPosts()).parsed;
 
   return <Cards posts={posts} />;
 }

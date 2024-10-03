@@ -141,7 +141,7 @@ export type PostProp = {
     username: string;
     id: string;
   };
-  createdAt: Date;
+  createdAt: string;
 };
 
 type CardsProps = { posts: PostProp[] };
