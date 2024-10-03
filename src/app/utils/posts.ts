@@ -25,7 +25,9 @@ export async function getPosts(): Promise<{
 }
 
 export async function deletePost(id: string): Promise<{
-  parsed: any;
+  parsed: {
+    message?: string;
+  };
   response: Response;
   statusCode: number;
   success: boolean;
