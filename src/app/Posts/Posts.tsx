@@ -1,8 +1,24 @@
+import Image from "next/image";
 import { Posts, Post as PostType } from "../Types/posts";
 import postsStyles from "./Posts.module.css";
+import deleteIcon from "@/app/public/delete.svg";
+import editIcon from "@/app/public/edit.svg";
 type Props = {
   posts: Posts;
 };
+
+function PostBtns({ post }: { post: PostType }) {
+  return (
+    <div className={postsStyles["post-btns-container"]}>
+      <button className={postsStyles["delete-post-btn"]}>
+        <Image src={deleteIcon} alt="delete" width={24} height={24} />
+      </button>
+      <button className={postsStyles["edit-post-btn"]}>
+        <Image src={editIcon} alt="edit" width={24} height={24} />
+      </button>
+    </div>
+  );
+}
 
 function Post({ post }: { post: PostType }) {
   return (
@@ -21,7 +37,7 @@ function Post({ post }: { post: PostType }) {
           Objavio {post.author.username}
         </p>
       </div>
-      <div className={postsStyles["post-btns-container"]}></div>
+      <PostBtns post={post} />
     </div>
   );
 }
