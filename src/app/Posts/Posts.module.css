@@ -103,14 +103,20 @@
 }
 .delete-post-btn,
 .edit-post-btn {
+  cursor: pointer;
   background-color: white;
-  box-shadow: 1px 2px 1px rgba(255, 255, 255, 0.5); /* horizontal offset, vertical offset, blur radius, color */
   border-radius: 2px;
   border: none;
-  transition: border-radius 0.3s var(--exponential);
+  transition: border-radius 0.3s var(--exponential), background-color 0.3s;
 }
 .delete-post-btn:hover,
 .edit-post-btn:hover {
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.886);
+  border-radius: 5px;
+}
+
+.delete-post-btn:hover {
+  background-color: rgb(232, 77, 77);
+}
+.edit-post-btn:hover {
+  background-color: rgb(87, 220, 80);
 }
