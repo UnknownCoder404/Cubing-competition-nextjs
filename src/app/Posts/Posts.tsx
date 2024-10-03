@@ -3,12 +3,22 @@ import { Posts, Post as PostType } from "../Types/posts";
 import postsStyles from "./Posts.module.css";
 import deleteIcon from "@/app/public/delete.svg";
 import editIcon from "@/app/public/edit.svg";
+import { deletePost } from "../utils/posts";
+import { useRouter } from "next/navigation";
 type Props = {
   posts: Posts;
 };
 
 function PostBtns({ post }: { post: PostType }) {
-  async function deleteThisPost() {}
+  const router = useRouter();
+  async function deleteThisPost() {
+    const postDeletion = await deletePost(post.id);
+
+    if (!postDeletion.success) {
+      alert(postDeletion.parsed.message || "Greška prilikom brisanje objave.");
+    }
+    router.refresh();
+  }
   async function editThisPost() {}
   return (
     <div className={postsStyles["post-btns-container"]}>

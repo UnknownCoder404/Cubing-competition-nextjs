@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: "Upravljaj objavama na Cro Cube Comp stranici.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Posts() {
   const posts = (await getPosts()).parsed;
 
