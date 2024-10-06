@@ -1,8 +1,8 @@
 "use client";
 import CompetitionStyles from "./Competitions.module.css";
 import { Result } from "../Types/solve";
-import { useEffect, useRef, useState } from "react";
 import { formatTime } from "../utils/solveTime";
+import { motion } from "framer-motion";
 
 export default function RoundResults({
   round,
@@ -11,40 +11,17 @@ export default function RoundResults({
   round: Result[];
   show: boolean;
 }) {
-  const [height, setHeight] = useState<number | "auto">(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const roundResultsElement = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!roundResultsElement.current) return;
-    setIsTransitioning(true);
-    const fullHeight = roundResultsElement.current.scrollHeight;
-
-    if (show) {
-      // Expand
-      setHeight(fullHeight);
-      handleTransitionEnd();
-      return;
-    }
-    // Collapse
-    setHeight(0);
-    handleTransitionEnd();
-
-    function handleTransitionEnd() {
-      setTimeout(() => setIsTransitioning(false), 350);
-    }
-  }, [show]);
-
   return (
-    <div
-      className={`${CompetitionStyles["round-results"]} ${
-        !isTransitioning && !show ? CompetitionStyles["hidden"] : ""
-      }`}
-      ref={roundResultsElement}
-      style={{
-        height: height === "auto" ? "auto" : `${height}px`,
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: show ? 1 : 0,
+        height: show ? "auto" : 0,
+        transition: { duration: 0.3, ease: "easeIn" },
       }}
-      onTransitionEnd={() => console.log("transition ended")}
+      className={`${CompetitionStyles["round-results"]} ${
+        !show ? CompetitionStyles["hidden"] : ""
+      }`}
     >
       {round.length === 0 ? (
         <p>Nema rezultata za ovu rundu.</p>
@@ -61,6 +38,6 @@ export default function RoundResults({
           );
         })
       )}
-    </div>
+    </motion.div>
   );
 }

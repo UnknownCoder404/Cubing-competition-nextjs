@@ -56,7 +56,6 @@ export default function Group({
           opacity: areGroupResultsShown ? 1 : 0,
         }}
         transition={{ duration: 0.3, ease: "easeIn" }} // You can customize this
-        style={{ overflow: "hidden" }} // Ensure the content doesn't overflow when hidden
       >
         {group.map((round, index) => {
           return (

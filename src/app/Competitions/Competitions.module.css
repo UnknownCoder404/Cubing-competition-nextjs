@@ -41,7 +41,6 @@
 
 .group-results.hidden {
   display: none;
-  height: 0;
 }
 
 .group-title {
@@ -73,10 +72,6 @@
   padding: 0.2rem;
   border: 3px solid rgb(181, 150, 150);
   border-radius: 0.5rem;
-}
-
-.round-results.hidden {
-  display: none;
 }
 
 /* Show/Hide Button */
