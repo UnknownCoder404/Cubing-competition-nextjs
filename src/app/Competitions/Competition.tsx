@@ -13,7 +13,13 @@ function CompetitionName({ name }: { name: string }) {
 }
 
 function CompetitionDate({ date }: { date: string }) {
-  const dateInLocalString = new Date(date).toLocaleString();
+  const dateInLocalString = new Date(date).toLocaleString([], {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   return (
     <>
       <p className={CompetitionStyles["comp-date-p"]}>{dateInLocalString}</p>
