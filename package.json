@@ -11,9 +11,8 @@
     "prepare": "pnpm run format && pnpm run lint"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.56.2",
-    "@types/dompurify": "^3.0.5",
     "dompurify": "^3.1.6",
+    "framer-motion": "^11.11.1",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",
@@ -25,6 +24,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/dompurify": "^3.0.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
     "markdownlint-cli": "^0.41.0",
