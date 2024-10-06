@@ -36,7 +36,12 @@ export default function Group({
   const groupIndex = groupNumber - 1;
 
   return (
-    <div className={CompetitionStyles["group"]} id={`group-${groupIndex}`}>
+    <div
+      className={`${CompetitionStyles["group"]} ${
+        areGroupResultsShown ? "" : CompetitionStyles["no-gap"]
+      }`} // Apply the no-gap class when group results are hidden
+      id={`group-${groupIndex}`}
+    >
       <div className={CompetitionStyles["group-title-container"]}>
         <h4 className={CompetitionStyles["group-title"]}>
           Grupa {groupNumber}
@@ -47,15 +52,18 @@ export default function Group({
         />
       </div>
 
-      {/* Use motion.div for animating height */}
+      {/* Animate height and add padding/margin collapse */}
       <motion.div
         className={`${CompetitionStyles["group-results"]}`}
-        initial={{ height: 0, opacity: 0 }}
+        initial={{ height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 }}
         animate={{
           height: areGroupResultsShown ? "auto" : 0,
           opacity: areGroupResultsShown ? 1 : 0,
+          paddingTop: areGroupResultsShown ? "1rem" : 0, // Adjust based on your styles
+          paddingBottom: areGroupResultsShown ? "1rem" : 0, // Adjust based on your styles
         }}
-        transition={{ duration: 0.3, ease: "easeIn" }} // You can customize this
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        style={{ overflow: "hidden" }} // Ensure the content doesn't overflow when hidden
       >
         {group.map((round, index) => {
           return (

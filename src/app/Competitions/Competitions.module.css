@@ -18,6 +18,11 @@
   padding: 1rem;
   outline: 2px solid rgba(158, 154, 154, 0.294);
   border-radius: 0.5rem;
+  transition: row-gap 0.3s ease-in;
+}
+/* No gap class */
+.no-gap {
+  row-gap: 0; /* Remove row gap when group results are hidden */
 }
 
 .group-title-container {
@@ -37,6 +42,7 @@
   flex-direction: column;
   padding: 1rem;
   row-gap: 1rem;
+  overflow: hidden;
 }
 
 .group-results.hidden {
