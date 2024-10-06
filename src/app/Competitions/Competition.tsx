@@ -13,7 +13,7 @@ function CompetitionName({ name }: { name: string }) {
 }
 
 function CompetitionDate({ date }: { date: string }) {
-  const dateInLocalString = new Date(date).toLocaleString([], {
+  const dateInLocalString = new Date(date).toLocaleString(["hr-HR"], {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
