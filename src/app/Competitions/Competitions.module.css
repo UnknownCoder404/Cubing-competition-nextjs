@@ -24,12 +24,9 @@
   padding: 1rem;
   row-gap: 1rem;
   overflow: hidden;
-  transition: height 0.3s ease-in, padding 0.3s var(--exponential); /* Animate both height and padding */
-}
-
-.group-results.hidden {
-  height: 0;
-  padding: 0; /* Collapse padding */
+  transition:
+    height 0.3s ease-in,
+    padding 0.3s;
 }
 
 .groups {

@@ -14,17 +14,24 @@ const calculateHeight = (
 ) => {
   if (!container) return;
   const fullHeight = container.scrollHeight;
-
+  setTransitioning(true);
   if (isVisible) {
+    // Expand
     setHeight(fullHeight);
     setTimeout(() => {
       setHeight("auto");
       setTransitioning(false);
-    }, 300);
+    }, 350);
   } else {
-    setTransitioning(true);
+    // Collapse
     setHeight(fullHeight);
-    setTimeout(() => setHeight(0), 10);
+    setTimeout(() => {
+      setHeight(0);
+      handleTransitionEnd();
+    }, 10);
+  }
+  function handleTransitionEnd() {
+    setTimeout(() => setTransitioning(false), 350);
   }
 };
 
@@ -33,14 +40,17 @@ const GroupHeader = ({
   groupNumber,
   areGroupResultsShown,
   toggleGroupResultsVisibility,
+  isTransitioning,
 }: {
   groupNumber: number;
   areGroupResultsShown: boolean;
   toggleGroupResultsVisibility: () => void;
+  isTransitioning: boolean;
 }) => (
   <div className={CompetitionStyles["group-title-container"]}>
     <h4 className={CompetitionStyles["group-title"]}>Grupa {groupNumber}</h4>
     <ShowAndHide
+      isTransitioning={isTransitioning}
       show={areGroupResultsShown}
       toggleVisibility={toggleGroupResultsVisibility}
     />
@@ -75,8 +85,6 @@ const GroupResults = ({
           ? `${groupResultsHeight}px`
           : "auto",
       padding: areGroupResultsShown ? "1rem" : "0",
-      transition: "height 0.3s ease-in, padding 0.3s ease-in",
-      overflow: "hidden",
     }}
     ref={resultsContainerRef}
   >
@@ -135,6 +143,7 @@ export default function Group({
         groupNumber={groupNumber}
         areGroupResultsShown={areGroupResultsShown}
         toggleGroupResultsVisibility={toggleGroupResultsVisibility}
+        isTransitioning={isTransitioning}
       />
       <GroupResults
         group={group}
