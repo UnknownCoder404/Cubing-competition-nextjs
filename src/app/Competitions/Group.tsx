@@ -50,7 +50,7 @@ const GroupHeader = ({
   <div className={CompetitionStyles["group-title-container"]}>
     <h4 className={CompetitionStyles["group-title"]}>Grupa {groupNumber}</h4>
     <ShowAndHide
-      isTransitioning={isTransitioning}
+      disabled={isTransitioning}
       show={areGroupResultsShown}
       toggleVisibility={toggleGroupResultsVisibility}
     />

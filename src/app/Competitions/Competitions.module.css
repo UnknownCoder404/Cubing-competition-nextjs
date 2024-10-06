@@ -24,9 +24,7 @@
   padding: 1rem;
   row-gap: 1rem;
   overflow: hidden;
-  transition:
-    height 0.3s ease-in,
-    padding 0.3s;
+  transition: height 0.3s ease-in, padding 0.3s;
 }
 
 .groups {
@@ -74,10 +72,16 @@
   padding: 0.2rem;
   border: 3px solid rgb(181 150 150);
   border-radius: 0.5rem;
+  overflow: hidden;
+
+  transition: height 0.3s ease-in, padding 0.3s;
 }
 
 .round-results.hidden {
-  display: none;
+  padding: 0;
+  border: none;
+  margin: 0;
+  height: 0;
 }
 
 .show-hide {
