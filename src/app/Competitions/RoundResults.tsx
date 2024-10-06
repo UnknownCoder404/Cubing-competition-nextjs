@@ -20,7 +20,7 @@ export default function RoundResults({
         transition: { duration: 0.3, ease: "easeIn" },
       }}
       className={`${CompetitionStyles["round-results"]} ${
-        !show ? CompetitionStyles["hidden"] : ""
+        show ? "" : CompetitionStyles["hidden"]
       }`}
     >
       {round.length === 0 ? (
