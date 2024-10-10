@@ -6,14 +6,17 @@ import CompetitionStyles from "../../Competitions/Competitions.module.css";
 export default function ShowAndHide({
   show,
   toggleVisibility,
+  disabled,
 }: {
   show: boolean;
   toggleVisibility: () => void;
+  disabled?: boolean;
 }) {
   return (
     <button
       className={CompetitionStyles["show-hide"]}
       onClick={toggleVisibility}
+      disabled={disabled}
     >
       <Image
         src={show ? showImg : hideImg}
