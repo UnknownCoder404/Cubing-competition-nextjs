@@ -13,7 +13,7 @@ export default function RoundResults({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 0, height: 0 }}
       animate={{
         opacity: show ? 1 : 0,
         height: show ? "auto" : 0,
