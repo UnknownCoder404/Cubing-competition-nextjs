@@ -62,7 +62,7 @@ export default function Group({
           paddingTop: areGroupResultsShown ? "1rem" : 0, // Adjust based on your styles
           paddingBottom: areGroupResultsShown ? "1rem" : 0, // Adjust based on your styles
         }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{ overflow: "hidden" }} // Ensure the content doesn't overflow when hidden
       >
         {group.map((round, index) => {

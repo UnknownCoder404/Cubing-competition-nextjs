@@ -6,7 +6,7 @@ import CompetitionStyles from "./Competitions.module.css";
 
 function CompetitionName({ name }: { name: string }) {
   return (
-    <h2 className={CompetitionStyles["comp-name-h2"]}>
+    <h2 className={CompetitionStyles["comp-name"]}>
       {name ? name : "Ime natjecanja nije dostupno"}
     </h2>
   );
@@ -22,7 +22,7 @@ function CompetitionDate({ date }: { date: string }) {
   });
   return (
     <>
-      <p className={CompetitionStyles["comp-date-p"]}>{dateInLocalString}</p>
+      <p className={CompetitionStyles["comp-date"]}>{dateInLocalString}</p>
     </>
   );
 }

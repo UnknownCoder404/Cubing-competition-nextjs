@@ -1,4 +1,9 @@
-/* General Padding */
+.comp-name {
+  font-size: 1.5rem;
+}
+.comp-date {
+  font-size: 1.1rem;
+}
 .comp-info,
 .event-name {
   padding-left: 1rem;
@@ -84,6 +89,16 @@
 .round-results:not(.hidden) {
   margin-bottom: 1rem;
   margin-top: 0.5rem;
+}
+
+.solver {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 400px) {
+  .solver {
+    font-size: 0.9rem;
+  }
 }
 
 /* Show/Hide Button */
