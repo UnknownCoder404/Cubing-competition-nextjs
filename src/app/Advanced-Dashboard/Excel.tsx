@@ -29,17 +29,17 @@ const getResultsForCompById = async (id: string): Promise<Blob> => {
 };
 
 function ResultsBtn({ competition, setLoading }: ResultsBtnProps) {
-  const {
-    data: results,
-    isLoading,
-    error,
-  } = useQuery(
-    ["results", competition?._id],
-    () => getResultsForCompById(competition?._id!),
+  const competitionId = competition?._id || "placeholder_id";
+
+  const resultsQuery = useQuery(
+    ["results", competitionId],
+    () => getResultsForCompById(competitionId),
     {
-      enabled: !!competition,
+      enabled: !!competition?._id,
     },
   );
+
+  const { data: results, isLoading, error } = resultsQuery;
   const resultsStyles = styles["results"];
 
   useEffect(() => {
