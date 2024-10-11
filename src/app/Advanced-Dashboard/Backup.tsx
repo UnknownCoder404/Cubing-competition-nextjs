@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { addToken } from "../utils/credentials";
 import styles from "./AdvancedDashboard.module.css";
 import { url } from "@/globals";
+import { useQuery, useQueryClient } from "react-query";
 
 async function getFile(url: string): Promise<Blob> {
   if (!url) throw new Error("URL or fileName is not defined");
@@ -15,22 +16,33 @@ async function getFile(url: string): Promise<Blob> {
 }
 
 export default function Backup() {
-  const [backup, setBackup] = useState<Blob | undefined>(undefined);
-  useEffect(() => {
-    const getAndSetBackup = async () => {
+  const queryClient = useQueryClient();
+
+  const {
+    data: backup,
+    isLoading,
+    refetch,
+  } = useQuery(
+    ["backup"],
+    async () => {
       const backupUrl = new URL(url);
       backupUrl.pathname = "backup";
-      const backup = await getFile(backupUrl.toString());
-      setBackup(backup);
-    };
-    getAndSetBackup();
+      return await getFile(backupUrl.toString());
+    },
+    { enabled: false },
+  );
+
+  useEffect(() => {
+    refetch();
   }, []);
+
   return (
     <div className={styles["backups-container"]}>
       <h2>Sigurnosna kopija</h2>
       <button
         onClick={() => {
-          const url = window.URL.createObjectURL(backup!);
+          if (!backup) return;
+          const url = window.URL.createObjectURL(backup);
 
           const a = document.createElement("a");
           a.href = url;
@@ -39,10 +51,10 @@ export default function Backup() {
           document.body.appendChild(a);
           a.click();
         }}
-        disabled={!backup}
+        disabled={isLoading}
         className={styles["backup-btn"]}
       >
-        {backup ? "Sigurnosna kopija" : "Učitavanje..."}
+        {isLoading ? "Učitavanje..." : "Sigurnosna kopija"}
       </button>
     </div>
   );
