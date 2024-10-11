@@ -9,6 +9,7 @@ import Select from "react-select";
 type ResultsBtnProps = {
   competition: CompetitionType | undefined;
   setLoading: (arg0: boolean) => void;
+  setError: (arg0: boolean) => void;
 };
 
 type CompSelectProps = {
@@ -25,10 +26,13 @@ const getResultsForCompById = async (id: string): Promise<Blob> => {
   const data = await fetch(resultsUrl.toString(), {
     headers: addToken({}) || {},
   });
+  if (!data.ok) {
+    throw new Error("Error fetching results");
+  }
   return data.blob();
 };
 
-function ResultsBtn({ competition, setLoading }: ResultsBtnProps) {
+function ResultsBtn({ competition, setLoading, setError }: ResultsBtnProps) {
   const competitionId = competition?._id || "";
 
   const resultsQuery = useQuery(
@@ -49,9 +53,7 @@ function ResultsBtn({ competition, setLoading }: ResultsBtnProps) {
   if (!competition) return null;
   if (isLoading)
     return <button className={resultsStyles}>Učitavanje...</button>;
-  if (error)
-    return <button className={resultsStyles}>Greška pri učitavanju</button>;
-
+  if (error) setError(true);
   return (
     <button
       className={resultsStyles}
@@ -104,16 +106,26 @@ export default function Excel({
     CompetitionType | undefined
   >(competitions[0]);
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [error, setError] = useState<boolean>(false);
   return (
     <div className={styles["excel-options-container"]}>
       <h2>Excel</h2>
-      <CompSelect
-        competitions={competitions}
-        setSelectedCompetition={setSelectedCompetition}
-        disabled={loading}
-      />
-      <ResultsBtn setLoading={setLoading} competition={selectedCompetition} />
+      {error ? (
+        <p>Greška prilikom učitavanja</p>
+      ) : (
+        <>
+          <CompSelect
+            competitions={competitions}
+            setSelectedCompetition={setSelectedCompetition}
+            disabled={loading}
+          />
+          <ResultsBtn
+            setLoading={setLoading}
+            competition={selectedCompetition}
+            setError={setError}
+          />
+        </>
+      )}
     </div>
   );
 }
