@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Result } from "../Types/solve";
+import { motion } from "framer-motion";
 
 import CompetitionStyles from "./Competitions.module.css";
 import Round from "./Round";
@@ -35,7 +36,12 @@ export default function Group({
   const groupIndex = groupNumber - 1;
 
   return (
-    <div className={CompetitionStyles["group"]} id={`group-${groupIndex}`}>
+    <div
+      className={`${CompetitionStyles["group"]} ${
+        areGroupResultsShown ? "" : CompetitionStyles["no-gap"]
+      }`} // Apply the no-gap class when group results are hidden
+      id={`group-${groupIndex}`}
+    >
       <div className={CompetitionStyles["group-title-container"]}>
         <h4 className={CompetitionStyles["group-title"]}>
           Grupa {groupNumber}
@@ -45,10 +51,19 @@ export default function Group({
           toggleVisibility={toggleGroupResultsVisibility}
         />
       </div>
-      <div
-        className={`${CompetitionStyles["group-results"]} ${
-          areGroupResultsShown ? "" : CompetitionStyles["hidden"]
-        }`}
+
+      {/* Animate height and add padding/margin collapse */}
+      <motion.div
+        className={`${CompetitionStyles["group-results"]}`}
+        initial={{ height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 }}
+        animate={{
+          height: areGroupResultsShown ? "auto" : 0,
+          opacity: areGroupResultsShown ? 1 : 0,
+          paddingTop: areGroupResultsShown ? "1rem" : 0, // Adjust based on your styles
+          paddingBottom: areGroupResultsShown ? "1rem" : 0, // Adjust based on your styles
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        style={{ overflow: "hidden" }} // Ensure the content doesn't overflow when hidden
       >
         {group.map((round, index) => {
           return (
@@ -61,7 +76,7 @@ export default function Group({
             />
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }

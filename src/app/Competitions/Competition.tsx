@@ -6,17 +6,23 @@ import CompetitionStyles from "./Competitions.module.css";
 
 function CompetitionName({ name }: { name: string }) {
   return (
-    <h2 className={CompetitionStyles["comp-name-h2"]}>
+    <h2 className={CompetitionStyles["comp-name"]}>
       {name ? name : "Ime natjecanja nije dostupno"}
     </h2>
   );
 }
 
 function CompetitionDate({ date }: { date: string }) {
-  const dateInLocalString = new Date(date).toLocaleString();
+  const dateInLocalString = new Date(date).toLocaleString(["hr-HR"], {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   return (
     <>
-      <p className={CompetitionStyles["comp-date-p"]}>{dateInLocalString}</p>
+      <p className={CompetitionStyles["comp-date"]}>{dateInLocalString}</p>
     </>
   );
 }
