@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { addToken } from "../utils/credentials";
 import styles from "./AdvancedDashboard.module.css";
 import { url } from "@/globals";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 async function getFile(url: string): Promise<Blob> {
   if (!url) throw new Error("URL or fileName is not defined");
@@ -16,8 +16,6 @@ async function getFile(url: string): Promise<Blob> {
 }
 
 export default function Backup() {
-  const queryClient = useQueryClient();
-
   const {
     data: backup,
     isLoading,
@@ -34,7 +32,7 @@ export default function Backup() {
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
 
   return (
     <div className={styles["backups-container"]}>
