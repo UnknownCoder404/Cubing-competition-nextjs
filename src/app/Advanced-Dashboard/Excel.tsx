@@ -1,45 +1,63 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { CompetitionType } from "../Types/solve";
 import styles from "./AdvancedDashboard.module.css";
 import { addToken } from "../utils/credentials";
 import { url } from "@/globals";
 import Select from "react-select";
 
-function ResultsBtn({
-  competition,
-  setLoading,
-}: {
+type ResultsBtnProps = {
   competition: CompetitionType | undefined;
   setLoading: (arg0: boolean) => void;
-}) {
-  // Ensure useState is always called unconditionally
-  const [results, setResults] = useState<Blob | undefined>(undefined);
+};
+
+type CompSelectProps = {
+  competitions: CompetitionType[];
+  setSelectedCompetition: (arg0: CompetitionType) => void;
+  disabled: boolean;
+};
+
+const getResultsForCompById = async (id: string): Promise<Blob> => {
+  const resultsUrl = new URL(url);
+  resultsUrl.pathname = "results";
+  resultsUrl.searchParams.set("competitionId", id);
+
+  const data = await fetch(resultsUrl.toString(), {
+    headers: addToken({}) || {},
+  });
+  return data.blob();
+};
+
+function ResultsBtn({ competition, setLoading }: ResultsBtnProps) {
+  const {
+    data: results,
+    isLoading,
+    error,
+  } = useQuery(
+    ["results", competition?._id],
+    () => getResultsForCompById(competition?._id!),
+    {
+      enabled: !!competition,
+    },
+  );
   const resultsStyles = styles["results"];
 
   useEffect(() => {
-    if (!competition) return; // Avoid unnecessary fetch if no competition is selected
+    setLoading(isLoading);
+  }, [isLoading, setLoading]);
 
-    const getResults = async () => {
-      setResults(undefined);
-      setLoading(true);
-      const results = await getResultsForCompById(competition._id);
-      setResults(results);
-      setLoading(false);
-    };
-
-    getResults();
-  }, [competition, setLoading]);
-
-  // Conditional rendering based on results state
   if (!competition) return null;
-  if (!results) return <button className={resultsStyles}>Učitavanje...</button>;
+  if (isLoading)
+    return <button className={resultsStyles}>Učitavanje...</button>;
+  if (error)
+    return <button className={resultsStyles}>Greška pri učitavanju</button>;
 
   return (
     <button
       className={resultsStyles}
       onClick={() => {
+        if (!results) return;
         const url = window.URL.createObjectURL(results);
-
         const a = document.createElement("a");
         a.href = url;
         a.download = `${competition.name} - Rezultati.xlsx`;
@@ -53,45 +71,11 @@ function ResultsBtn({
   );
 }
 
-async function getFile(url: string): Promise<Blob> {
-  if (!url) throw new Error("URL or fileName is not defined");
-  const data = await fetch(url, {
-    headers: addToken({}) || {},
-  });
-  const blob = await data.blob();
-  return blob;
-}
-
-const resultsCache: Record<string, Blob> = {}; // Cache object
-
-async function getResultsForCompById(id: string) {
-  // Check if the results are already cached
-  if (resultsCache[id]) {
-    return resultsCache[id];
-  }
-
-  // If not cached, fetch the results
-  const resultsUrl = new URL(url);
-  resultsUrl.pathname = "results";
-  resultsUrl.searchParams.set("competitionId", id);
-
-  const file = await getFile(resultsUrl.toString());
-
-  // Store the fetched results in the cache
-  resultsCache[id] = file;
-
-  return file;
-}
-
 function CompSelect({
   competitions,
   setSelectedCompetition,
   disabled,
-}: {
-  competitions: CompetitionType[];
-  setSelectedCompetition: (arg0: CompetitionType) => void;
-  disabled: boolean;
-}) {
+}: CompSelectProps) {
   const competitionsAsOptions = competitions.map((competition) => ({
     value: competition._id,
     label: competition.name,
