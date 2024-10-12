@@ -79,6 +79,10 @@
   color: white;
 }
 
+.comp {
+  overflow: hidden;
+}
+
 .round {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -184,7 +188,7 @@
   width: 100%;
   cursor: pointer;
   background-color: royalblue;
-  padding: 3px;
+  padding: 6px;
   border: none;
   color: white;
   margin: 10px 0;

@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
 import { CompetitionType, User } from "@/app/Types/solve";
+import { motion } from "framer-motion";
+
 function saveSelectedCompetition(selectedCompetition: CompetitionType) {
   sessionStorage.setItem(
     "selectedCompetitionId",
     JSON.stringify(selectedCompetition._id),
   );
 }
-function CompetitionSelect({
+
+const CompetitionSelect = memo(function CompetitionSelect({
   setSelectedCompetition,
   competitions,
   selectedCompetition,
@@ -22,8 +25,10 @@ function CompetitionSelect({
   if (!competitions) {
     return <p>Učitavanje...</p>;
   }
+
   return (
     <select
+      aria-label="Izaberi natjecanje"
       className={dashboardStyles["select-comp"]}
       value={selectedCompetition?._id || ""}
       onChange={(e) => {
@@ -41,9 +46,9 @@ function CompetitionSelect({
       ))}
     </select>
   );
-}
+});
 
-function CompResults({
+const CompResults = memo(function CompResults({
   user,
   selectedCompetition,
 }: {
@@ -78,14 +83,16 @@ function CompResults({
       ))}
     </div>
   );
-}
+});
 
 function CompetitionWindow({
   user,
   competitions,
+  show,
 }: {
   user: User;
   competitions: CompetitionType[];
+  show: boolean;
 }) {
   const [selectedCompetition, setSelectedCompetition] = useState<
     CompetitionType | undefined
@@ -110,14 +117,24 @@ function CompetitionWindow({
   if (!selectedCompetition) return <></>;
 
   return (
-    <div className={dashboardStyles["comp"]}>
+    <motion.div
+      className={dashboardStyles["comp"]}
+      initial={{ height: 0 }}
+      animate={{
+        height: show ? "auto" : "0",
+      }}
+      transition={{
+        ease: "easeInOut",
+        duration: 0.3,
+      }}
+    >
       <CompetitionSelect
         setSelectedCompetition={setSelectedCompetition}
         competitions={competitions}
         selectedCompetition={selectedCompetition}
       />
       <CompResults user={user} selectedCompetition={selectedCompetition} />
-    </div>
+    </motion.div>
   );
 }
 
@@ -128,6 +145,7 @@ type Props = {
 };
 
 export default function UserCompetition({ user, show, competitions }: Props) {
-  if (!show) return <></>;
-  return <CompetitionWindow user={user} competitions={competitions} />;
+  return (
+    <CompetitionWindow user={user} competitions={competitions} show={show} />
+  );
 }
