@@ -1,6 +1,6 @@
 import { url } from "@/globals";
 import { addToken, getId, getToken } from "./credentials";
-import { AllowedEvents } from "../Types/solve";
+import { AllowedEvents, Users } from "../Types/solve";
 
 /**
  * Delete a user by id
@@ -22,11 +22,13 @@ export async function deleteUserById(id: string): Promise<{
     };
   }
   try {
+    const userDeletionUrl = new URL(url);
+    userDeletionUrl.pathname = `users/${id}`;
     const body = {
       method: "DELETE",
       headers: addToken({}) || {},
     };
-    const response = await fetch(`${url}users/${id}`, body);
+    const response = await fetch(userDeletionUrl, body);
     const data = await response.json();
 
     if (response.ok) {
@@ -63,7 +65,9 @@ export async function assignAdminToUser(id: string): Promise<{
     headers: addToken({}) || {},
   };
   try {
-    const response = await fetch(`${url}admin/assign/${id}`, body);
+    const adminAssignmentUrl = new URL(url);
+    adminAssignmentUrl.pathname = `admin/assign/${id}`;
+    const response = await fetch(adminAssignmentUrl, body);
     const data = await response.json();
     if (response.ok) {
       return { success: true, data };
@@ -87,6 +91,8 @@ export async function addSolve(
   roundIndex: number,
   solves: number[],
 ) {
+  const solvesUrl = new URL(url);
+  solvesUrl.pathname = `solves/add/${userId}`;
   const roundNumber = roundIndex + 1;
   const solveData = {
     round: roundNumber,
@@ -98,7 +104,7 @@ export async function addSolve(
   };
 
   // Šalje podatke na server
-  const response = await fetch(`${url}solves/add/${userId}`, {
+  const response = await fetch(solvesUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -123,13 +129,15 @@ export async function deleteSolve(
   solveIndex: number,
 ) {
   try {
+    const solvesUrl = new URL(url);
+    solvesUrl.pathname = `solves/delete/${userId}`;
     const roundNumber = +roundIndex + 1;
     const solveNumber = +solveIndex + 1;
     const headers =
       addToken({
         "Content-Type": "application/json",
       }) || {};
-    const response = await fetch(`${url}solves/delete/${userId}`, {
+    const response = await fetch(solvesUrl, {
       method: "DELETE",
       headers: headers,
       body: JSON.stringify({
@@ -185,6 +193,30 @@ export async function changePasswordByUsername(
     return {
       error,
       success: false,
+    };
+  }
+}
+
+export async function getUsers(): Promise<
+  | { success: false; error: unknown }
+  | { parsed: Users; success: boolean; status: number }
+> {
+  try {
+    const usersUrl = new URL(url);
+    usersUrl.pathname = "users";
+    const data = await fetch(usersUrl, {
+      signal: AbortSignal.timeout(5000),
+    });
+    const parsedJSON = await data.json();
+    return {
+      parsed: parsedJSON,
+      success: data.ok,
+      status: data.status,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error,
     };
   }
 }

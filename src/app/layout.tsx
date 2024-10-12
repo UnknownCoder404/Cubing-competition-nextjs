@@ -2,6 +2,7 @@ import "@/globals.css";
 import Header from "./components/Header/Header";
 import { headers } from "next/headers";
 import { Roboto } from "next/font/google";
+import ReactQueryProvider from "./components/Providers/react-query-provider";
 
 const hideHeaderRoutes: string[] = [""];
 const roboto = Roboto({
@@ -23,7 +24,7 @@ export default function RootLayout({
     <html lang="hr" className={roboto.className}>
       <body>
         {shouldShowHeader && <Header />}
-        {children}
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
