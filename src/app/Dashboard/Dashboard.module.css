@@ -78,9 +78,11 @@
   background-color: rgb(44 153 153);
   color: white;
 }
+
 .comp {
   overflow: hidden;
 }
+
 .round {
   margin-top: 10px;
   margin-bottom: 10px;

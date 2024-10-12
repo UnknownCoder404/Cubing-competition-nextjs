@@ -8,7 +8,7 @@ const hideHeaderRoutes: string[] = [""];
 const roboto = Roboto({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
-  display: "fallback",
+  display: "swap",
 });
 
 export default function RootLayout({

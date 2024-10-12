@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
 import { CompetitionType, User } from "@/app/Types/solve";
@@ -12,7 +12,8 @@ function saveSelectedCompetition(selectedCompetition: CompetitionType) {
     JSON.stringify(selectedCompetition._id),
   );
 }
-function CompetitionSelect({
+
+const CompetitionSelect = memo(function CompetitionSelect({
   setSelectedCompetition,
   competitions,
   selectedCompetition,
@@ -24,6 +25,7 @@ function CompetitionSelect({
   if (!competitions) {
     return <p>Učitavanje...</p>;
   }
+
   return (
     <select
       aria-label="Izaberi natjecanje"
@@ -44,9 +46,9 @@ function CompetitionSelect({
       ))}
     </select>
   );
-}
+});
 
-function CompResults({
+const CompResults = memo(function CompResults({
   user,
   selectedCompetition,
 }: {
@@ -81,7 +83,7 @@ function CompResults({
       ))}
     </div>
   );
-}
+});
 
 function CompetitionWindow({
   user,
