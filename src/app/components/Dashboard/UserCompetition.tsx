@@ -26,6 +26,7 @@ function CompetitionSelect({
   }
   return (
     <select
+      aria-label="Izaberi natjecanje"
       className={dashboardStyles["select-comp"]}
       value={selectedCompetition?._id || ""}
       onChange={(e) => {
