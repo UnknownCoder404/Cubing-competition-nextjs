@@ -19,7 +19,7 @@ export default function RootLayout({
   const headersList = headers();
   const pathName = headersList.get("x-pathname")!;
   const shouldShowHeader = !hideHeaderRoutes.includes(pathName);
-  console.log("Layout.tsx");
+
   return (
     <html lang="hr" className={roboto.className}>
       <body>
