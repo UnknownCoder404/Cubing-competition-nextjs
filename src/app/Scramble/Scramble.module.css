@@ -15,22 +15,43 @@
   line-height: 1.5em; /* Consolidated line-height */
   margin-bottom: 30px;
   white-space: pre-wrap;
-  width: 70vw;
+  width: 70vw; /* Combined width settings */
+  min-height: 90px;
   text-align: center;
 }
 
 .scramble-controls {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  min-height: 40vh;
+  row-gap: 0.5rem;
+  flex-wrap: wrap;
+  column-gap: 2rem;
 }
 
-@media (width <= 650px) {
+/* @media (max-width: 650px) {
   .scramble-controls {
     flex-direction: column;
     justify-content: center;
   }
+} */
+
+/* Scramble display container */
+.scramble-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  min-height: 40vh; /* Set a fixed height to prevent layout shifts */
+  min-width: 200px;
+  max-width: 300px;
+  width: 80vw;
+}
+
+.scramble-display-container > scramble-display {
+  overflow: hidden;
 }
 
 .btn-rescramble-container {
@@ -48,34 +69,14 @@
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
-  display: inline-block;
   font-size: 26px;
   line-height: 26px;
   margin: 0;
-  outline: none;
   padding: 20px 0;
-  min-width: 170px;
-  max-width: 270px;
+  min-width: 140px;
   width: 50vw;
 }
 
 .btn-rescramble:active {
   transform: translateY(2px);
-}
-
-/* Scramble display container */
-.scramble-display-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  min-height: 40vh; /* Set a fixed height to prevent layout shifts */
-}
-
-.scramble-display-container > scramble-display {
-  min-width: 200px;
-  max-width: 500px;
-  width: 50vh;
-  height: 40vh;
-  overflow: hidden;
 }

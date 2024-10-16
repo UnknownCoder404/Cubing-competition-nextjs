@@ -1,11 +1,21 @@
 "use client";
-import { useState, lazy, Suspense, useEffect } from "react";
+
+import { useState, Suspense, useEffect, lazy } from "react";
+import getScramble from "./getScramble";
+import scrambleStyles from "./Scramble.module.css";
+
 const ScrambleDisplay = lazy(
   () => import("../components/Scramble/ScrambleDisplay"),
 );
-import getScramble from "./getScramble";
-import scrambleStyles from "./Scramble.module.css";
-import { ArrowLoader } from "../components/Loader/Loader";
+
+function LoadingScrambleDisplay() {
+  return (
+    <div className={scrambleStyles["scramble-display-container"]}>
+
+    </div>
+  );
+}
+
 function handleScrambleShare(scramble: string) {
   const url = window.location.href;
   if (!navigator.share) {
@@ -14,15 +24,16 @@ function handleScrambleShare(scramble: string) {
   }
   navigator.share({
     title: "",
-    text: `Složio sam Rubikovu kocku za scramble-om:
-${scramble}.
-Pokušaj i ti!
-${url || ""}`,
+    text: `Složio sam Rubikovu kocku za scramble-om: ${scramble}. Pokušaj i ti! ${
+      url || ""
+    }`,
   });
 }
+
 function generateNewScramble(setScramble: (scramble: string) => void) {
   setScramble(getScramble());
 }
+
 export default function ScramblePage() {
   const [scramble, setScramble] = useState<string>("");
 
@@ -32,7 +43,7 @@ export default function ScramblePage() {
     <main className={scrambleStyles["main"]}>
       <p className={scrambleStyles["scramble"]}>{scramble}</p>
       <div className={scrambleStyles["scramble-controls"]}>
-        <Suspense fallback={<ArrowLoader color="#000" />}>
+        <Suspense fallback={<LoadingScrambleDisplay />}>
           <ScrambleDisplay
             scramble={scramble}
             event="333"
