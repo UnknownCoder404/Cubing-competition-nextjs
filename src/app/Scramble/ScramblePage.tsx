@@ -3,13 +3,18 @@
 import { useState, Suspense, useEffect, lazy } from "react";
 import getScramble from "./getScramble";
 import scrambleStyles from "./Scramble.module.css";
+import { Loader } from "../components/Loader/Loader";
 
 const ScrambleDisplay = lazy(
   () => import("../components/Scramble/ScrambleDisplay"),
 );
 
 function LoadingScrambleDisplay() {
-  return <div className={scrambleStyles["scramble-display-container"]}></div>;
+  return (
+    <div className={scrambleStyles["scramble-display-container"]}>
+      <Loader />
+    </div>
+  );
 }
 
 function handleScrambleShare(scramble: string) {
