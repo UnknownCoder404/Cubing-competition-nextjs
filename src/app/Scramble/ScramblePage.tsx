@@ -9,11 +9,7 @@ const ScrambleDisplay = lazy(
 );
 
 function LoadingScrambleDisplay() {
-  return (
-    <div className={scrambleStyles["scramble-display-container"]}>
-
-    </div>
-  );
+  return <div className={scrambleStyles["scramble-display-container"]}></div>;
 }
 
 function handleScrambleShare(scramble: string) {
