@@ -1,12 +1,16 @@
 "use client";
 
-import { useState, Suspense, useEffect, lazy } from "react";
+import { useState, useEffect } from "react";
 import getScramble from "./getScramble";
 import scrambleStyles from "./Scramble.module.css";
 import { Loader } from "../components/Loader/Loader";
-
-const ScrambleDisplay = lazy(
+import dynamic from "next/dynamic";
+const ScrambleDisplay = dynamic(
   () => import("../components/Scramble/ScrambleDisplay"),
+  {
+    loading: () => <LoadingScrambleDisplay />,
+    ssr: false,
+  },
 );
 
 function LoadingScrambleDisplay() {
@@ -44,15 +48,14 @@ export default function ScramblePage() {
     <main className={scrambleStyles["main"]}>
       <p className={scrambleStyles["scramble"]}>{scramble}</p>
       <div className={scrambleStyles["scramble-controls"]}>
-        <Suspense fallback={<LoadingScrambleDisplay />}>
-          <ScrambleDisplay
-            scramble={scramble}
-            event="333"
-            visualization="2D"
-            containerClassName={scrambleStyles["scramble-display-container"]}
-            onClick={() => handleScrambleShare(scramble)}
-          />
-        </Suspense>
+        <ScrambleDisplay
+          scramble={scramble}
+          event="333"
+          visualization="2D"
+          containerClassName={scrambleStyles["scramble-display-container"]}
+          onClick={() => handleScrambleShare(scramble)}
+        />
+
         <div className={scrambleStyles["btn-rescramble-container"]}>
           <button
             className={scrambleStyles["btn-rescramble"]}
