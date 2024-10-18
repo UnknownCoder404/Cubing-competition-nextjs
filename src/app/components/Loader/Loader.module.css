@@ -5,6 +5,7 @@
   display: grid;
   animation: l14 4s infinite;
 }
+
 .loader::before,
 .loader::after {
   content: "";
@@ -15,10 +16,12 @@
   mix-blend-mode: darken;
   animation: l14 1s infinite linear;
 }
+
 .loader::after {
   border-color: #0000 #0000 blue blue;
   animation-direction: reverse;
 }
+
 @keyframes l14 {
   100% {
     transform: rotate(1turn);
