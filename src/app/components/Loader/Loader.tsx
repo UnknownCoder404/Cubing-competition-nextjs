@@ -1,4 +1,5 @@
 import ArrowLoaderStyle from "./ArrowLoader.module.css";
+import loaderStyles from "./Loader.module.css";
 import { CSSProperties } from "react";
 
 interface CustomCSSProperties extends CSSProperties {
@@ -20,4 +21,8 @@ export function ArrowLoader(props: ArrowLoaderProps) {
       {...rest}
     ></div>
   );
+}
+
+export function Loader() {
+  return <div className={loaderStyles["loader"]}></div>;
 }
