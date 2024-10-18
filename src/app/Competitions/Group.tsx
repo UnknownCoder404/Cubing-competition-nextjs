@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Result } from "../Types/solve";
 import { motion } from "framer-motion";
-
 import CompetitionStyles from "./Competitions.module.css";
 import Round from "./Round";
 import ShowAndHide from "../components/Competitions/showAndHide";

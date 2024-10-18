@@ -5,6 +5,7 @@ import getScramble from "./getScramble";
 import scrambleStyles from "./Scramble.module.css";
 import { Loader } from "../components/Loader/Loader";
 import dynamic from "next/dynamic";
+
 const ScrambleDisplay = dynamic(
   () => import("../components/Scramble/ScrambleDisplay"),
   {
@@ -24,7 +25,7 @@ function LoadingScrambleDisplay() {
 function handleScrambleShare(scramble: string) {
   const url = window.location.href;
   if (!navigator.share) {
-    alert("Ovaj preglednik ne podržava dijeljenje. ");
+    alert("Ovaj preglednik ne podržava dijeljenje.");
     return;
   }
   navigator.share({
@@ -42,7 +43,9 @@ function generateNewScramble(setScramble: (scramble: string) => void) {
 export default function ScramblePage() {
   const [scramble, setScramble] = useState<string>("");
 
-  useEffect(() => setScramble(getScramble()), []);
+  useEffect(() => {
+    setScramble(getScramble());
+  }, []);
 
   return (
     <main className={scrambleStyles["main"]}>
@@ -55,13 +58,10 @@ export default function ScramblePage() {
           containerClassName={scrambleStyles["scramble-display-container"]}
           onClick={() => handleScrambleShare(scramble)}
         />
-
         <div className={scrambleStyles["btn-rescramble-container"]}>
           <button
             className={scrambleStyles["btn-rescramble"]}
-            onClick={() => {
-              generateNewScramble(setScramble);
-            }}
+            onClick={() => generateNewScramble(setScramble)}
           >
             Promiješaj
           </button>
