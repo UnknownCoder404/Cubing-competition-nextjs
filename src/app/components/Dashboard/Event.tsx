@@ -66,11 +66,13 @@ function AddSolveInputAndButton({
   roundNumber,
   eventName,
   userId,
+  isLocked,
 }: {
   competitionId: string;
   roundNumber: number;
   eventName: string;
   userId: string;
+  isLocked: boolean;
 }) {
   const router = useRouter();
   const [inputValue, setInputValue] = useState<string>("");
@@ -123,7 +125,9 @@ function AddSolveInputAndButton({
       <input
         ref={inputRef} // Attach the ref to the input
         placeholder="Dodaj slaganje"
-        className={dashboardStyles["solve-input"]}
+        className={`${dashboardStyles["solve-input"]} ${
+          isLocked ? dashboardStyles["locked"] : ""
+        }`}
         value={inputValue} // Add this line to bind the input value to the state
         onChange={handleChange}
         disabled={loading}
@@ -135,7 +139,9 @@ function AddSolveInputAndButton({
       />
       <button
         onClick={addSolveToUser}
-        className={dashboardStyles["solve-add-btn"]}
+        className={`${dashboardStyles["solve-add-btn"]} ${
+          isLocked ? dashboardStyles["locked"] : ""
+        }`}
         disabled={loading}
       >
         {loading ? "..." : "Dodaj"}
@@ -178,12 +184,14 @@ function Round({
   competitionId,
   eventName,
   userId,
+  isLocked,
 }: {
   roundNumber: number;
   round: number[] | undefined;
   competitionId: string;
   eventName: AllowedEvents;
   userId: string;
+  isLocked: boolean;
 }) {
   return (
     <div className={dashboardStyles["round"]}>
@@ -208,6 +216,7 @@ function Round({
           roundNumber={roundNumber}
           eventName={eventName}
           userId={userId}
+          isLocked={isLocked}
         />
       )}
     </div>
@@ -218,11 +227,13 @@ function EventResults({
   userEvent,
   competitionId,
   userId,
+  isLocked,
 }: {
   event: EventDetail;
   userEvent: UserEvent | undefined;
   competitionId: string;
   userId: string;
+  isLocked: boolean;
 }) {
   return (
     <div className={dashboardStyles["event-results"]}>
@@ -236,24 +247,28 @@ function EventResults({
             round={round}
             eventName={event.name}
             userId={userId}
+            isLocked={isLocked}
           />
         );
       })}
     </div>
   );
 }
+type Props = {
+  event: EventDetail;
+  userComp: UserComp | undefined;
+  userId: string;
+  competitionId: string;
+  isLocked: boolean;
+};
 
 export default function Event({
   event,
   userComp,
   userId,
   competitionId,
-}: {
-  event: EventDetail;
-  userComp: UserComp | undefined;
-  userId: string;
-  competitionId: string;
-}) {
+  isLocked,
+}: Props) {
   return (
     <div className={dashboardStyles["event"]}>
       <h3 className={dashboardStyles["event-name"]}>{event.name}</h3>
@@ -268,6 +283,7 @@ export default function Event({
         }
         competitionId={competitionId}
         userId={userId}
+        isLocked={isLocked}
       />
     </div>
   );

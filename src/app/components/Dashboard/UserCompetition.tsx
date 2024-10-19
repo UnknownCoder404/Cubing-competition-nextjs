@@ -72,6 +72,7 @@ const CompResults = memo(function CompResults({
       </div>
       {selectedCompetition.events.map((event) => (
         <Event
+          isLocked={selectedCompetition.isLocked}
           competitionId={selectedCompetition._id}
           userId={user._id}
           event={event}

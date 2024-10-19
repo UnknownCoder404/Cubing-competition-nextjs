@@ -30,7 +30,7 @@
 .register-btn {
   width: 100%;
   padding: 5px 15px;
-  background-color: rgb(39 219 39); /* Green button */
+  background-color: rgb(39 219 39);
   transition: background-color 1s;
 }
 
@@ -52,6 +52,7 @@
   max-width: 200px;
   border-radius: 2px;
   border: none;
+  outline: none; /* Removes default browser outline */
   background-color: royalblue;
   color: white;
   padding: 5px 10px;
@@ -65,16 +66,19 @@
   transform: translateY(2px);
 }
 
-.remove-btn:hover {
+.remove-btn:hover,
+.remove-btn:focus {
   background-color: rgb(234 45 16);
 }
 
-.add-btn:hover {
+.add-btn:hover,
+.add-btn:focus {
   background-color: rgb(142 213 36);
   color: black;
 }
 
-.comp-btn:hover {
+.comp-btn:hover,
+.comp-btn:focus {
   background-color: rgb(44 153 153);
   color: white;
 }
@@ -84,16 +88,14 @@
 }
 
 .round {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   color: black;
   background-color: rgb(181 181 149);
   padding: 10px;
 }
 
 .round h3 {
-  margin: 0;
-  margin-bottom: 5px;
+  margin: 0 0 5px;
   padding: 0;
 }
 
@@ -147,6 +149,12 @@
   outline: none;
 }
 
+.solve-input.locked:focus {
+  border-color: rgb(85 85 85);
+  box-shadow: 0 0 8px rgb(85 85 85 / 60%);
+  outline: none;
+}
+
 .solve-add-btn {
   padding: 5px 7px;
   width: 20%;
@@ -154,22 +162,30 @@
   max-width: 100px;
   font-size: 16px;
   color: #fff;
-  background-color: #66afe9; /* Blue button */
+  background-color: #66afe9;
   border: none;
   border-radius: 4px;
+  outline: none;
   cursor: pointer;
   transition:
     background-color 0.3s,
     box-shadow 0.3s;
 }
 
-.solve-add-btn:hover {
+.solve-add-btn.locked {
+  background-color: rgb(128 128 128);
+}
+
+.solve-add-btn:hover,
+.solve-add-btn:focus {
   background-color: #559dd6;
   box-shadow: 0 0 8px rgb(102 175 233 / 60%);
 }
 
-.solve-add-btn:focus {
-  outline: none;
+.solve-add-btn.locked:hover,
+.solve-add-btn.locked:focus {
+  background-color: rgb(85 85 85);
+  box-shadow: 0 0 8px rgb(85 85 85 / 60%);
 }
 
 @media screen and (width <= 300px) {
