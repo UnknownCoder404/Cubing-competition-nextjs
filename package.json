@@ -11,6 +11,7 @@
     "prepare": "pnpm run format && pnpm run lint"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "dompurify": "^3.1.6",
     "framer-motion": "^11.11.1",
     "next": "14.2.15",
