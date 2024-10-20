@@ -26,13 +26,13 @@
   outline: 2px solid rgb(158 154 154 / 29.4%);
   border-radius: 0.5rem;
   transition: row-gap 0.3s ease-in;
-  min-height: 160px;
 }
 
 .group-loader {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100px;
 }
 
 /* No gap class */
