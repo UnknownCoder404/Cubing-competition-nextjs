@@ -24,7 +24,7 @@ Open [http://localhost:2500](http://localhost:2500) with your browser to see the
 
 ## Before commiting
 
-You should run `pnpm prepare`.
+You should run `pnpm check-code` before commiting.
 
 After you have fixed all errors in terminal, then run:
 

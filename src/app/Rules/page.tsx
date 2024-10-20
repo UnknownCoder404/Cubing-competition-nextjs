@@ -22,7 +22,7 @@ export default function Rules() {
       <main>
         <p>
           Dragi natjecatelji, u nastavku ćete vidjeti pravila natjecanja u
-          Rubikovoj kocki. Ova pravila prate
+          Rubikovoj kocki. Ova pravila prate{" "}
           <a
             target="_blank"
             href="https://www.worldcubeassociation.org/regulations/"

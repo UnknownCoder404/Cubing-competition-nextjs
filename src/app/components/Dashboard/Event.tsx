@@ -15,6 +15,7 @@ import {
   UserComp,
   UserEvent,
 } from "@/app/Types/solve";
+import { clsx } from "clsx";
 
 function DeleteSolveButton({
   competitionId,
@@ -22,16 +23,19 @@ function DeleteSolveButton({
   roundNumber,
   solveNumber,
   userId,
+  isLocked,
 }: {
   competitionId: string;
   event: AllowedEvents;
   roundNumber: number;
   solveNumber: number;
   userId: string;
+  isLocked: boolean;
 }) {
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
-  async function deleteThisSolve() {
+  const [loading, setLoading] = useState(false);
+
+  const deleteThisSolve = async () => {
     setLoading(true);
     const solveDeletion = await deleteSolve(
       userId,
@@ -40,7 +44,6 @@ function DeleteSolveButton({
       roundNumber - 1,
       solveNumber - 1,
     );
-
     setLoading(false);
 
     if (!solveDeletion.success) {
@@ -50,38 +53,43 @@ function DeleteSolveButton({
     }
 
     router.refresh();
-  }
+  };
+
   return (
     <button
       onClick={deleteThisSolve}
-      className={dashboardStyles["delete-solve"]}
+      className={clsx(dashboardStyles["delete-solve"], {
+        [dashboardStyles.locked]: isLocked,
+      })}
       disabled={loading}
     >
       <Image src={trashIcon} width={24} height={24} alt="delete" />
     </button>
   );
 }
+
 function AddSolveInputAndButton({
   competitionId,
   roundNumber,
   eventName,
   userId,
+  isLocked,
 }: {
   competitionId: string;
   roundNumber: number;
   eventName: string;
   userId: string;
+  isLocked: boolean;
 }) {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const inputRef = useRef<HTMLInputElement>(null); // Create a ref for the input
+  const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(event.target.value);
-  };
 
-  async function addSolveToUser() {
+  const addSolveToUser = async () => {
     if (!inputValue.trim()) return;
 
     const solves = inputValue
@@ -91,7 +99,8 @@ function AddSolveInputAndButton({
         (solve): solve is number => solve !== null && solve !== undefined,
       );
 
-    if (!solves || !solves.length) return;
+    if (!solves.length) return;
+
     setLoading(true);
     const response = await addSolve(
       userId,
@@ -100,42 +109,37 @@ function AddSolveInputAndButton({
       roundNumber - 1,
       solves,
     );
+    setLoading(false);
 
     if (!response.success) {
-      setLoading(false);
       alert(response.parsed.message || "Greška prilikom dodavanja slaganja.");
       return;
     }
 
-    // Reset the input value
     setInputValue("");
     router.refresh();
-    setLoading(false);
 
-    // Use a combination of setTimeout and requestAnimationFrame to ensure focus
-    setTimeout(() => {
-      requestAnimationFrame(() => inputRef.current?.focus());
-    }, 0);
-  }
+    setTimeout(() => inputRef.current?.focus(), 0);
+  };
 
   return (
     <>
       <input
-        ref={inputRef} // Attach the ref to the input
+        ref={inputRef}
         placeholder="Dodaj slaganje"
-        className={dashboardStyles["solve-input"]}
-        value={inputValue} // Add this line to bind the input value to the state
+        className={clsx(dashboardStyles["solve-input"], {
+          [dashboardStyles.locked]: isLocked,
+        })}
+        value={inputValue}
         onChange={handleChange}
         disabled={loading}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            addSolveToUser();
-          }
-        }}
+        onKeyDown={(e) => e.key === "Enter" && addSolveToUser()}
       />
       <button
         onClick={addSolveToUser}
-        className={dashboardStyles["solve-add-btn"]}
+        className={clsx(dashboardStyles["solve-add-btn"], {
+          [dashboardStyles.locked]: isLocked,
+        })}
         disabled={loading}
       >
         {loading ? "..." : "Dodaj"}
@@ -151,6 +155,7 @@ function Solve({
   roundNumber,
   userId,
   solveNumber,
+  isLocked,
 }: {
   solve: number;
   competitionId: string;
@@ -158,47 +163,53 @@ function Solve({
   roundNumber: number;
   userId: string;
   solveNumber: number;
+  isLocked: boolean;
 }) {
   return (
-    <li className={dashboardStyles["solve"]}>
-      {formatTime(solve)}{" "}
+    <li className={dashboardStyles.solve}>
+      {formatTime(solve)}
       <DeleteSolveButton
         solveNumber={solveNumber}
         competitionId={competitionId}
         event={eventName}
         roundNumber={roundNumber}
         userId={userId}
+        isLocked={isLocked}
       />
     </li>
   );
 }
+
 function Round({
   roundNumber,
   round,
   competitionId,
   eventName,
   userId,
+  isLocked,
 }: {
   roundNumber: number;
   round: number[] | undefined;
   competitionId: string;
   eventName: AllowedEvents;
   userId: string;
+  isLocked: boolean;
 }) {
   return (
-    <div className={dashboardStyles["round"]}>
+    <div className={dashboardStyles.round}>
       <h4>Runda {roundNumber}</h4>
       <p>Ao5: {getAverage(round)}</p>
       <ol className={dashboardStyles["solves-list"]}>
         {round?.map((solve, index) => (
           <Solve
-            solveNumber={index + 1}
+            key={index}
             solve={solve}
+            solveNumber={index + 1}
             competitionId={competitionId}
             eventName={eventName}
-            key={index}
             roundNumber={roundNumber}
             userId={userId}
+            isLocked={isLocked}
           />
         ))}
       </ol>
@@ -208,21 +219,25 @@ function Round({
           roundNumber={roundNumber}
           eventName={eventName}
           userId={userId}
+          isLocked={isLocked}
         />
       )}
     </div>
   );
 }
+
 function EventResults({
   event,
   userEvent,
   competitionId,
   userId,
+  isLocked,
 }: {
   event: EventDetail;
   userEvent: UserEvent | undefined;
   competitionId: string;
   userId: string;
+  isLocked: boolean;
 }) {
   return (
     <div className={dashboardStyles["event-results"]}>
@@ -230,12 +245,13 @@ function EventResults({
         const round = userEvent?.rounds[index];
         return (
           <Round
-            competitionId={competitionId}
             key={index}
             roundNumber={index + 1}
             round={round}
+            competitionId={competitionId}
             eventName={event.name}
             userId={userId}
+            isLocked={isLocked}
           />
         );
       })}
@@ -248,26 +264,25 @@ export default function Event({
   userComp,
   userId,
   competitionId,
+  isLocked,
 }: {
   event: EventDetail;
   userComp: UserComp | undefined;
   userId: string;
   competitionId: string;
+  isLocked: boolean;
 }) {
   return (
-    <div className={dashboardStyles["event"]}>
+    <div className={dashboardStyles.event}>
       <h3 className={dashboardStyles["event-name"]}>{event.name}</h3>
       <EventResults
         event={event}
-        userEvent={
-          userComp
-            ? userComp.events.find((userComp) => {
-                return userComp.event === event.name;
-              })
-            : undefined
-        }
+        userEvent={userComp?.events.find(
+          (userComp) => userComp.event === event.name,
+        )}
         competitionId={competitionId}
         userId={userId}
+        isLocked={isLocked}
       />
     </div>
   );

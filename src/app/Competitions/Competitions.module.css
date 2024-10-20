@@ -28,6 +28,13 @@
   transition: row-gap 0.3s ease-in;
 }
 
+.group-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
+
 /* No gap class */
 .group.no-gap {
   row-gap: 0; /* Remove row gap when group results are hidden */
