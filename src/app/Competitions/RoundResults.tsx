@@ -3,6 +3,7 @@ import CompetitionStyles from "./Competitions.module.css";
 import { Result } from "../Types/solve";
 import { formatTime } from "../utils/solveTime";
 import { motion } from "framer-motion";
+import { clsx } from "clsx";
 
 export default function RoundResults({
   round,
@@ -11,6 +12,9 @@ export default function RoundResults({
   round: Result[];
   show: boolean;
 }) {
+  const className = clsx(CompetitionStyles["round-results"], {
+    [CompetitionStyles["hidden"]]: !show,
+  });
   return (
     <motion.div
       initial={{ opacity: 0, height: 0 }}
@@ -19,9 +23,7 @@ export default function RoundResults({
         height: show ? "auto" : 0,
         transition: { duration: 0.3, ease: "easeIn" },
       }}
-      className={`${CompetitionStyles["round-results"]} ${
-        show ? "" : CompetitionStyles["hidden"]
-      }`}
+      className={className}
     >
       {round.length === 0 ? (
         <p>Nema rezultata za ovu rundu.</p>

@@ -5,6 +5,7 @@ import CompetitionStyles from "./Competitions.module.css";
 import ShowAndHide from "../components/Competitions/showAndHide";
 import dynamic from "next/dynamic";
 import { Loader } from "../components/Loader/Loader";
+import { clsx } from "clsx";
 const GroupResults = dynamic(() => import("./GroupResults"), {
   ssr: false,
   loading: () => <LoadingGroup />,
@@ -47,9 +48,9 @@ export default function Group({ group, groupNumber }: Props) {
 
   return (
     <div
-      className={`${CompetitionStyles["group"]} ${
-        areGroupResultsShown ? "" : CompetitionStyles["no-gap"]
-      }`} // Apply the no-gap class when group results are hidden
+      className={clsx(CompetitionStyles["group"], {
+        [CompetitionStyles["no-gap"]]: !areGroupResultsShown,
+      })} // Apply the no-gap class when group results are hidden
       id={`group-${groupIndex}`}
     >
       <div className={CompetitionStyles["group-title-container"]}>

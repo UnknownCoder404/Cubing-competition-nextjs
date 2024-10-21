@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import ArrowLoaderStyle from "./ArrowLoader.module.css";
 import loaderStyles from "./Loader.module.css";
 import { CSSProperties } from "react";
@@ -16,7 +17,7 @@ export function ArrowLoader(props: ArrowLoaderProps) {
 
   return (
     <div
-      className={`${ArrowLoaderStyle["loader"]} ${className || ""}`}
+      className={clsx(ArrowLoaderStyle["loader"], className)}
       style={style}
       {...rest}
     ></div>
@@ -24,5 +25,5 @@ export function ArrowLoader(props: ArrowLoaderProps) {
 }
 
 export function Loader() {
-  return <div className={loaderStyles["loader"]}></div>;
+  return <div className={clsx(loaderStyles["loader"])}></div>;
 }

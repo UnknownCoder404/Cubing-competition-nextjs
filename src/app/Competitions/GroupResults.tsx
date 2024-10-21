@@ -17,7 +17,7 @@ export default function GroupResults({
 }: Props) {
   return (
     <motion.div
-      className={`${CompetitionStyles["group-results"]}`}
+      className={CompetitionStyles["group-results"]}
       initial={{ height: 100, opacity: 0, paddingTop: 0, paddingBottom: 0 }}
       animate={{
         height: areGroupResultsShown ? "auto" : 0,

@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
+import { clsx } from "clsx";
+
 type EventType =
   | null
   | "222"
@@ -55,7 +57,7 @@ const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
 
   return (
     <div
-      className={`scramble-display-container ${containerClassName || ""}`}
+      className={clsx("scramble-display-container", containerClassName)}
       ref={containerRef}
       onClick={() => {
         onClick && onClick();
