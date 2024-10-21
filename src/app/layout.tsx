@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { Roboto } from "next/font/google";
 import ReactQueryProvider from "./components/Providers/react-query-provider";
 
+export const runtime = "edge"; // To make Cloudflare work
+
 const hideHeaderRoutes: string[] = [];
 const roboto = Roboto({
   weight: ["400", "500", "700"],
