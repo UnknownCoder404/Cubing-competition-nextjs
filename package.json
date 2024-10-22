@@ -8,7 +8,10 @@
     "start": "next start --port 2500",
     "lint": "tsc && next lint --fix && stylelint \"**/*.css\" --fix && markdownlint **/*.md -f --ignore node_modules",
     "format": "prettier . --write",
-    "check-code": "pnpm run format && pnpm run lint"
+    "check-code": "pnpm run format && pnpm run lint",
+    "pages:build": "pnpx @cloudflare/next-on-pages",
+    "preview": "pnpm run pages:build && wrangler pages dev",
+    "deploy": "pnpm run pages:build && wrangler pages deploy"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -24,12 +27,14 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.5",
     "@types/dompurify": "^3.0.5",
     "@types/node": "^22.7.8",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "eslint": "^9.13.0",
     "eslint-config-next": "15.0.0",
+    "eslint-plugin-next-on-pages": "^1.13.5",
     "markdownlint-cli": "^0.42.0",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1",
