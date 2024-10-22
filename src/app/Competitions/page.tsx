@@ -19,7 +19,7 @@ async function getResults(): Promise<
       success: data.ok,
       status: data.status,
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
     };

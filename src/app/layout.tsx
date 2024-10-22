@@ -4,8 +4,6 @@ import { headers } from "next/headers";
 import { Roboto } from "next/font/google";
 import ReactQueryProvider from "./components/Providers/react-query-provider";
 
-export const runtime = "edge"; // To make Cloudflare work
-
 const hideHeaderRoutes: string[] = [];
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -13,12 +11,12 @@ const roboto = Roboto({
   display: "swap",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = headers();
+  const headersList = await headers();
   const pathName = headersList.get("x-pathname")!;
   const shouldShowHeader = !hideHeaderRoutes.includes(pathName);
 

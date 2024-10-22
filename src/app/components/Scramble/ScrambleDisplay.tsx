@@ -60,7 +60,7 @@ const ScrambleDisplayComponent: React.FC<ScrambleDisplayProps> = ({
       className={clsx("scramble-display-container", containerClassName)}
       ref={containerRef}
       onClick={() => {
-        onClick && onClick();
+        if (onClick) onClick();
       }}
     />
   );

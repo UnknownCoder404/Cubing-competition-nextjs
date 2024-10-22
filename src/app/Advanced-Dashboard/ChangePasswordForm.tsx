@@ -40,6 +40,7 @@ export function ChangePasswordForm({ users }: { users: Users }) {
         setPassword(""); // Clear the password after success
       }
     } catch (error) {
+      console.error(error);
       setMessage("Došlo je do greške. Pokušajte ponovo.");
     } finally {
       setLoading(false);
