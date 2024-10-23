@@ -2,3 +2,4 @@ name = "cubing-competition-nextjs"
 compatibility_date = "2024-10-22"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
+NODE_VERSION=20.18.0
