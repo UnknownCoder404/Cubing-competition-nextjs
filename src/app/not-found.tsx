@@ -1,4 +1,8 @@
 import Link from "next/link";
+export const metadata = {
+  title: "Stranica nije pronađena",
+  description: "Stranica koju ste pokušali posjetiti nije pronađena.",
+};
 
 export default function NotFound() {
   return (
@@ -17,9 +21,6 @@ export default function NotFound() {
       <ul>
         <li>
           <Link href="https://s0wc1gqn.status.cron-job.org/">Server</Link>
-        </li>
-        <li>
-          <Link href="https://l3wvzfqk.status.cron-job.org">Stranica</Link>
         </li>
       </ul>
     </div>

@@ -6,6 +6,7 @@ import accountCircle from "../../public/account_circle.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { clsx } from "clsx";
 
 function ClientLoginStatus() {
   const router = useRouter();
@@ -27,9 +28,9 @@ function ClientLoginStatus() {
 
       <Image
         alt="account circle"
-        className={`${headerStyles["account-circle"]} ${
-          loggedIn ? headerStyles["logged-in"] : ""
-        }`}
+        className={clsx(headerStyles["account-circle"], {
+          [headerStyles["logged-in"]]: loggedIn,
+        })}
         src={accountCircle}
         width={24}
         height={24}

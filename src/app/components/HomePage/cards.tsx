@@ -1,4 +1,5 @@
 "use client";
+
 import styles from "./cards.module.css";
 import Card from "./card";
 import Link from "next/link";
@@ -57,6 +58,7 @@ const cardData: () => CardProp[] = () => [
           className={styles.qrcode}
           width={100}
           height={100}
+          placeholder="blur"
         />
       </>
     ),
@@ -148,7 +150,7 @@ type CardsProps = { posts: PostProp[] };
 
 function Cards({ posts }: CardsProps) {
   return (
-    <div className={styles.cards}>
+    <div className={styles.cards} suppressHydrationWarning>
       {cardData().map((card, index) => (
         <Card key={`card-${index}`} {...card} loggedIn={loggedIn()} />
       ))}

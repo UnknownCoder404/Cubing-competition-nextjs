@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, memo } from "react";
+import clsx from "clsx";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
 import { CompetitionType, User } from "@/app/Types/solve";
@@ -29,7 +30,7 @@ const CompetitionSelect = memo(function CompetitionSelect({
   return (
     <select
       aria-label="Izaberi natjecanje"
-      className={dashboardStyles["select-comp"]}
+      className={clsx(dashboardStyles["select-comp"])}
       value={selectedCompetition?._id || ""}
       onChange={(e) => {
         const selectedComp = competitions.find(
@@ -63,15 +64,16 @@ const CompResults = memo(function CompResults({
   const dateString = compDate.toLocaleString();
 
   return (
-    <div className={dashboardStyles["comp-results"]}>
-      <div className={dashboardStyles["comp-results-info"]}>
-        <h2 className={dashboardStyles["comp-name"]}>
+    <div className={clsx(dashboardStyles["comp-results"])}>
+      <div className={clsx(dashboardStyles["comp-results-info"])}>
+        <h2 className={clsx(dashboardStyles["comp-name"])}>
           {selectedCompetition.name}
         </h2>
-        <p className={dashboardStyles["comp-date"]}>{dateString}</p>
+        <p className={clsx(dashboardStyles["comp-date"])}>{dateString}</p>
       </div>
       {selectedCompetition.events.map((event) => (
         <Event
+          isLocked={selectedCompetition.isLocked}
           competitionId={selectedCompetition._id}
           userId={user._id}
           event={event}
@@ -118,7 +120,7 @@ function CompetitionWindow({
 
   return (
     <motion.div
-      className={dashboardStyles["comp"]}
+      className={clsx(dashboardStyles["comp"])}
       initial={{ height: 0 }}
       animate={{
         height: show ? "auto" : "0",

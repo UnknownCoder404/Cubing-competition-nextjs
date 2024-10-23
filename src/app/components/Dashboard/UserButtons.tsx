@@ -1,9 +1,11 @@
+import { clsx } from "clsx";
 import { getId, isAdmin, Role } from "@/app/utils/credentials";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import { assignAdminToUser, deleteUserById } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { User } from "@/app/Types/solve";
+
 function DeleteUserButton({
   id,
   router,
@@ -13,7 +15,10 @@ function DeleteUserButton({
 }) {
   return (
     <button
-      className={`${dashboardStyles["user-btn"]} ${dashboardStyles["remove-btn"]}`}
+      className={clsx(
+        dashboardStyles["user-btn"],
+        dashboardStyles["remove-btn"],
+      )}
       onClick={async () => {
         if (id === getId()) {
           return alert("Ne možete izbrisati vlastiti računa.");
@@ -24,7 +29,6 @@ function DeleteUserButton({
             userDeletion.message || "Greška pri brisanju korisnika.",
           );
         }
-
         router.refresh();
       }}
     >
@@ -32,6 +36,7 @@ function DeleteUserButton({
     </button>
   );
 }
+
 function AdminButton({
   role,
   id,
@@ -43,11 +48,10 @@ function AdminButton({
 }) {
   return (
     <button
-      className={`${dashboardStyles["user-btn"]} ${
-        isAdmin(role)
-          ? dashboardStyles["remove-btn"]
-          : dashboardStyles["add-btn"]
-      }`}
+      className={clsx(dashboardStyles["user-btn"], {
+        [dashboardStyles["remove-btn"]]: isAdmin(role),
+        [dashboardStyles["add-btn"]]: !isAdmin(role),
+      })}
       onClick={async () => {
         const adminAssignment = await assignAdminToUser(id);
         if (!adminAssignment.success) {
@@ -55,7 +59,6 @@ function AdminButton({
             adminAssignment.message || "Greška pri dodavanju korisnika.",
           );
         }
-
         router.refresh();
       }}
     >
@@ -63,6 +66,7 @@ function AdminButton({
     </button>
   );
 }
+
 function CompButton({
   toggleCompVisibility,
 }: {
@@ -70,7 +74,7 @@ function CompButton({
 }) {
   return (
     <button
-      className={`${dashboardStyles["user-btn"]} ${dashboardStyles["comp-btn"]}`}
+      className={clsx(dashboardStyles["user-btn"], dashboardStyles["comp-btn"])}
       onClick={toggleCompVisibility}
     >
       Natjecanje
@@ -82,9 +86,9 @@ type Props = {
   user: User;
   toggleCompVisibility: () => void;
 };
+
 export default function UserButtons({ user, toggleCompVisibility }: Props) {
   const router = useRouter();
-
   return (
     <div className={dashboardStyles["user-btns"]}>
       <DeleteUserButton id={user._id} router={router} />
