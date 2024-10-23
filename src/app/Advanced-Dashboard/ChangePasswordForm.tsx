@@ -8,47 +8,57 @@ export function ChangePasswordForm({ users }: { users: Users }) {
   const [selectedUserToChangePassword, setSelectedUserToChangePassword] =
     useState<User>(users[0]);
   const [newPassword, setPassword] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [{ message, loading }, setState] = useState({
+    message: "",
+    loading: false,
+  });
 
-  const handlePasswordChange = useCallback(async () => {
-    if (!newPassword.trim()) {
-      setMessage("Nova lozinka ne može biti prazna.");
-      return;
-    }
-
-    setMessage("");
-    setLoading(true);
-
-    try {
-      const passwordChange = await changePasswordByUsername(
-        selectedUserToChangePassword.username,
-        newPassword,
-      );
-
-      if (!passwordChange.success) {
-        setMessage(
-          passwordChange.parsed.message ||
-            (typeof passwordChange.error === "string"
-              ? passwordChange.error
-              : "Greška prilikom promjene lozinke."),
-        );
-      } else {
-        setMessage(
-          passwordChange.parsed.message || "Lozinka je uspješno promijenjena.",
-        );
-        setPassword(""); // Clear the password after success
+  const handlePasswordChange = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!newPassword.trim()) {
+        setState((prev) => ({
+          ...prev,
+          message: "Nova lozinka ne može biti prazna.",
+        }));
+        return;
       }
-    } catch (error) {
-      console.error(error);
-      setMessage("Došlo je do greške. Pokušajte ponovo.");
-    } finally {
-      setLoading(false);
-    }
-  }, [newPassword, selectedUserToChangePassword]);
+
+      setState((prev) => ({ ...prev, message: "", loading: true }));
+
+      try {
+        const passwordChange = await changePasswordByUsername(
+          selectedUserToChangePassword.username,
+          newPassword,
+        );
+
+        setState((prev) => ({
+          ...prev,
+          message: passwordChange.success
+            ? "Lozinka je uspješno promijenjena."
+            : passwordChange.parsed.message ||
+              "Greška prilikom promjene lozinke.",
+        }));
+
+        if (passwordChange.success) setPassword(""); // Clear password on success
+      } catch (error) {
+        console.error(error);
+        setState((prev) => ({
+          ...prev,
+          message: "Došlo je do greške. Pokušajte ponovo.",
+        }));
+      } finally {
+        setState((prev) => ({ ...prev, loading: false }));
+      }
+    },
+    [newPassword, selectedUserToChangePassword],
+  );
 
   return (
-    <div className={styles["change-password-form"]}>
+    <form
+      className={styles["change-password-form"]}
+      onSubmit={handlePasswordChange}
+    >
       <div className={styles["change-password-credentials"]}>
         <UserSelect
           users={users}
@@ -67,14 +77,12 @@ export function ChangePasswordForm({ users }: { users: Users }) {
         </div>
       </div>
       <button
-        onClick={handlePasswordChange}
         className={styles["change-password-btn"]}
-        disabled={loading} // Disable if no new password
+        disabled={loading || !newPassword.trim()}
       >
         {loading ? "Učitavanje..." : "Promijeni lozinku"}
       </button>
-      {message && <p className={styles["message"]}>{message}</p>}{" "}
-      {/* Show message conditionally */}
-    </div>
+      {message && <p className={styles["message"]}>{message}</p>}
+    </form>
   );
 }
