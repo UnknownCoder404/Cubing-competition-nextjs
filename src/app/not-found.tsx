@@ -1,4 +1,8 @@
 import Link from "next/link";
+export const metadata = {
+  title: "Stranica nije pronađena",
+  description: "Stranica koju ste pokušali posjetiti nije pronađena.",
+};
 
 export default function NotFound() {
   return (
