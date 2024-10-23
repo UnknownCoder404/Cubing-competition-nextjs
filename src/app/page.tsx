@@ -1,6 +1,6 @@
-import Cards from "./components/HomePage/cards";
 import getPosts from "./utils/getPosts";
 import "@/globals.css";
+import Cards from "./components/HomePage/cards";
 
 export const metadata = {
   title: "Cro Cube Comp",

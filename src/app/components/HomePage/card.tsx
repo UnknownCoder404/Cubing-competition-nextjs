@@ -1,13 +1,19 @@
 import styles from "./cards.module.css";
 import { CardProp } from "./cards";
 import DomPurify from "dompurify";
+import { useState, useEffect } from "react";
 
-function Description(props: { description: React.ReactNode | string }) {
-  const { description } = props;
-  if (typeof props.description === "string") {
-    const descriptionString = props.description;
-    const sanitizedHtml = DomPurify.sanitize(descriptionString);
-    return <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />;
+function Description({
+  description,
+}: {
+  description: React.ReactNode | string;
+}) {
+  if (typeof description === "string") {
+    return (
+      <div
+        dangerouslySetInnerHTML={{ __html: DomPurify.sanitize(description) }}
+      />
+    );
   }
   return <>{description}</>;
 }
@@ -19,9 +25,14 @@ export default function Card({
   shouldRender,
   loggedIn,
 }: CardProp) {
-  if (shouldRender && !shouldRender(loggedIn)) {
-    return null;
-  }
+  const [shouldCardRender, setShouldCardRender] = useState(false);
+
+  useEffect(() => {
+    setShouldCardRender(shouldRender ? shouldRender(loggedIn) : true);
+  }, [shouldRender, loggedIn]);
+
+  if (!shouldCardRender) return null;
+
   return (
     <div className={styles.card}>
       <div className={styles["card-inside-container"]}>
