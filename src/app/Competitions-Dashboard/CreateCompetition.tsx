@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { createCompetition } from "../utils/competitions";
 import styles from "./CompetitionDashboard.module.css";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { Loader } from "../components/Loader/Loader";
 
 const events = ["3x3", "3x3oh", "4x4", "2x2", "3x3bld", "megaminx", "teambld"];
 
@@ -20,6 +21,7 @@ function CreateCompDialog({
         [key: string]: { selected: boolean; rounds: number };
     }>({});
     const dialogRef = useRef<HTMLDialogElement>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (!dialogRef.current) return;
@@ -55,6 +57,7 @@ function CreateCompDialog({
             .map(([name, { rounds }]) => ({ name, rounds }));
 
         try {
+            setIsLoading(true);
             const { success } = await createCompetition(
                 name,
                 date,
@@ -67,6 +70,8 @@ function CreateCompDialog({
         } catch (error) {
             console.error("Error creating competition:", error);
             alert("Dogodila se greška pri stvaranju natjecanja.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -122,12 +127,22 @@ function CreateCompDialog({
                         </select>
                     </div>
                 ))}
-                <button type="submit" className={styles["make-comp-submit"]}>
-                    Napravi
-                </button>
-                <button type="button" onClick={closeModal}>
-                    Zatvori
-                </button>
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        {" "}
+                        <button
+                            type="submit"
+                            className={styles["make-comp-submit"]}
+                        >
+                            Napravi
+                        </button>
+                        <button type="button" onClick={closeModal}>
+                            Zatvori
+                        </button>
+                    </>
+                )}
             </form>
         </dialog>
     );
