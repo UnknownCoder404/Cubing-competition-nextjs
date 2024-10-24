@@ -115,7 +115,7 @@ const cardData: () => CardProp[] = () => [
     description: (
       <p>
         Ti si administrator! Možeš{" "}
-        <Link href="/competitions-dashboard">upravljati</Link> natjecanjima.
+        <Link href="/Competitions-Dashboard">upravljati</Link> natjecanjima.
       </p>
     ),
     shouldRender: () => {
