@@ -7,6 +7,122 @@ import { Loader } from "../components/Loader/Loader";
 
 const events = ["3x3", "3x3oh", "4x4", "2x2", "3x3bld", "megaminx", "teambld"];
 
+function EventSelection({
+    selectedEvents,
+    handleEventChange,
+    handleRoundsChange,
+}: {
+    selectedEvents: { [key: string]: { selected: boolean; rounds: number } };
+    handleEventChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleRoundsChange: (
+        e: ChangeEvent<HTMLSelectElement>,
+        eventName: string,
+    ) => void;
+}) {
+    return (
+        <>
+            {events.map((event, index) => (
+                <div key={index}>
+                    <input
+                        type="checkbox"
+                        id={`event-${index}`}
+                        name={event}
+                        onChange={handleEventChange}
+                    />
+                    <label htmlFor={`event-${index}`}>{event}</label>
+                    <br />
+                    <label htmlFor={`rounds-${event}`}>Broj rundi</label>
+                    <select
+                        id={`rounds-${event}`}
+                        disabled={!selectedEvents[event]?.selected}
+                        value={selectedEvents[event]?.rounds || 1}
+                        onChange={(e) => handleRoundsChange(e, event)}
+                    >
+                        {[...Array(5)].map((_, i) => (
+                            <option key={i} value={i + 1}>
+                                {i + 1}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            ))}
+        </>
+    );
+}
+
+function CompetitionForm({
+    name,
+    date,
+    selectedEvents,
+    setName,
+    setDate,
+    handleEventChange,
+    handleRoundsChange,
+    handleSubmit,
+    isLoading,
+    closeModal,
+}: {
+    name: string;
+    date: string;
+    selectedEvents: { [key: string]: { selected: boolean; rounds: number } };
+    setName: (value: string) => void;
+    setDate: (value: string) => void;
+    handleEventChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleRoundsChange: (
+        e: ChangeEvent<HTMLSelectElement>,
+        eventName: string,
+    ) => void;
+    handleSubmit: (e: React.FormEvent) => Promise<void>;
+    isLoading: boolean;
+    closeModal: () => void;
+}) {
+    return (
+        <form className={styles["make-comp-form"]} onSubmit={handleSubmit}>
+            <h2>Kreiraj natjecanje</h2>
+            <label htmlFor="comp-name">Ime natjecanja</label>
+            <input
+                type="text"
+                id="comp-name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+            />
+
+            <label htmlFor="comp-date">Datum natjecanja</label>
+            <input
+                type="datetime-local"
+                id="comp-date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+            />
+
+            <label>Eventovi</label>
+            <EventSelection
+                selectedEvents={selectedEvents}
+                handleEventChange={handleEventChange}
+                handleRoundsChange={handleRoundsChange}
+            />
+
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <>
+                    <button
+                        type="submit"
+                        className={styles["make-comp-submit"]}
+                    >
+                        Napravi
+                    </button>
+                    <button type="button" onClick={closeModal}>
+                        Zatvori
+                    </button>
+                </>
+            )}
+        </form>
+    );
+}
+
 function CreateCompDialog({
     showModal,
     closeModal,
@@ -81,69 +197,18 @@ function CreateCompDialog({
             ref={dialogRef}
             onClose={closeModal}
         >
-            <form className={styles["make-comp-form"]} onSubmit={handleSubmit}>
-                <h2>Kreiraj natjecanje</h2>
-                <label htmlFor="comp-name">Ime natjecanja</label>
-                <input
-                    type="text"
-                    id="comp-name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                />
-
-                <label htmlFor="comp-date">Datum natjecanja</label>
-                <input
-                    type="datetime-local"
-                    id="comp-date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    required
-                />
-
-                <label>Eventovi</label>
-                {events.map((event, index) => (
-                    <div key={index}>
-                        <input
-                            type="checkbox"
-                            id={`event-${index}`}
-                            name={event}
-                            onChange={handleEventChange}
-                        />
-                        <label htmlFor={`event-${index}`}>{event}</label>
-                        <br />
-                        <label htmlFor={`rounds-${event}`}>Broj rundi</label>
-                        <select
-                            id={`rounds-${event}`}
-                            disabled={!selectedEvents[event]?.selected}
-                            value={selectedEvents[event]?.rounds || 1}
-                            onChange={(e) => handleRoundsChange(e, event)}
-                        >
-                            {[...Array(5)].map((_, i) => (
-                                <option key={i} value={i + 1}>
-                                    {i + 1}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                ))}
-                {isLoading ? (
-                    <Loader />
-                ) : (
-                    <>
-                        {" "}
-                        <button
-                            type="submit"
-                            className={styles["make-comp-submit"]}
-                        >
-                            Napravi
-                        </button>
-                        <button type="button" onClick={closeModal}>
-                            Zatvori
-                        </button>
-                    </>
-                )}
-            </form>
+            <CompetitionForm
+                name={name}
+                date={date}
+                selectedEvents={selectedEvents}
+                setName={setName}
+                setDate={setDate}
+                handleEventChange={handleEventChange}
+                handleRoundsChange={handleRoundsChange}
+                handleSubmit={handleSubmit}
+                isLoading={isLoading}
+                closeModal={closeModal}
+            />
         </dialog>
     );
 }
