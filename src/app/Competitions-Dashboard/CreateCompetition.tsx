@@ -78,7 +78,7 @@ function CompetitionForm({
 }) {
     return (
         <form className={styles["make-comp-form"]} onSubmit={handleSubmit}>
-            <h2>Kreiraj natjecanje</h2>
+            <h2>Izradi natjecanje</h2>
             <label htmlFor="comp-name">Ime natjecanja</label>
             <input
                 type="text"
@@ -107,7 +107,7 @@ function CompetitionForm({
             {isLoading ? (
                 <Loader />
             ) : (
-                <>
+                <div className={styles["make-comp-form-buttons"]}>
                     <button
                         type="submit"
                         className={styles["make-comp-submit"]}
@@ -117,7 +117,7 @@ function CompetitionForm({
                     <button type="button" onClick={closeModal}>
                         Zatvori
                     </button>
-                </>
+                </div>
             )}
         </form>
     );

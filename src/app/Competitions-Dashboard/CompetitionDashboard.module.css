@@ -135,3 +135,9 @@ body {
 .make-comp-form .make-comp-submit:hover {
     background-color: #218838;
 }
+
+.make-comp-form-buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
