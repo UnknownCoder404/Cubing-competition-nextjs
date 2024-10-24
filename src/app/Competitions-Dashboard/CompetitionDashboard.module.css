@@ -10,6 +10,10 @@ body {
   display: grid;
   grid-template-columns: 1fr;
 }
+.comp-btns {
+  display: flex;
+  column-gap: 0.3rem;
+}
 .delete-button {
   background-color: rgb(225, 83, 83);
   border: none;

@@ -43,27 +43,29 @@ function CurrentCompetitions({
               );
             })}
           </ul>
-          <button
-            className={clsx(styles["edit-button"], {
-              [styles["locked"]]: isLocked,
-            })}
-          >
-            <Image width={24} height={24} src={editImg} alt="edit" />
-          </button>
-          <button
-            className={clsx(styles["delete-button"], {
-              [styles["locked"]]: isLocked,
-            })}
-          >
-            <Image width={24} height={24} src={deleteImg} alt="delete" />
-          </button>
-          <button
-            className={clsx(styles["lock-button"], {
-              [styles["locked"]]: isLocked,
-            })}
-          >
-            <Image width={24} height={24} src={lockImg} alt="lock" />
-          </button>
+          <div className={styles["comp-btns"]}>
+            <button
+              className={clsx(styles["edit-button"], {
+                [styles["locked"]]: isLocked,
+              })}
+            >
+              <Image width={24} height={24} src={editImg} alt="edit" />
+            </button>
+            <button
+              className={clsx(styles["delete-button"], {
+                [styles["locked"]]: isLocked,
+              })}
+            >
+              <Image width={24} height={24} src={deleteImg} alt="delete" />
+            </button>
+            <button
+              className={clsx(styles["lock-button"], {
+                [styles["locked"]]: isLocked,
+              })}
+            >
+              <Image width={24} height={24} src={lockImg} alt="lock" />
+            </button>
+          </div>
         </div>
       </div>
     );
