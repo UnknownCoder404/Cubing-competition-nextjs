@@ -7,125 +7,127 @@ import { url } from "@/globals";
 import Select from "react-select";
 
 type ResultsBtnProps = {
-  competition: CompetitionType | undefined;
-  setLoading: (arg0: boolean) => void;
-  setError: (arg0: boolean) => void;
+    competition: CompetitionType | undefined;
+    setLoading: (arg0: boolean) => void;
+    setError: (arg0: boolean) => void;
 };
 
 type CompSelectProps = {
-  competitions: CompetitionType[];
-  setSelectedCompetition: (arg0: CompetitionType) => void;
-  disabled: boolean;
+    competitions: CompetitionType[];
+    setSelectedCompetition: (arg0: CompetitionType) => void;
+    disabled: boolean;
 };
 
 const getResultsForCompById = async (id: string): Promise<Blob> => {
-  const resultsUrl = new URL(url);
-  resultsUrl.pathname = "results";
-  resultsUrl.searchParams.set("competitionId", id);
+    const resultsUrl = new URL(url);
+    resultsUrl.pathname = "results";
+    resultsUrl.searchParams.set("competitionId", id);
 
-  const data = await fetch(resultsUrl.toString(), {
-    headers: addToken({}) || {},
-  });
-  if (!data.ok) {
-    throw new Error("Error fetching results");
-  }
-  return data.blob();
+    const data = await fetch(resultsUrl.toString(), {
+        headers: addToken({}) || {},
+    });
+    if (!data.ok) {
+        throw new Error("Error fetching results");
+    }
+    return data.blob();
 };
 
 function ResultsBtn({ competition, setLoading, setError }: ResultsBtnProps) {
-  const competitionId = competition?._id || "";
+    const competitionId = competition?._id || "";
 
-  const resultsQuery = useQuery(
-    ["results", competitionId],
-    () => getResultsForCompById(competitionId),
-    {
-      enabled: !!competitionId,
-    },
-  );
+    const resultsQuery = useQuery(
+        ["results", competitionId],
+        () => getResultsForCompById(competitionId),
+        {
+            enabled: !!competitionId,
+        },
+    );
 
-  const { data: results, isLoading, error } = resultsQuery;
-  const resultsStyles = styles["results"];
+    const { data: results, isLoading, error } = resultsQuery;
+    const resultsStyles = styles["results"];
 
-  useEffect(() => {
-    setLoading(isLoading);
-  }, [isLoading, setLoading]);
+    useEffect(() => {
+        setLoading(isLoading);
+    }, [isLoading, setLoading]);
 
-  if (!competition) return null;
-  if (isLoading)
-    return <button className={resultsStyles}>Učitavanje...</button>;
-  if (error) setError(true);
-  return (
-    <button
-      className={resultsStyles}
-      onClick={() => {
-        if (!results) return;
-        const url = window.URL.createObjectURL(results);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `${competition.name} - Rezultati.xlsx`;
+    if (!competition) return null;
+    if (isLoading)
+        return <button className={resultsStyles}>Učitavanje...</button>;
+    if (error) setError(true);
+    return (
+        <button
+            className={resultsStyles}
+            onClick={() => {
+                if (!results) return;
+                const url = window.URL.createObjectURL(results);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `${competition.name} - Rezultati.xlsx`;
 
-        document.body.appendChild(a);
-        a.click();
-      }}
-    >
-      Rezultati
-    </button>
-  );
+                document.body.appendChild(a);
+                a.click();
+            }}
+        >
+            Rezultati
+        </button>
+    );
 }
 
 function CompSelect({
-  competitions,
-  setSelectedCompetition,
-  disabled,
+    competitions,
+    setSelectedCompetition,
+    disabled,
 }: CompSelectProps) {
-  const competitionsAsOptions = competitions.map((competition) => ({
-    value: competition._id,
-    label: competition.name,
-  }));
-  return (
-    <Select
-      isDisabled={disabled}
-      isLoading={disabled}
-      className="select-one"
-      options={competitionsAsOptions}
-      defaultValue={competitionsAsOptions[0]}
-      instanceId="prefix"
-      onChange={(e) => {
-        setSelectedCompetition(competitions.find((c) => c._id === e!.value)!);
-      }}
-    />
-  );
+    const competitionsAsOptions = competitions.map((competition) => ({
+        value: competition._id,
+        label: competition.name,
+    }));
+    return (
+        <Select
+            isDisabled={disabled}
+            isLoading={disabled}
+            className="select-one"
+            options={competitionsAsOptions}
+            defaultValue={competitionsAsOptions[0]}
+            instanceId="prefix"
+            onChange={(e) => {
+                setSelectedCompetition(
+                    competitions.find((c) => c._id === e!.value)!,
+                );
+            }}
+        />
+    );
 }
 
 export default function Excel({
-  competitions,
+    competitions,
 }: {
-  competitions: CompetitionType[];
+    competitions: CompetitionType[];
 }) {
-  const [selectedCompetition, setSelectedCompetition] = useState<
-    CompetitionType | undefined
-  >(competitions[0]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  return (
-    <div className={styles["excel-options-container"]}>
-      <h2>Excel</h2>
-      {error ? (
-        <p>Greška prilikom učitavanja</p>
-      ) : (
-        <>
-          <CompSelect
-            competitions={competitions}
-            setSelectedCompetition={setSelectedCompetition}
-            disabled={loading}
-          />
-          <ResultsBtn
-            setLoading={setLoading}
-            competition={selectedCompetition}
-            setError={setError}
-          />
-        </>
-      )}
-    </div>
-  );
+    const [selectedCompetition, setSelectedCompetition] = useState<
+        CompetitionType | undefined
+    >(competitions[0]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
+    return (
+        <div className={styles["excel-options-container"]}>
+            <h2>Excel</h2>
+            {error ? (
+                <p>Greška prilikom učitavanja</p>
+            ) : (
+                <>
+                    <CompSelect
+                        competitions={competitions}
+                        setSelectedCompetition={setSelectedCompetition}
+                        disabled={loading}
+                    />
+                    <ResultsBtn
+                        setLoading={setLoading}
+                        competition={selectedCompetition}
+                        setError={setError}
+                    />
+                </>
+            )}
+        </div>
+    );
 }

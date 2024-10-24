@@ -1,33 +1,33 @@
 /* Main container styling */
 .main {
-  margin: 0 auto;
-  padding: 30px;
-  max-width: 792px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    margin: 0 auto;
+    padding: 30px;
+    max-width: 792px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Scramble text block styling */
 .scramble {
-  font-size: 30px;
-  line-height: 1.5em; /* Consolidated line-height */
-  margin-bottom: 30px;
-  white-space: pre-wrap;
-  width: 70vw; /* Combined width settings */
-  min-height: 90px;
-  text-align: center;
+    font-size: 30px;
+    line-height: 1.5em; /* Consolidated line-height */
+    margin-bottom: 30px;
+    white-space: pre-wrap;
+    width: 70vw; /* Combined width settings */
+    min-height: 90px;
+    text-align: center;
 }
 
 .scramble-controls {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 40vh;
-  gap: 0.5rem 2rem;
-  flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh;
+    gap: 0.5rem 2rem;
+    flex-wrap: wrap;
 }
 
 /* @media (max-width: 650px) {
@@ -39,43 +39,43 @@
 
 /* Scramble display container */
 .scramble-display-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  min-height: 40vh; /* Set a fixed height to prevent layout shifts */
-  min-width: 200px;
-  max-width: 300px;
-  width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    min-height: 40vh; /* Set a fixed height to prevent layout shifts */
+    min-width: 200px;
+    max-width: 300px;
+    width: 80vw;
 }
 
 .scramble-display-container > scramble-display {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .btn-rescramble-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 270px;
-  height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    height: 100px;
 }
 
 /* Button styling */
 .btn-rescramble {
-  background-color: #428bca;
-  border: 1px solid #357ebd;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 26px;
-  line-height: 26px;
-  margin: 0;
-  padding: 20px 0;
-  min-width: 140px;
-  width: 50vw;
+    background-color: #428bca;
+    border: 1px solid #357ebd;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 26px;
+    line-height: 26px;
+    margin: 0;
+    padding: 20px 0;
+    min-width: 140px;
+    width: 50vw;
 }
 
 .btn-rescramble:active {
-  transform: translateY(2px);
+    transform: translateY(2px);
 }

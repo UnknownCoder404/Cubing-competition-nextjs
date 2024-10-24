@@ -7,17 +7,17 @@ import { ChangePasswordForm } from "./ChangePasswordForm";
 import Excel from "./Excel";
 
 export default function AdvancedDashboard({
-  users,
-  competitions,
+    users,
+    competitions,
 }: {
-  users: Users;
-  competitions: CompetitionType[];
+    users: Users;
+    competitions: CompetitionType[];
 }) {
-  return (
-    <div className={styles["options"]}>
-      <Excel competitions={competitions} />
-      <ChangePasswordForm users={users} />
-      <Backup />
-    </div>
-  );
+    return (
+        <div className={styles["options"]}>
+            <Excel competitions={competitions} />
+            <ChangePasswordForm users={users} />
+            <Backup />
+        </div>
+    );
 }
