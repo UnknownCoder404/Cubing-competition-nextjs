@@ -11,6 +11,7 @@ const routeTitles: {
   "/Login": "Prijava",
   "/Register": "Registracija",
   "/Competitions": "Natjecanja",
+  "/Competitions-Dashboard": "Natjecanja",
   "/Scramble": "Vježbanje",
   "/Dashboard": "Radna ploča",
   "/Advanced-Dashboard": "Radna ploča",
