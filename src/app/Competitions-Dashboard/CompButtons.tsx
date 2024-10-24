@@ -4,7 +4,8 @@ import Image from "next/image";
 import styles from "./CompetitionDashboard.module.css";
 import editImg from "@/app/public/edit.svg";
 import deleteImg from "@/app/public/delete.svg";
-import lockImg from "@/app/public/locked.svg";
+import lockedImg from "@/app/public/locked.svg";
+import unlockedImg from "@/app/public/unlocked.svg";
 import { clsx } from "clsx";
 import { useRouter } from "next/navigation";
 import { deleteCompetition, lockCompetition } from "../utils/competitions";
@@ -76,7 +77,12 @@ export default function CompButtons({ isLocked, competitionId }: Props) {
         })}
         onClick={lockThisCompetition}
       >
-        <Image width={24} height={24} src={lockImg} alt="lock" />
+        <Image
+          width={24}
+          height={24}
+          src={isLocked ? lockedImg : unlockedImg}
+          alt="lock"
+        />
       </button>
     </div>
   );
