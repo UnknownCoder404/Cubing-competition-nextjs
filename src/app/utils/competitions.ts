@@ -45,3 +45,21 @@ export async function deleteCompetition(id: string) {
     parsed: await response.json(),
   };
 }
+
+export async function lockCompetition(id: string) {
+  const lockUrl = new URL(url);
+  lockUrl.pathname = `competitions/${id}/lock`;
+  const headers =
+    addToken({
+      "Content-Type": "application/json",
+    }) || {};
+  const response = await fetch(lockUrl, {
+    method: "POST",
+    headers: headers,
+  });
+  return {
+    status: response.status,
+    success: response.ok,
+    parsed: await response.json(),
+  };
+}
