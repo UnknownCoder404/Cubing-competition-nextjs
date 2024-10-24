@@ -5,6 +5,7 @@ import styles from "./CompetitionDashboard.module.css";
 import editImg from "@/app/public/edit.svg";
 import deleteImg from "@/app/public/delete.svg";
 import lockImg from "@/app/public/locked.svg";
+import { clsx } from "clsx";
 
 export const metadata = {
   title: "Upravljanje natjecanjima",
@@ -34,15 +35,33 @@ function CurrentCompetitions({
           </p>
           <h2>Eventovi</h2>
           <ul className={styles["events-list"]}>
-            <li className={styles["event"]}>3x3 (3)</li>
+            {events.map((event, index) => {
+              return (
+                <li key={index} className={styles["event"]}>
+                  {event.name} ({event.rounds})
+                </li>
+              );
+            })}
           </ul>
-          <button className={styles["edit-button"]}>
+          <button
+            className={clsx(styles["edit-button"], {
+              [styles["locked"]]: isLocked,
+            })}
+          >
             <Image width={24} height={24} src={editImg} alt="edit" />
           </button>
-          <button className={styles["delete-button"]}>
+          <button
+            className={clsx(styles["delete-button"], {
+              [styles["locked"]]: isLocked,
+            })}
+          >
             <Image width={24} height={24} src={deleteImg} alt="delete" />
           </button>
-          <button className={styles["lock-button"]}>
+          <button
+            className={clsx(styles["lock-button"], {
+              [styles["locked"]]: isLocked,
+            })}
+          >
             <Image width={24} height={24} src={lockImg} alt="lock" />
           </button>
         </div>
@@ -52,7 +71,6 @@ function CurrentCompetitions({
 }
 
 export default async function CompetitionsDashboard() {
-  console.log(styles);
   const competitions = await getCompetitions();
   if (!competitions.success)
     return <p>Dogodila se greška prilikom dobivanja natjecanje</p>;
