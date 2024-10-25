@@ -1,9 +1,3 @@
-body {
-    background: var(--background);
-    background-attachment: fixed; /* Covers whole page, even if body is smaller than viewport */
-    color: white;
-}
-
 .edit-comp-modal[open] {
     width: 90vw;
     border-radius: 3px;

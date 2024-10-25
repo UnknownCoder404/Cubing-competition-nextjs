@@ -213,7 +213,8 @@ export default function EditCompDialog({
 
     useEffect(() => {
         if (!dialogRef.current) return;
-        show ? dialogRef.current.showModal() : dialogRef.current.close();
+        if (show) dialogRef.current.showModal();
+        else dialogRef.current.close();
     }, [show]);
 
     return (
