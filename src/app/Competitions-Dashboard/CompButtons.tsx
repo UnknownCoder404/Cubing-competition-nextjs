@@ -9,13 +9,23 @@ import unlockedImg from "@/app/public/unlocked.svg";
 import { clsx } from "clsx";
 import { useRouter } from "next/navigation";
 import { deleteCompetition, lockCompetition } from "../utils/competitions";
+import { CompetitionType } from "../Types/solve";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+const EditCompDialog = dynamic(() => import("./EditCompDialog"));
 
 type Props = {
     isLocked: boolean;
     competitionId: string;
+    competition: CompetitionType;
 };
-export default function CompButtons({ isLocked, competitionId }: Props) {
+export default function CompButtons({
+    isLocked,
+    competitionId,
+    competition,
+}: Props) {
     const router = useRouter();
+    const [isEditDialogShown, setIsEditDialogShown] = useState(false);
 
     async function lockThisCompetition() {
         if (
@@ -48,9 +58,10 @@ export default function CompButtons({ isLocked, competitionId }: Props) {
     }
 
     async function editThisCompetition() {
-        alert(
-            "Mijenjanje natjecanja nije implementirano. Kontaktirajte programera.",
-        );
+        if (competition.isLocked) {
+            alert("Natjecanje je zaključano i ne može se uređivati.");
+        }
+        setIsEditDialogShown(true);
     }
 
     return (
@@ -84,6 +95,11 @@ export default function CompButtons({ isLocked, competitionId }: Props) {
                     alt="lock"
                 />
             </button>
+            <EditCompDialog
+                competition={competition}
+                show={isEditDialogShown}
+                setVisibilityAction={setIsEditDialogShown}
+            />
         </div>
     );
 }

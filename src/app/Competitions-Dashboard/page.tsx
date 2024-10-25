@@ -40,7 +40,11 @@ function CurrentCompetitions({
                                 </li>
                             ))}
                         </ul>
-                        <CompButtons isLocked={isLocked} competitionId={_id} />
+                        <CompButtons
+                            isLocked={isLocked}
+                            competitionId={_id}
+                            competition={comp}
+                        />
                     </div>
                 );
             })}
