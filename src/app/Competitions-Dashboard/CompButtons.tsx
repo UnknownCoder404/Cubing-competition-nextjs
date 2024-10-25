@@ -59,7 +59,7 @@ export default function CompButtons({
 
     async function editThisCompetition() {
         if (competition.isLocked) {
-            alert("Natjecanje je zaključano i ne može se uređivati.");
+            return alert("Natjecanje je zaključano i ne može se uređivati.");
         }
         setIsEditDialogShown(true);
     }
