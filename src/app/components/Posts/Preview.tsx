@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Card from "../HomePage/card";
 import { markdownToHtml } from "@/app/utils/markdown";
-import "../../Posts/Preview.module.css";
+import "../../Posts/Preview.css";
 
 type Props = {
     description: string;
