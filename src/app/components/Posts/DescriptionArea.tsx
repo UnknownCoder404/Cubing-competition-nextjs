@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import postsStyles from "@/app/Posts/Posts.module.css";
 
 interface DescriptionAreaProps {
@@ -6,8 +6,11 @@ interface DescriptionAreaProps {
     value: string;
 }
 
-const DescriptionArea = forwardRef<HTMLTextAreaElement, DescriptionAreaProps>(
-    ({ setValue, value }, ref) => (
+function DescriptionArea(
+    { setValue, value }: DescriptionAreaProps,
+    ref: React.Ref<HTMLTextAreaElement>,
+) {
+    return (
         <textarea
             ref={ref}
             onChange={(e) => setValue(e.target.value)}
@@ -16,10 +19,9 @@ const DescriptionArea = forwardRef<HTMLTextAreaElement, DescriptionAreaProps>(
             maxLength={4000}
             placeholder="Opis"
         />
-    ),
+    );
+}
+
+export default React.forwardRef<HTMLTextAreaElement, DescriptionAreaProps>(
+    DescriptionArea,
 );
-
-// Add displayName property to fix eslint error
-DescriptionArea.displayName = "DescriptionArea";
-
-export default DescriptionArea;
