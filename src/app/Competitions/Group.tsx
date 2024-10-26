@@ -7,68 +7,68 @@ import dynamic from "next/dynamic";
 import { Loader } from "../components/Loader/Loader";
 import { clsx } from "clsx";
 const GroupResults = dynamic(() => import("./GroupResults"), {
-  ssr: false,
-  loading: () => <LoadingGroup />,
+    ssr: false,
+    loading: () => <LoadingGroup />,
 });
 
 function LoadingGroup() {
-  return (
-    <div className={CompetitionStyles["group-loader"]}>
-      <Loader />
-    </div>
-  );
+    return (
+        <div className={CompetitionStyles["group-loader"]}>
+            <Loader />
+        </div>
+    );
 }
 
 type Props = {
-  group: Result[][];
-  groupNumber: number;
+    group: Result[][];
+    groupNumber: number;
 };
 
 export default function Group({ group, groupNumber }: Props) {
-  const [areGroupResultsShown, setGroupResultsVisibility] = useState(true);
+    const [areGroupResultsShown, setGroupResultsVisibility] = useState(true);
 
-  // Initialize an array of visibility states, one for each round
-  const [roundVisibilities, setRoundVisibilities] = useState<boolean[]>(
-    group.map(() => false), // Default to false (hidden) for each round
-  );
+    // Initialize an array of visibility states, one for each round
+    const [roundVisibilities, setRoundVisibilities] = useState<boolean[]>(
+        group.map(() => false), // Default to false (hidden) for each round
+    );
 
-  function toggleGroupResultsVisibility() {
-    setGroupResultsVisibility(!areGroupResultsShown);
-  }
+    function toggleGroupResultsVisibility() {
+        setGroupResultsVisibility(!areGroupResultsShown);
+    }
 
-  function toggleRoundVisibility(index: number) {
-    setRoundVisibilities((prevVisibilities) => {
-      const newVisibilities = [...prevVisibilities];
-      newVisibilities[index] = !newVisibilities[index];
-      return newVisibilities;
-    });
-  }
+    function toggleRoundVisibility(index: number) {
+        setRoundVisibilities((prevVisibilities) => {
+            const newVisibilities = [...prevVisibilities];
+            newVisibilities[index] = !newVisibilities[index];
+            return newVisibilities;
+        });
+    }
 
-  const groupIndex = groupNumber - 1;
+    const groupIndex = groupNumber - 1;
 
-  return (
-    <div
-      className={clsx(CompetitionStyles["group"], {
-        [CompetitionStyles["no-gap"]]: !areGroupResultsShown,
-      })} // Apply the no-gap class when group results are hidden
-      id={`group-${groupIndex}`}
-    >
-      <div className={CompetitionStyles["group-title-container"]}>
-        <h4 className={CompetitionStyles["group-title"]}>
-          Grupa {groupNumber}
-        </h4>
-        <ShowAndHide
-          show={areGroupResultsShown}
-          toggleVisibility={toggleGroupResultsVisibility}
-        />
-      </div>
+    return (
+        <div
+            className={clsx(CompetitionStyles["group"], {
+                [CompetitionStyles["no-gap"]]: !areGroupResultsShown,
+            })} // Apply the no-gap class when group results are hidden
+            id={`group-${groupIndex}`}
+        >
+            <div className={CompetitionStyles["group-title-container"]}>
+                <h4 className={CompetitionStyles["group-title"]}>
+                    Grupa {groupNumber}
+                </h4>
+                <ShowAndHide
+                    show={areGroupResultsShown}
+                    toggleVisibility={toggleGroupResultsVisibility}
+                />
+            </div>
 
-      <GroupResults
-        roundVisibilities={roundVisibilities}
-        areGroupResultsShown={areGroupResultsShown}
-        group={group}
-        toggleRoundVisibility={toggleRoundVisibility}
-      />
-    </div>
-  );
+            <GroupResults
+                roundVisibilities={roundVisibilities}
+                areGroupResultsShown={areGroupResultsShown}
+                group={group}
+                toggleRoundVisibility={toggleRoundVisibility}
+            />
+        </div>
+    );
 }

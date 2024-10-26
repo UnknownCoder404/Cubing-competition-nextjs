@@ -6,26 +6,26 @@ import ReactQueryProvider from "./components/Providers/react-query-provider";
 
 const hideHeaderRoutes: string[] = [];
 const roboto = Roboto({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  display: "swap",
+    weight: ["400", "500", "700"],
+    subsets: ["latin"],
+    display: "swap",
 });
 
 export default async function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  const headersList = await headers();
-  const pathName = headersList.get("x-pathname")!;
-  const shouldShowHeader = !hideHeaderRoutes.includes(pathName);
+    const headersList = await headers();
+    const pathName = headersList.get("x-pathname")!;
+    const shouldShowHeader = !hideHeaderRoutes.includes(pathName);
 
-  return (
-    <html lang="hr" className={roboto.className}>
-      <body>
-        {shouldShowHeader && <Header />}
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="hr" className={roboto.className}>
+            <body>
+                {shouldShowHeader && <Header />}
+                <ReactQueryProvider>{children}</ReactQueryProvider>
+            </body>
+        </html>
+    );
 }

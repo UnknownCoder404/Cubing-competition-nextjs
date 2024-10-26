@@ -2,13 +2,18 @@ import type { MetadataRoute } from "next";
 
 // @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots
 const robots = (): MetadataRoute.Robots => ({
-  rules: [
-    {
-      userAgent: "*",
-      allow: "*",
-      disallow: ["/Login", "/Register", "/Advanced-Dashboard", "/Dashboard"],
-    },
-  ],
+    rules: [
+        {
+            userAgent: "*",
+            allow: "*",
+            disallow: [
+                "/Login",
+                "/Register",
+                "/Advanced-Dashboard",
+                "/Dashboard",
+            ],
+        },
+    ],
 });
 
 export default robots;

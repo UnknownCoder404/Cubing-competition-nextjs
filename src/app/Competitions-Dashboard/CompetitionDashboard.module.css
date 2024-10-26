@@ -1,0 +1,137 @@
+.edit-comp-modal[open] {
+    width: 90vw;
+    border-radius: 3px;
+    border: 2px solid rgb(87 86 86);
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.comp-btns {
+    display: flex;
+    column-gap: 0.3rem;
+}
+
+.delete-button {
+    background-color: rgb(225 83 83);
+    border: none;
+    border-radius: 2px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.delete-button:active {
+    transform: translateY(2px);
+}
+
+.delete-button.locked {
+    background-color: rgb(113 104 104);
+}
+
+.edit-button {
+    background-color: rgb(38 174 83);
+    border: none;
+    border-radius: 2px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.edit-button:active {
+    transform: translateY(2px);
+}
+
+.edit-button.locked {
+    background-color: rgb(113 104 104);
+}
+
+.lock-button {
+    background-color: rgb(211 207 207); /* Unlocked: show color for locking */
+    border: none;
+    border-radius: 2px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.lock-button:active {
+    transform: translateY(2px) scale(0.9);
+}
+
+.make-comp-modal {
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+    font-family: Arial, sans-serif;
+}
+
+.make-comp-form h2 {
+    text-align: center;
+    color: #333;
+}
+
+.make-comp-form label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+    color: #555;
+}
+
+.make-comp-form input[type="text"],
+.make-comp-form input[type="datetime-local"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.make-comp-form input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.make-comp-form select {
+    width: 100%;
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.make-comp-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.make-comp-form button:hover {
+    background-color: #0056b3;
+}
+
+.make-comp-form div {
+    margin-bottom: 10px;
+}
+
+.make-comp-form .make-comp-submit {
+    background-color: #28a745;
+    margin-top: 15px;
+}
+
+.make-comp-form .make-comp-submit:hover {
+    background-color: #218838;
+}
+
+.make-comp-form-buttons {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}

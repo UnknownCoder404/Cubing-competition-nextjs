@@ -1,131 +1,131 @@
 /* Style the header */
 .header {
-  padding: 5px 12px;
-  background: rgb(24 24 24);
-  color: #f1f1f1;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  border-radius: 30px;
+    padding: 5px 12px;
+    background: rgb(24 24 24);
+    color: #f1f1f1;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border-radius: 30px;
 }
 
 @media screen and (width <= 350px) {
-  .header {
-    border-radius: 20px;
-  }
+    .header {
+        border-radius: 20px;
+    }
 }
 
 @media screen and (width <= 500px) {
-  .header {
-    grid-template-columns: 1fr;
-  }
+    .header {
+        grid-template-columns: 1fr;
+    }
 }
 
 .interaction-container {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
 }
 
 @media screen and (width <= 500px) {
-  .interaction-container {
-    justify-content: center;
-    align-items: center;
-  }
+    .interaction-container {
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 /* Page content */
 .content {
-  padding: 16px;
+    padding: 16px;
 }
 
 /* The sticky class is added to the header with JS when it reaches its scroll position */
 .sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 /* Add some top padding to the page content to prevent sudden quick movement */
 .sticky + .content {
-  padding-top: 102px;
+    padding-top: 102px;
 }
 
 .logo {
-  width: 20px;
+    width: 20px;
 }
 
 .logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title-container {
-  display: flex;
+    display: flex;
 }
 
 .title {
-  display: inline-block;
-  min-height: 40px;
+    display: inline-block;
+    min-height: 40px;
 }
 
 @media screen and (width <= 276px) {
-  .title {
-    min-height: 30px;
-    font-size: 30px;
-  }
+    .title {
+        min-height: 30px;
+        font-size: 30px;
+    }
 }
 
 @media screen and (width <= 260px) {
-  .title {
-    min-height: 28px;
-    font-size: 28px;
-  }
+    .title {
+        min-height: 28px;
+        font-size: 28px;
+    }
 }
 
 @media screen and (width <= 233px) {
-  .title {
-    min-height: 26px;
-    font-size: 26px;
-  }
+    .title {
+        min-height: 26px;
+        font-size: 26px;
+    }
 }
 
 @media screen and (width <= 222px) {
-  .title {
-    min-height: 24px;
-    font-size: 24px;
-  }
+    .title {
+        min-height: 24px;
+        font-size: 24px;
+    }
 }
 
 .account-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
 }
 
 .log-in {
-  display: inline-block;
-  margin: 5px;
+    display: inline-block;
+    margin: 5px;
 }
 
 .log-in a {
-  text-decoration: underline;
-  color: white;
+    text-decoration: underline;
+    color: white;
 }
 
 .account-circle.logged-in {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 @media screen and (width <= 230px) {
-  .account-circle {
-    display: none;
-  }
+    .account-circle {
+        display: none;
+    }
 }
 
 @media screen and (width <= 250px) {
-  .header {
-    padding: 10px;
-  }
+    .header {
+        padding: 10px;
+    }
 }
