@@ -17,6 +17,7 @@ import {
     italizeSelectedTextFromInput,
     underlineSelectedTextFromInput,
 } from "@/app/utils/text";
+import { clsx } from "clsx";
 
 const buttons = [
     {
@@ -84,7 +85,6 @@ const buttons = [
         },
     },
 ];
-
 function Button({
     className,
     src,
@@ -98,9 +98,10 @@ function Button({
 }) {
     return (
         <button
-            className={`${postsStyles[className.split(" ")[0]]} ${
-                postsStyles["style-text-btn"]
-            }`}
+            className={clsx(
+                postsStyles[className.split(" ")[0]],
+                postsStyles["style-text-btn"],
+            )}
             onClick={onClick}
         >
             <Image height={24} width={24} src={src} alt={alt} />
@@ -124,11 +125,11 @@ export default function StyleTextContainer({
 
     return (
         <div className={postsStyles["style-text-container"]}>
-            <div className={postsStyles["style-text-buttons-container"]}>
+            <div className={postsStyles["style-text-container"]}>
                 {buttons.map((button) => (
                     <Button
                         key={button.className}
-                        className={button.className}
+                        className={clsx(button.className)}
                         src={button.src}
                         alt={button.alt}
                         onClick={() => {
