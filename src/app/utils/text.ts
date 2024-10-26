@@ -114,6 +114,10 @@ function headerText(
     return headerText;
 }
 
+function waitForPaint(callback: () => void) {
+    requestAnimationFrame(callback);
+}
+
 // Types for selection functions in TextArea
 type HTMLTextAreaElementWithSelection = HTMLTextAreaElement & {
     selectionStart: number;
@@ -122,92 +126,111 @@ type HTMLTextAreaElementWithSelection = HTMLTextAreaElement & {
 
 // Updated functions for TextArea
 function boldSelectedTextFromInput(
-    input: HTMLTextAreaElementWithSelection | null,
+    input: HTMLTextAreaElementWithSelection,
+    setDescription: (arg0: string) => void,
 ) {
-    if (!input) throw new Error("Param input missing.");
     const start = input.selectionStart;
     const end = input.selectionEnd;
     const oldInputValue = input.value;
     const newInputValue = boldText(oldInputValue, start, end);
-    input.value = newInputValue;
+    setDescription(newInputValue);
     const lengthDifference = newInputValue.length - oldInputValue.length - 2;
-    input.focus();
-    input.setSelectionRange(start + lengthDifference, end + lengthDifference);
+    waitForPaint(() => {
+        input.focus();
+        input.setSelectionRange(
+            start + lengthDifference,
+            end + lengthDifference,
+        );
+    });
 }
 
 function italizeSelectedTextFromInput(
-    input: HTMLTextAreaElementWithSelection | null,
+    input: HTMLTextAreaElementWithSelection,
+    setDescription: (arg0: string) => void,
 ) {
-    if (!input) throw new Error("Param input missing.");
     const start = input.selectionStart;
     const end = input.selectionEnd;
     const oldInputValue = input.value;
     const newInputValue = italicText(oldInputValue, start, end);
-    input.value = newInputValue;
+    setDescription(newInputValue);
     const lengthDifference = newInputValue.length - oldInputValue.length - 1;
-    input.focus();
-    input.setSelectionRange(start + lengthDifference, end + lengthDifference);
+    waitForPaint(() => {
+        input.focus();
+        input.setSelectionRange(
+            start + lengthDifference,
+            end + lengthDifference,
+        );
+    });
 }
 
 function underlineSelectedTextFromInput(
-    input: HTMLTextAreaElementWithSelection | null,
+    input: HTMLTextAreaElementWithSelection,
+    setDescription: (arg0: string) => void,
 ) {
-    if (!input) throw new Error("Param input missing.");
     const start = input.selectionStart;
     const end = input.selectionEnd;
     const oldInputValue = input.value;
     const newInputValue = underlineText(oldInputValue, start, end);
-    input.value = newInputValue;
+    setDescription(newInputValue);
     const lengthDifference = newInputValue.length - oldInputValue.length - 1;
-    input.focus();
-    input.setSelectionRange(start + lengthDifference, end + lengthDifference);
+    waitForPaint(() => {
+        input.focus();
+        input.setSelectionRange(
+            start + lengthDifference,
+            end + lengthDifference,
+        );
+    });
 }
 
 function hyperlinkSelectedTextFromInput(
-    input: HTMLTextAreaElementWithSelection | null,
+    input: HTMLTextAreaElementWithSelection,
+    setDescription: (arg0: string) => void,
     url: string = "URL",
 ) {
-    if (!input) throw new Error("Param input missing.");
     const start = input.selectionStart;
     const end = input.selectionEnd;
     const selectedWord = input.value.substring(start, end);
     const oldInputValue = input.value;
     const newInputValue = hyperlinkText(oldInputValue, start, end, url);
-    input.value = newInputValue;
+    setDescription(newInputValue);
     const linkStart = start + 1 + selectedWord.length + 1 + 1;
     const linkEnd = linkStart + url.length;
-    input.focus();
-    input.setSelectionRange(linkStart, linkEnd);
+    waitForPaint(() => {
+        input.focus();
+        input.setSelectionRange(linkStart, linkEnd);
+    });
 }
 
 function emailToSelectedTextFromInput(
-    input: HTMLTextAreaElementWithSelection | null,
+    input: HTMLTextAreaElementWithSelection,
+    setDescription: (arg0: string) => void,
     email: string = "email",
 ) {
-    if (!input) throw new Error("Param input missing.");
     const start = input.selectionStart;
     const end = input.selectionEnd;
     const selectedWord = input.value.substring(start, end);
     const oldInputValue = input.value;
     const newInputValue = emailToText(oldInputValue, start, end, email);
-    input.value = newInputValue;
+    setDescription(newInputValue);
     const mailStart =
         start + 1 + selectedWord.length + 1 + 1 + "mailto:".length;
     const mailEnd = mailStart + email.length;
-    input.focus();
-    input.setSelectionRange(mailStart, mailEnd);
+    waitForPaint(() => {
+        input.focus();
+        input.setSelectionRange(mailStart, mailEnd);
+    });
 }
 
 function headerSelectedTextFromInput(
-    input: HTMLTextAreaElementWithSelection | null,
+    input: HTMLTextAreaElementWithSelection,
+    setDescription: (arg0: string) => void,
     level: number = 1,
 ) {
-    if (!input) throw new Error("Param input missing.");
     const start = input.selectionStart;
     const end = input.selectionEnd;
     const oldInputValue = input.value;
     const newInputValue = headerText(oldInputValue, start, end, level);
-    input.value = newInputValue;
+    setDescription(newInputValue);
     const lines = oldInputValue.split("\n");
     let currentStart = 0;
     lines.forEach((line, index) => {
@@ -216,12 +239,14 @@ function headerSelectedTextFromInput(
         currentStart += line.length + 1;
         if (!(lineStart <= start && lineEnd >= end)) return;
         if (newInputValue.split("\n")[index][0] !== "#") {
-            input.focus();
-            input.setSelectionRange(start - level - 1, end - level - 1);
+            waitForPaint(() => {
+                input.focus();
+                input.setSelectionRange(start - level - 1, end - level - 1);
+            });
             return;
         }
         if (lineStart <= start && lineEnd >= end) {
-            requestAnimationFrame(() => {
+            waitForPaint(() => {
                 input.focus();
                 input.setSelectionRange(lineStart + level + 1, end + level + 1);
             });

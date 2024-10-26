@@ -1,4 +1,4 @@
-import { RefObject, useCallback } from "react";
+import { RefObject } from "react";
 import Image from "next/image";
 import postsStyles from "@/app/Posts/Posts.module.css";
 import boldImage from "@/app/public/bold.svg";
@@ -24,67 +24,100 @@ const buttons = [
         className: "bold-btn",
         src: boldImage,
         alt: "Bold",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) boldSelectedTextFromInput(ref.current);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                boldSelectedTextFromInput(ref.current, setDescription);
         },
     },
     {
         className: "italic-btn",
         src: italicImage,
         alt: "Italic",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) italizeSelectedTextFromInput(ref.current);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                italizeSelectedTextFromInput(ref.current, setDescription);
         },
     },
     {
         className: "underline-btn",
         src: underlineImage,
         alt: "Underline",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) underlineSelectedTextFromInput(ref.current);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                underlineSelectedTextFromInput(ref.current, setDescription);
         },
     },
     {
         className: "hyperlink-btn",
         src: linkImage,
         alt: "Hyperlink",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) hyperlinkSelectedTextFromInput(ref.current);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                hyperlinkSelectedTextFromInput(ref.current, setDescription);
         },
     },
     {
         className: "mail-btn",
         src: mailImage,
         alt: "Email",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) emailToSelectedTextFromInput(ref.current);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                emailToSelectedTextFromInput(ref.current, setDescription);
         },
     },
     {
         className: "header-btn header3",
         src: header3Image,
         alt: "Header 3",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) headerSelectedTextFromInput(ref.current, 3);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                headerSelectedTextFromInput(ref.current, setDescription, 3);
         },
     },
     {
         className: "header-btn header4",
         src: header4Image,
         alt: "Header 4",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) headerSelectedTextFromInput(ref.current, 4);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                headerSelectedTextFromInput(ref.current, setDescription, 4);
         },
     },
     {
         className: "header-btn header5",
         src: header5Image,
         alt: "Header 5",
-        action: (ref: RefObject<HTMLTextAreaElement>) => {
-            if (ref.current) headerSelectedTextFromInput(ref.current, 5);
+        action: (
+            ref: RefObject<HTMLTextAreaElement>,
+            setDescription: (arg0: string) => void,
+        ) => {
+            if (ref.current)
+                headerSelectedTextFromInput(ref.current, setDescription, 5);
         },
     },
 ];
+
 function Button({
     className,
     src,
@@ -112,15 +145,14 @@ function Button({
 export default function StyleTextContainer({
     titleInputRef,
     descriptionInputRef,
+    setDescription,
+    description,
 }: {
     titleInputRef: RefObject<HTMLInputElement>;
     descriptionInputRef: RefObject<HTMLTextAreaElement>;
+    description: string;
+    setDescription: (arg0: string) => void;
 }) {
-    const waitForPreview = useCallback(() => {
-        // Implementation of waitForPreview function if needed
-        // You might want to trigger a preview update here
-    }, []);
-
     if (!titleInputRef || !descriptionInputRef) return null;
 
     return (
@@ -133,8 +165,7 @@ export default function StyleTextContainer({
                         src={button.src}
                         alt={button.alt}
                         onClick={() => {
-                            button.action(descriptionInputRef);
-                            waitForPreview();
+                            button.action(descriptionInputRef, setDescription);
                         }}
                     />
                 ))}
