@@ -12,7 +12,6 @@ export default function PostsPage({ posts }: { posts: Posts }) {
     const [description, setDescription] = useState<string>("");
     const titleInput = useRef<HTMLInputElement>(null);
     const descriptionInput = useRef<HTMLTextAreaElement>(null);
-    console.log(description);
 
     return (
         <div className={`${postsStyles["form"]} ${postsStyles["infoinputs"]}`}>
