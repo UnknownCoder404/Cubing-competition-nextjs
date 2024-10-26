@@ -6,43 +6,43 @@ import UserCompAndButtons from "./UserCompAndButtons";
 import { CompetitionType, User } from "../Types/solve";
 
 function UsernameDiv({ username }: { username: string }) {
-  return (
-    <div className={dashboardStyles["username-div"]}>
-      <p className={dashboardStyles["username"]}>{username}</p>
-      <Image
-        className={dashboardStyles["manage-accounts"]}
-        src={manageAccounts}
-        width={undefined}
-        height={24}
-        alt="Manage accounts"
-      />
-    </div>
-  );
+    return (
+        <div className={dashboardStyles["username-div"]}>
+            <p className={dashboardStyles["username"]}>{username}</p>
+            <Image
+                className={dashboardStyles["manage-accounts"]}
+                src={manageAccounts}
+                width={undefined}
+                height={24}
+                alt="Manage accounts"
+            />
+        </div>
+    );
 }
 
 function UserInfo({ user }: { user: User }) {
-  return (
-    <>
-      <UsernameDiv username={user.username} />
-      <p className={dashboardStyles["role"]}>
-        Uloga: {isUser(user.role) ? "Korisnik" : "Administrator"}
-      </p>
-      <p className={dashboardStyles["group"]}>Grupa: {user.group}</p>
-    </>
-  );
+    return (
+        <>
+            <UsernameDiv username={user.username} />
+            <p className={dashboardStyles["role"]}>
+                Uloga: {isUser(user.role) ? "Korisnik" : "Administrator"}
+            </p>
+            <p className={dashboardStyles["group"]}>Grupa: {user.group}</p>
+        </>
+    );
 }
 
 export default function UserDashboard({
-  user,
-  competitions,
+    user,
+    competitions,
 }: {
-  user: User;
-  competitions: CompetitionType[];
+    user: User;
+    competitions: CompetitionType[];
 }) {
-  return (
-    <div className={dashboardStyles["user"]}>
-      <UserInfo user={user} />
-      <UserCompAndButtons user={user} competitions={competitions} />
-    </div>
-  );
+    return (
+        <div className={dashboardStyles["user"]}>
+            <UserInfo user={user} />
+            <UserCompAndButtons user={user} competitions={competitions} />
+        </div>
+    );
 }

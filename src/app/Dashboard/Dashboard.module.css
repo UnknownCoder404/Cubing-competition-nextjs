@@ -1,191 +1,211 @@
 .users {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .user {
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: rgb(63 63 63);
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(63 63 63);
 }
 
 .username-div {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .username {
-  font-weight: bold;
-  display: inline-block;
+    font-weight: bold;
+    display: inline-block;
 }
 
 .manage-accounts {
-  margin-left: 5px;
+    margin-left: 5px;
 }
 
 .role {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 
 .register-btn {
-  width: 100%;
-  padding: 5px 15px;
-  background-color: rgb(39 219 39); /* Green button */
-  transition: background-color 1s;
+    width: 100%;
+    padding: 5px 15px;
+    background-color: rgb(39 219 39);
+    transition: background-color 1s;
 }
 
 .register-btn:hover {
-  background-color: rgb(29 107 29);
+    background-color: rgb(29 107 29);
 }
 
 .user-btns {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .user-btn {
-  width: fit-content;
-  min-width: 80px;
-  max-width: 200px;
-  border-radius: 2px;
-  border: none;
-  background-color: royalblue;
-  color: white;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
+    width: fit-content;
+    min-width: 80px;
+    max-width: 200px;
+    border-radius: 2px;
+    border: none;
+    outline: none; /* Removes default browser outline */
+    background-color: royalblue;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
 }
 
 .user-btn:active {
-  transform: translateY(2px);
+    transform: translateY(2px);
 }
 
-.remove-btn:hover {
-  background-color: rgb(234 45 16);
+.remove-btn:hover,
+.remove-btn:focus {
+    background-color: rgb(234 45 16);
 }
 
-.add-btn:hover {
-  background-color: rgb(142 213 36);
-  color: black;
+.add-btn:hover,
+.add-btn:focus {
+    background-color: rgb(142 213 36);
+    color: black;
 }
 
-.comp-btn:hover {
-  background-color: rgb(44 153 153);
-  color: white;
+.comp-btn:hover,
+.comp-btn:focus {
+    background-color: rgb(44 153 153);
+    color: white;
+}
+
+.comp {
+    overflow: hidden;
 }
 
 .round {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: black;
-  background-color: rgb(181 181 149);
-  padding: 10px;
+    margin: 10px 0;
+    color: black;
+    background-color: rgb(181 181 149);
+    padding: 10px;
 }
 
 .round h3 {
-  margin: 0;
-  margin-bottom: 5px;
-  padding: 0;
+    margin: 0 0 5px;
+    padding: 0;
 }
 
 .solves-list {
-  counter-reset: item;
+    counter-reset: item;
 }
 
 .solve {
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  column-gap: 5px;
-  list-style: none;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    list-style: none;
 }
 
 .solve::before {
-  content: counter(item) ".";
-  counter-increment: item;
-  margin-right: 10px;
+    content: counter(item) ".";
+    counter-increment: item;
+    margin-right: 10px;
 }
 
 .delete-solve {
-  background-color: rgb(233 71 42);
-  border-radius: 10px;
-  border: none;
-  padding: 3px 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: rgb(233 71 42);
+    border-radius: 10px;
+    border: none;
+    padding: 3px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .delete-solve:hover {
-  background-color: rgb(233 128 42);
+    background-color: rgb(233 128 42);
 }
 
 .solve-input {
-  min-width: 100px;
-  max-width: 180px;
-  width: 20%;
-  padding: 5px 7px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
+    min-width: 100px;
+    max-width: 180px;
+    width: 20%;
+    padding: 5px 7px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
 }
 
 .solve-input:focus {
-  border-color: #66afe9;
-  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
-  outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgb(102 175 233 / 60%);
+    outline: none;
+}
+
+.solve-input.locked:focus {
+    border-color: rgb(85 85 85);
+    box-shadow: 0 0 8px rgb(85 85 85 / 60%);
+    outline: none;
 }
 
 .solve-add-btn {
-  padding: 5px 7px;
-  width: 20%;
-  min-width: 60px;
-  max-width: 100px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #66afe9; /* Blue button */
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition:
-    background-color 0.3s,
-    box-shadow 0.3s;
+    padding: 5px 7px;
+    width: 20%;
+    min-width: 60px;
+    max-width: 100px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #66afe9;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition:
+        background-color 0.3s,
+        box-shadow 0.3s;
 }
 
-.solve-add-btn:hover {
-  background-color: #559dd6;
-  box-shadow: 0 0 8px rgb(102 175 233 / 60%);
+.solve-add-btn.locked {
+    background-color: rgb(128 128 128);
 }
 
+.solve-add-btn:hover,
 .solve-add-btn:focus {
-  outline: none;
+    background-color: #559dd6;
+    box-shadow: 0 0 8px rgb(102 175 233 / 60%);
+}
+
+.solve-add-btn.locked:hover,
+.solve-add-btn.locked:focus {
+    background-color: rgb(85 85 85);
+    box-shadow: 0 0 8px rgb(85 85 85 / 60%);
 }
 
 @media screen and (width <= 300px) {
-  .manage-accounts {
-    display: none;
-  }
+    .manage-accounts {
+        display: none;
+    }
 }
 
 @media screen and (width <= 350px) {
-  .admin-panel {
-    display: none;
-  }
+    .admin-panel {
+        display: none;
+    }
 }
 
 .advanced-dashboard-btn {
-  width: 100%;
-  cursor: pointer;
-  background-color: royalblue;
-  padding: 3px;
-  border: none;
-  color: white;
-  margin: 10px 0;
+    width: 100%;
+    cursor: pointer;
+    background-color: royalblue;
+    padding: 6px;
+    border: none;
+    color: white;
+    margin: 10px 0;
 }

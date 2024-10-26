@@ -1,49 +1,65 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { addToken } from "../utils/credentials";
 import styles from "./AdvancedDashboard.module.css";
 import { url } from "@/globals";
+import { useQuery } from "react-query";
 
 async function getFile(url: string): Promise<Blob> {
-  if (!url) throw new Error("URL or fileName is not defined");
-  const data = await fetch(url, {
-    headers: addToken({}) || {},
-  });
-  const blob = await data.blob();
-  return blob;
+    if (!url) throw new Error("URL or fileName is not defined");
+    const data = await fetch(url, {
+        headers: addToken({}) || {},
+    });
+    if (!data.ok) throw new Error("Error while fetching file");
+    const blob = await data.blob();
+    return blob;
 }
 
 export default function Backup() {
-  const [backup, setBackup] = useState<Blob | undefined>(undefined);
-  useEffect(() => {
-    const getAndSetBackup = async () => {
-      const backupUrl = new URL(url);
-      backupUrl.pathname = "backup";
-      const backup = await getFile(backupUrl.toString());
-      setBackup(backup);
-    };
-    getAndSetBackup();
-  }, []);
-  return (
-    <div className={styles["backups-container"]}>
-      <h2>Sigurnosna kopija</h2>
-      <button
-        onClick={() => {
-          const url = window.URL.createObjectURL(backup!);
+    const {
+        data: backup,
+        isLoading,
+        refetch,
+        error,
+    } = useQuery(
+        ["backup"],
+        async () => {
+            const backupUrl = new URL(url);
+            backupUrl.pathname = "backup";
+            return await getFile(backupUrl.toString());
+        },
+        { enabled: false },
+    );
 
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = `Sigurnosna kopija - ${new Date().toLocaleDateString()}.zip`;
+    useEffect(() => {
+        refetch();
+    }, [refetch]);
 
-          document.body.appendChild(a);
-          a.click();
-        }}
-        disabled={!backup}
-        className={styles["backup-btn"]}
-      >
-        {backup ? "Sigurnosna kopija" : "Učitavanje..."}
-      </button>
-    </div>
-  );
+    return (
+        <div className={styles["backups-container"]}>
+            <h2>Sigurnosna kopija</h2>
+            {error ? (
+                <p>Greška prilikom učitavanja</p>
+            ) : (
+                <button
+                    onClick={() => {
+                        if (!backup) return;
+                        const url = window.URL.createObjectURL(backup);
+
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = `Sigurnosna kopija - ${new Date().toLocaleDateString()}.zip`;
+
+                        document.body.appendChild(a);
+                        a.click();
+                    }}
+                    disabled={isLoading}
+                    className={styles["backup-btn"]}
+                >
+                    {isLoading ? "Učitavanje..." : "Sigurnosna kopija"}
+                </button>
+            )}
+        </div>
+    );
 }
