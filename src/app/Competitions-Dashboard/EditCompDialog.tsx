@@ -1,65 +1,101 @@
 "use client";
 
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { CompetitionType } from "../Types/solve";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./CompetitionDashboard.module.css";
+import { format } from "date-fns";
+import { CompetitionType } from "../Types/solve";
 import { Loader } from "../components/Loader/Loader";
 import { editCompetition } from "../utils/competitions";
-import { format } from "date-fns";
-const events = ["3x3", "3x3oh", "4x4", "2x2", "3x3bld", "megaminx", "teambld"];
+import styles from "./CompetitionDashboard.module.css";
 
-function EventSelection({
+// Constants
+const EVENTS = [
+    "3x3",
+    "3x3oh",
+    "4x4",
+    "2x2",
+    "3x3bld",
+    "megaminx",
+    "teambld",
+] as const;
+type EventName = (typeof EVENTS)[number];
+
+// Types
+interface EventState {
+    selected: boolean;
+    rounds: number;
+}
+
+interface EventSelectionProps {
+    selectedEvents: Record<EventName, EventState>;
+    onEventChange: (eventName: EventName, checked: boolean) => void;
+    onRoundsChange: (eventName: EventName, rounds: number) => void;
+}
+
+interface CompetitionFormProps {
+    competition: CompetitionType;
+    name: string;
+    date: string;
+    selectedEvents: Record<EventName, EventState>;
+    setName: (value: string) => void;
+    setDate: (value: string) => void;
+    setSelectedEvents: React.Dispatch<
+        React.SetStateAction<Record<EventName, EventState>>
+    >;
+    isLoading: boolean;
+    setLoading: (loading: boolean) => void;
+    closeModal: () => void;
+}
+
+interface EditCompDialogProps {
+    competition: CompetitionType;
+    show: boolean;
+    setVisibilityAction: (visible: boolean) => void;
+}
+
+// Helper Components
+const EventSelection = ({
     selectedEvents,
-    handleEventChange,
-    handleRoundsChange,
-}: {
-    selectedEvents: { [key: string]: { selected: boolean; rounds: number } };
-    handleEventChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    handleRoundsChange: (
-        e: ChangeEvent<HTMLSelectElement>,
-        eventName: string,
-    ) => void;
-}) {
-    return (
-        <>
-            {events.map((event, index) => (
-                <div key={index}>
+    onEventChange,
+    onRoundsChange,
+}: EventSelectionProps) => (
+    <div className={styles["events-grid"]}>
+        {EVENTS.map((event) => (
+            <div key={event} className={styles["event-item"]}>
+                <div className={styles["event-checkbox"]}>
                     <input
                         type="checkbox"
-                        id={`event-${index}`}
+                        id={`event-${event}`}
                         name={event}
-                        onChange={handleEventChange}
+                        onChange={(e) => onEventChange(event, e.target.checked)}
                         checked={selectedEvents[event]?.selected || false}
                     />
-                    <label htmlFor={`event-${index}`}>{event}</label>
-                    <br />
+                    <label htmlFor={`event-${event}`}>{event}</label>
+                </div>
+
+                <div className={styles["rounds-select"]}>
                     <label htmlFor={`rounds-${event}`}>Broj rundi</label>
                     <select
                         id={`rounds-${event}`}
                         disabled={!selectedEvents[event]?.selected}
                         value={selectedEvents[event]?.rounds || 1}
-                        onChange={(e) => handleRoundsChange(e, event)}
+                        onChange={(e) =>
+                            onRoundsChange(event, parseInt(e.target.value, 10))
+                        }
                     >
-                        {[...Array(5)].map((_, i) => (
-                            <option key={i} value={i + 1}>
+                        {Array.from({ length: 5 }, (_, i) => (
+                            <option key={i + 1} value={i + 1}>
                                 {i + 1}
                             </option>
                         ))}
                     </select>
                 </div>
-            ))}
-        </>
-    );
-}
+            </div>
+        ))}
+    </div>
+);
 
-type Props = {
-    competition: CompetitionType;
-    show: boolean;
-    setVisibilityAction: (visible: boolean) => void;
-};
-
-function CompetitionForm({
+const CompetitionForm = ({
     competition,
     name,
     date,
@@ -68,153 +104,166 @@ function CompetitionForm({
     setDate,
     setSelectedEvents,
     isLoading,
-    closeModal,
     setLoading,
-}: {
-    competition: CompetitionType;
-    name: string;
-    date: string;
-    selectedEvents: { [key: string]: { selected: boolean; rounds: number } };
-    setName: (value: string) => void;
-    setDate: (value: string) => void;
-    setSelectedEvents: React.Dispatch<
-        React.SetStateAction<{
-            [key: string]: { selected: boolean; rounds: number };
-        }>
-    >;
-    isLoading: boolean;
-    setLoading: (loading: boolean) => void;
-    closeModal: () => void;
-}) {
+    closeModal,
+}: CompetitionFormProps) => {
     const router = useRouter();
 
-    async function handleSubmit(e: React.FormEvent) {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+
         try {
-            const compEdit = await editCompetition(
-                competition._id,
-                name,
-                date,
-                Object.entries(selectedEvents).map(([eventName, event]) => ({
+            const localDate = new Date(date);
+            const utcDate = localDate.toISOString();
+
+            const eventsList = Object.entries(selectedEvents)
+                .filter(([, event]) => event.selected)
+                .map(([eventName, event]) => ({
                     name: eventName,
                     rounds: event.rounds,
-                })),
+                }));
+
+            const result = await editCompetition(
+                competition._id,
+                name,
+                utcDate,
+                eventsList,
             );
-            if (!compEdit.success) throw new Error("Greška prilikom izmjene");
+
+            if (!result.success) {
+                throw new Error("Greška prilikom izmjene");
+            }
+
             router.refresh();
+            closeModal();
         } catch (error) {
             console.error("Error editing competition:", error);
-            alert(error || "Dogodila se greška prilikom izmjene natjecanja");
+            alert("Dogodila se greška prilikom izmjene natjecanja");
         } finally {
             setLoading(false);
-            closeModal();
         }
-    }
+    };
 
-    function handleEventChange(e: ChangeEvent<HTMLInputElement>) {
-        const { name, checked } = e.target;
+    const handleEventChange = (eventName: EventName, checked: boolean) => {
         setSelectedEvents((prev) => ({
             ...prev,
-            [name]: { selected: checked, rounds: prev[name]?.rounds || 1 },
+            [eventName]: {
+                selected: checked,
+                rounds: prev[eventName]?.rounds || 1,
+            },
         }));
-    }
+    };
 
-    function handleRoundsChange(
-        e: ChangeEvent<HTMLSelectElement>,
-        eventName: string,
-    ) {
-        const { value } = e.target;
+    const handleRoundsChange = (eventName: EventName, rounds: number) => {
         setSelectedEvents((prev) => ({
             ...prev,
-            [eventName]: { ...prev[eventName], rounds: parseInt(value, 10) },
+            [eventName]: { ...prev[eventName], rounds },
         }));
-    }
+    };
 
     return (
         <form className={styles["make-comp-form"]} onSubmit={handleSubmit}>
             <h2>Uredi natjecanje</h2>
-            <label htmlFor="comp-name">Ime natjecanja</label>
-            <input
-                type="text"
-                id="comp-name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-            />
 
-            <label htmlFor="comp-date">Datum natjecanja</label>
-            <input
-                type="datetime-local"
-                id="comp-date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-            />
+            <div className={styles["form-group"]}>
+                <label htmlFor="comp-name">Ime natjecanja</label>
+                <input
+                    type="text"
+                    id="comp-name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+            </div>
 
-            <label>Eventovi</label>
-            <EventSelection
-                selectedEvents={selectedEvents}
-                handleEventChange={handleEventChange}
-                handleRoundsChange={handleRoundsChange}
-            />
+            <div className={styles["form-group"]}>
+                <label htmlFor="comp-date">Datum natjecanja</label>
+                <p>Datum natjecanja unesi u svojem lokalnom vremenu.</p>
+                <input
+                    type="datetime-local"
+                    id="comp-date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                />
+            </div>
 
-            {isLoading ? (
-                <Loader />
-            ) : (
-                <div className={styles["make-comp-form-buttons"]}>
-                    <button
-                        type="submit"
-                        className={styles["make-comp-submit"]}
-                    >
-                        Uredi
-                    </button>
-                    <button type="button" onClick={closeModal}>
-                        Zatvori
-                    </button>
-                </div>
-            )}
+            <div className={styles["form-group"]}>
+                <label>Eventovi</label>
+                <EventSelection
+                    selectedEvents={selectedEvents}
+                    onEventChange={handleEventChange}
+                    onRoundsChange={handleRoundsChange}
+                />
+            </div>
+
+            <div className={styles["make-comp-form-buttons"]}>
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        <button
+                            type="submit"
+                            className={styles["make-comp-submit"]}
+                        >
+                            Uredi
+                        </button>
+                        <button type="button" onClick={closeModal}>
+                            Zatvori
+                        </button>
+                    </>
+                )}
+            </div>
         </form>
     );
-}
+};
 
-export default function EditCompDialog({
+const EditCompDialog = ({
     competition,
     show,
     setVisibilityAction,
-}: Props) {
-    const [name, setName] = useState<string>(competition.name);
-    const [date, setDate] = useState<string>(() => {
-        const parsedDate = new Date(competition.date);
-        return isNaN(parsedDate.getTime())
-            ? "" // fallback if date parsing fails
-            : format(parsedDate, "yyyy-MM-dd'T'HH:mm");
-    });
-    const [selectedEvents, setSelectedEvents] = useState<{
-        [key: string]: { selected: boolean; rounds: number };
-    }>(
-        competition.events.reduce(
-            (
-                acc: { [key: string]: { selected: boolean; rounds: number } },
-                event,
-            ) => {
-                acc[event.name] = { selected: true, rounds: event.rounds };
-                return acc;
-            },
-            {},
-        ),
-    );
+}: EditCompDialogProps) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    function closeModal() {
-        setVisibilityAction(false);
-    }
+    const [name, setName] = useState<string>(competition.name);
+    const [date, setDate] = useState<string>(() => {
+        try {
+            const utcDate = new Date(competition.date);
+            return format(utcDate, "yyyy-MM-dd'T'HH:mm");
+        } catch (error) {
+            console.error("Error parsing date:", error);
+            return "";
+        }
+    });
+
+    const [selectedEvents, setSelectedEvents] = useState<
+        Record<EventName, EventState>
+    >(() => {
+        const initialEvents = EVENTS.reduce((acc, event) => {
+            acc[event] = { selected: false, rounds: 1 };
+            return acc;
+        }, {} as Record<EventName, EventState>);
+
+        competition.events.forEach((event) => {
+            if (event.name in initialEvents) {
+                initialEvents[event.name as EventName] = {
+                    selected: true,
+                    rounds: event.rounds,
+                };
+            }
+        });
+
+        return initialEvents;
+    });
 
     useEffect(() => {
-        if (!dialogRef.current) return;
-        if (show) dialogRef.current.showModal();
-        else dialogRef.current.close();
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+
+        if (show) dialog.showModal();
+        else dialog.close();
     }, [show]);
 
     return (
@@ -227,10 +276,12 @@ export default function EditCompDialog({
                 setName={setName}
                 setDate={setDate}
                 setSelectedEvents={setSelectedEvents}
-                setLoading={setIsLoading}
                 isLoading={isLoading}
-                closeModal={closeModal}
+                setLoading={setIsLoading}
+                closeModal={() => setVisibilityAction(false)}
             />
         </dialog>
     );
-}
+};
+
+export default EditCompDialog;
