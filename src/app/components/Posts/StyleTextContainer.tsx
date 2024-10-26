@@ -146,7 +146,6 @@ export default function StyleTextContainer({
     titleInputRef,
     descriptionInputRef,
     setDescription,
-    description,
 }: {
     titleInputRef: RefObject<HTMLInputElement>;
     descriptionInputRef: RefObject<HTMLTextAreaElement>;
