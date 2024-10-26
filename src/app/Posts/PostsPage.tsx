@@ -6,6 +6,7 @@ import DescriptionArea from "../components/Posts/DescriptionArea";
 import StyleTextContainer from "../components/Posts/StyleTextContainer";
 import { Posts } from "@/app/Types/posts";
 import PostsList from "./Posts";
+import Preview from "../components/Posts/Preview";
 
 export default function PostsPage({ posts }: { posts: Posts }) {
     const [title, setTitle] = useState<string>("");
@@ -35,6 +36,7 @@ export default function PostsPage({ posts }: { posts: Posts }) {
                 description={description}
                 setDescription={setDescription}
             />
+            <Preview description={description} title={title} />
             <PostsList posts={posts} />
         </div>
     );
