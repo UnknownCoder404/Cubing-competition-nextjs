@@ -5,17 +5,17 @@
     padding-top: 10px;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (width <= 420px) {
     .cards {
         flex-direction: column;
     }
 }
 
 .card {
-    background-color: rgb(74, 74, 74);
+    background-color: rgb(74 74 74);
     padding-top: 5px;
     padding-bottom: 10px;
-    box-shadow: 4px 0 8px 0 rgb(0, 0, 0, 20%);
+    box-shadow: 4px 0 8px 0 rgb(0 0 0 / 20%);
     flex: 1 1 auto; /* Allow the cards to grow and shrink */
     min-width: 200px; /* Set minimum width */
     border-radius: 5px;
@@ -25,8 +25,8 @@
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgb(255, 255, 255, 30%);
-    background-color: rgb(50, 50, 50);
+    box-shadow: 0 8px 16px 0 rgb(255 255 255 / 30%);
+    background-color: rgb(50 50 50);
 }
 
 .card-inside-container {
