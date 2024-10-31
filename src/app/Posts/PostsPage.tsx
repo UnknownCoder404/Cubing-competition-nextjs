@@ -7,6 +7,7 @@ import StyleTextContainer from "../components/Posts/StyleTextContainer";
 import { Posts } from "@/app/Types/posts";
 import PostsList from "./Posts";
 import Preview from "../components/Posts/Preview";
+import UploadPostButton from "../components/Posts/UploadPostButton";
 
 export default function PostsPage({ posts }: { posts: Posts }) {
     const [title, setTitle] = useState<string>("");
@@ -37,6 +38,7 @@ export default function PostsPage({ posts }: { posts: Posts }) {
                 setDescription={setDescription}
             />
             <Preview description={description} title={title} />
+            <UploadPostButton title={title} description={description} />
             <PostsList posts={posts} />
         </div>
     );

@@ -11,6 +11,7 @@ export async function getPosts(): Promise<{
     try {
         const postsUrl = new URL(url);
         postsUrl.pathname = "/posts";
+
         const response = await fetch(postsUrl);
         const posts: Posts = await response.json();
         return {
