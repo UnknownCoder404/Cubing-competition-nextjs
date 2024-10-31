@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { RefObject } from "react";
 import Image from "next/image";
 import postsStyles from "@/app/Posts/Posts.module.css";
@@ -31,6 +32,7 @@ const buttons = [
             if (ref.current)
                 boldSelectedTextFromInput(ref.current, setDescription);
         },
+        shortcut: "b", // CTRL+B
     },
     {
         className: "italic-btn",
@@ -43,6 +45,7 @@ const buttons = [
             if (ref.current)
                 italizeSelectedTextFromInput(ref.current, setDescription);
         },
+        shortcut: "i", // CTRL+I
     },
     {
         className: "underline-btn",
@@ -55,6 +58,7 @@ const buttons = [
             if (ref.current)
                 underlineSelectedTextFromInput(ref.current, setDescription);
         },
+        shortcut: "u", // CTRL+U
     },
     {
         className: "hyperlink-btn",
@@ -152,6 +156,26 @@ export default function StyleTextContainer({
     description: string;
     setDescription: (arg0: string) => void;
 }) {
+    useEffect(() => {
+        function handleKeyDown(event: KeyboardEvent) {
+            // Check if CTRL key is pressed
+            if (event.ctrlKey) {
+                const button = buttons.find(
+                    (b) => b.shortcut === event.key.toLowerCase(),
+                );
+                if (button && descriptionInputRef.current) {
+                    event.preventDefault();
+                    button.action(descriptionInputRef, setDescription);
+                }
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown);
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [descriptionInputRef, setDescription]);
+
     if (!titleInputRef || !descriptionInputRef) return null;
 
     return (
