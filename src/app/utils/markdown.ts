@@ -20,17 +20,17 @@ function escapeMarkdownCharacters(content: string): string {
 
 function boldedMarkdown(content: string): string {
     // Regular expression to find **text**
-    return content.replace(/\*\*(.*?)\*\*/g, '<span class="bolded">$1</span>');
+    return content.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 }
 
 function italicizedMarkdown(content: string): string {
     // Regular expression to find _text_
-    return content.replace(/\_(.*?)\_/g, '<span class="italicized">$1</span>');
+    return content.replace(/\_(.*?)\_/g, "<em>$1</em>");
 }
 
 function underlinedMarkdown(content: string): string {
     // Regular expression to find -text-
-    return content.replace(/\-(.*?)\-/g, '<span class="underlined">$1</span>');
+    return content.replace(/\-(.*?)\-/g, "<u>$1</u>");
 }
 
 function hyperlinkedMarkdown(content: string): string {
