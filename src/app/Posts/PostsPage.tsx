@@ -16,7 +16,7 @@ export default function PostsPage({ posts }: { posts: Posts }) {
     const descriptionInput = useRef<HTMLTextAreaElement>(null);
 
     return (
-        <div className={`${postsStyles["form"]} ${postsStyles["infoinputs"]}`}>
+        <div className={postsStyles["form"]}>
             <div>
                 <TitleInput
                     ref={titleInput}

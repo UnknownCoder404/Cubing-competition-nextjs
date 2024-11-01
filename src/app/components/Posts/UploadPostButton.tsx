@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader } from "../Loader/Loader";
 import { markdownToHtml } from "@/app/utils/markdown";
+import { clsx } from "clsx";
 
 type Props = {
     title: string;
@@ -47,7 +48,9 @@ export default function UploadPostButton({
         <button
             disabled={!title.trim() || !description.trim()}
             onClick={createThisPost}
-            className={styles["post-btn"]}
+            className={clsx(styles["post-btn"], {
+                [styles["loading"]]: isLoading,
+            })}
         >
             {isLoading ? <Loader /> : "Objavi"}
         </button>
