@@ -3,9 +3,10 @@ import { Posts, Post as PostType } from "../Types/posts";
 import styles from "./Posts.module.css";
 import deleteIcon from "@/app/public/delete.svg";
 import editIcon from "@/app/public/edit.svg";
-import { deletePost } from "../utils/posts";
+import { deletePost, editPost } from "../utils/posts";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { Loader } from "../components/Loader/Loader";
 type Props = {
     posts: Posts;
 };
@@ -18,9 +19,11 @@ function EditPostModal({
     isShown: boolean;
     onClose: () => void;
 }) {
+    const router = useRouter();
     const editPostModalRef = useRef<HTMLDialogElement>(null);
     const [title, setTitle] = useState(post.title);
     const [description, setDescription] = useState(post.description);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Sync title and description with post prop changes
     useEffect(() => {
@@ -48,10 +51,27 @@ function EditPostModal({
         // Cleanup event listener on unmount
         return () => dialog.removeEventListener("close", handleDialogClose);
     }, [isShown, onClose]);
+    async function editThisPost() {
+        try {
+            setIsLoading(true);
+            const postEdit = await editPost(post.id, title, description);
+            if (postEdit.success) {
+                router.refresh();
+            }
+        } catch (error) {
+            alert("Dogodila se greška prilikom uređivanja objave.");
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <dialog ref={editPostModalRef} className={styles["edit-post-dialog"]}>
-            <form method="dialog" className={styles["edit-post-form"]}>
+            <form
+                method="dialog"
+                className={styles["edit-post-form"]}
+                onSubmit={editThisPost}
+            >
                 <input
                     type="text"
                     placeholder="Naslov"
@@ -70,7 +90,7 @@ function EditPostModal({
                 ></textarea>{" "}
                 <br /> <br />
                 <button type="submit" className={styles["edit-submit-btn"]}>
-                    Uredi objavu
+                    {isLoading ? <Loader /> : "Uredi objavu"}
                 </button>
             </form>
         </dialog>

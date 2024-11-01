@@ -96,3 +96,43 @@ export async function createPost(title: string, description: string) {
         };
     }
 }
+
+export async function editPost(
+    id: string,
+    newTitle: string,
+    newDescription: string,
+) {
+    if (!id || !newTitle || !newDescription) {
+        throw new Error("Unesi novi naslov i novi opis objave te ID.");
+    }
+    const headers =
+        addToken({
+            "Content-Type": "application/json",
+        }) || {};
+    const editPostUrl = new URL(url);
+    editPostUrl.pathname = `/posts/edit/${id}`;
+    try {
+        const response = await fetch(editPostUrl, {
+            method: "PUT",
+            headers: headers,
+            body: JSON.stringify({
+                title: newTitle,
+                description: newDescription,
+            }),
+        });
+        const data = await response.json();
+        return {
+            parsed: data,
+            response: response,
+            statusCode: response.status,
+            success: response.ok,
+        };
+    } catch (error) {
+        console.error("Error editing post:\n", error);
+        return {
+            error,
+            statusCode: 500,
+            success: false,
+        };
+    }
+}
