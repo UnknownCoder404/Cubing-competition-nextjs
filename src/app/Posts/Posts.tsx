@@ -129,8 +129,11 @@ function Post({ post }: { post: PostType }) {
                 className={styles["post-description"]}
                 dangerouslySetInnerHTML={{ __html: post.description }}
             />
-            <p className={styles["post-author"]}>
-                Posted by {post.author.username}
+            <p>
+                Objavio{" "}
+                <span className={styles["post-author"]}>
+                    {post.author.username}
+                </span>
             </p>
             <PostButtons post={post} />
         </div>
