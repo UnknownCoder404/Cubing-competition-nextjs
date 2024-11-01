@@ -156,17 +156,18 @@
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
-.edit-post-form h2 {
-    text-align: center;
-    color: #333;
+.edit-title-input {
+    transition: font-size 0.3s, font-weight 0.3s;
+}
+.edit-title-input:focus-visible {
+    font-size: 16px;
+    font-weight: 500;
 }
 
-.edit-post-form label {
-    font-weight: bold;
-    margin-top: 10px;
-    display: inline-block;
-    color: #555;
+.edit-title-input:not(:focus-visible) {
+    font-size: 24px;
+    font-weight: 700;
+    border: none;
 }
 
 .edit-title-input,
