@@ -1,6 +1,6 @@
 import { url } from "@/globals";
 import { Posts } from "../Types/posts";
-import { getToken } from "./credentials";
+import { addToken, getToken } from "./credentials";
 
 export async function getPosts(): Promise<{
     parsed: Posts;
@@ -56,5 +56,43 @@ export async function deletePost(id: string): Promise<{
         };
     } catch (error) {
         throw new Error(`Error deleting post: \n${error}`);
+    }
+}
+
+export async function createPost(title: string, description: string) {
+    // Validate input
+    if (!title || !description) {
+        throw new Error("Title and description are required");
+    }
+
+    try {
+        const headers =
+            addToken({
+                "Content-Type": "application/json",
+            }) || {};
+        const createPostUrl = new URL(url);
+        createPostUrl.pathname = "/posts/new";
+        // Attempt to create a new post
+        const response = await fetch(createPostUrl, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({ title, description }),
+        });
+        const data = await response.json();
+
+        return {
+            success: response.ok,
+            statusCode: response.status,
+            parsed: data,
+            response: response,
+        };
+    } catch (error) {
+        // Handle errors
+        console.error("Failed to create post:", error);
+        return {
+            error,
+            statusCode: 500,
+            success: false,
+        };
     }
 }
