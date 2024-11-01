@@ -24,18 +24,12 @@ Open [http://localhost:2500](http://localhost:2500) with your browser to see the
 
 ## Before commiting
 
-You should run `pnpm check-code` before commiting.
+You should run `pnpm check` before commiting.
 
 After you have fixed all errors in terminal, then run:
 
 ```bash
-pnpm build # This will take a minute
-```
-
-Then run:
-
-```bash
-pnpm start
+pnpm preview
 ```
 
 And if there are no errors, you can commit.

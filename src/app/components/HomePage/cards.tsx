@@ -14,6 +14,27 @@ import {
     logOut,
 } from "@/app/utils/credentials";
 
+export type CardProp = {
+    title: string;
+    description: React.ReactNode | string;
+    author?: {
+        username: string;
+    };
+    shouldRender?: (loggedIn?: boolean) => boolean;
+    loggedIn?: boolean;
+};
+
+export type PostProp = {
+    id: string;
+    title: string;
+    description: React.ReactNode | string;
+    author?: {
+        username: string;
+        id: string;
+    };
+    createdAt: string;
+};
+
 const cardData: () => CardProp[] = () => [
     {
         title: "Natjecanja",
@@ -102,7 +123,7 @@ const cardData: () => CardProp[] = () => [
         description: (
             <p>
                 Ti si administrator! Oni mogu objaviti bilo što! Klikni{" "}
-                <Link href="/posts">ovdje</Link>da objaviš nešto.
+                <Link href="/Posts">ovdje</Link> da objaviš nešto.
             </p>
         ),
         shouldRender: () => {
@@ -125,27 +146,6 @@ const cardData: () => CardProp[] = () => [
         },
     },
 ];
-
-export type CardProp = {
-    title: string;
-    description: React.ReactNode | string;
-    author?: {
-        username: string;
-    };
-    shouldRender?: (loggedIn?: boolean) => boolean;
-    loggedIn?: boolean;
-};
-
-export type PostProp = {
-    id: string;
-    title: string;
-    description: React.ReactNode | string;
-    author?: {
-        username: string;
-        id: string;
-    };
-    createdAt: Date;
-};
 
 type CardsProps = { posts: PostProp[] };
 

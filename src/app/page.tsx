@@ -1,6 +1,5 @@
-import getPosts from "./utils/getPosts";
-import "@/globals.css";
 import Cards from "./components/HomePage/cards";
+import { getPosts } from "./utils/posts";
 
 export const metadata = {
     title: "Cro Cube Comp",
@@ -9,7 +8,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-    const posts = await getPosts();
+    const posts = (await getPosts()).parsed;
 
     return <Cards posts={posts} />;
 }

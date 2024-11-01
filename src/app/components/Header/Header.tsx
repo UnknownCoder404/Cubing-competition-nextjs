@@ -1,4 +1,3 @@
-import "@/globals.css";
 import headerStyles from "./Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
