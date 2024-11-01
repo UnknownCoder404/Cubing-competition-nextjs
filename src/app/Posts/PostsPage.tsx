@@ -38,7 +38,12 @@ export default function PostsPage({ posts }: { posts: Posts }) {
                 setDescription={setDescription}
             />
             <Preview description={description} title={title} />
-            <UploadPostButton title={title} description={description} />
+            <UploadPostButton
+                title={title}
+                description={description}
+                setDescription={setDescription}
+                setTitle={setTitle}
+            />
             <PostsList posts={posts} />
         </div>
     );

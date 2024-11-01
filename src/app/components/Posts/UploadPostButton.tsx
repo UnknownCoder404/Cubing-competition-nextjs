@@ -1,4 +1,3 @@
-"use client";
 import { createPost } from "@/app/utils/posts";
 import styles from "../../Posts/Posts.module.css";
 import { useRouter } from "next/navigation";
@@ -9,8 +8,15 @@ import { markdownToHtml } from "@/app/utils/markdown";
 type Props = {
     title: string;
     description: string;
+    setTitle: (title: string) => void;
+    setDescription: (description: string) => void;
 };
-export default function UploadPostButton({ title, description }: Props) {
+export default function UploadPostButton({
+    title,
+    description,
+    setDescription,
+    setTitle,
+}: Props) {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
@@ -21,6 +27,8 @@ export default function UploadPostButton({ title, description }: Props) {
             const postCreation = await createPost(title, descriptionAsHtml);
             if (postCreation.success) {
                 router.refresh();
+                setTitle("");
+                setDescription("");
             } else {
                 alert(
                     postCreation.parsed.message ||
