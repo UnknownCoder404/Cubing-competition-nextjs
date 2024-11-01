@@ -7,9 +7,11 @@ import { deletePost, editPost } from "../utils/posts";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Loader } from "../components/Loader/Loader";
+
 type Props = {
     posts: Posts;
 };
+
 function EditPostModal({
     post,
     isShown,
@@ -20,128 +22,100 @@ function EditPostModal({
     onClose: () => void;
 }) {
     const router = useRouter();
-    const editPostModalRef = useRef<HTMLDialogElement>(null);
+    const modalRef = useRef<HTMLDialogElement>(null);
     const [title, setTitle] = useState(post.title);
     const [description, setDescription] = useState(post.description);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Sync title and description with post prop changes
     useEffect(() => {
         setTitle(post.title);
         setDescription(post.description);
     }, [post]);
 
-    // Handle modal open/close based on isShown
     useEffect(() => {
-        if (!editPostModalRef.current) return;
+        const dialog = modalRef.current;
+        if (!dialog) return;
 
-        const dialog = editPostModalRef.current;
+        isShown ? dialog.showModal() : dialog.close();
 
-        // Open or close the dialog based on isShown prop
-        if (isShown) {
-            dialog.showModal();
-        } else {
-            dialog.close();
-        }
-
-        // Close event listener to sync state
         const handleDialogClose = () => onClose();
         dialog.addEventListener("close", handleDialogClose);
-
-        // Cleanup event listener on unmount
         return () => dialog.removeEventListener("close", handleDialogClose);
     }, [isShown, onClose]);
-    async function editThisPost() {
+
+    const handleEdit = async () => {
+        setIsLoading(true);
         try {
-            setIsLoading(true);
-            const postEdit = await editPost(post.id, title, description);
-            if (postEdit.success) {
-                router.refresh();
-            }
-        } catch (error) {
-            alert("Dogodila se greška prilikom uređivanja objave.");
+            const { success } = await editPost(post.id, title, description);
+            if (success) router.refresh();
+        } catch {
+            alert("An error occurred while editing the post.");
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     return (
-        <dialog ref={editPostModalRef} className={styles["edit-post-dialog"]}>
-            <form
-                method="dialog"
-                className={styles["edit-post-form"]}
-                onSubmit={editThisPost}
-            >
+        <dialog ref={modalRef} className={styles["edit-post-dialog"]}>
+            <form onSubmit={handleEdit} className={styles["edit-post-form"]}>
                 <input
                     type="text"
-                    placeholder="Naslov"
-                    className={styles["edit-title-input"]}
-                    name="title"
+                    placeholder="Title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    className={styles["edit-title-input"]}
                 />
-                <br /> <br />
                 <textarea
-                    placeholder="Opis..."
-                    className={styles["edit-description-textarea"]}
-                    name="description"
+                    placeholder="Description..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                ></textarea>{" "}
-                <br /> <br />
+                    className={styles["edit-description-textarea"]}
+                />
                 <button type="submit" className={styles["edit-submit-btn"]}>
-                    {isLoading ? <Loader /> : "Uredi objavu"}
+                    {isLoading ? <Loader /> : "Edit Post"}
                 </button>
             </form>
         </dialog>
     );
 }
 
-function PostBtns({ post }: { post: PostType }) {
-    const [showEditModal, setEditModalVisiblity] = useState(false);
+function PostButtons({ post }: { post: PostType }) {
+    const [showEditModal, setShowEditModal] = useState(false);
     const router = useRouter();
 
-    async function deleteThisPost() {
-        const postDeletion = await deletePost(post.id);
-
-        if (!postDeletion.success) {
-            alert(
-                postDeletion.parsed.message ||
-                    "Greška prilikom brisanje objave.",
-            );
-        }
+    const handleDelete = async () => {
+        const { success, parsed } = await deletePost(post.id);
+        if (!success) alert(parsed?.message || "Error deleting post.");
         router.refresh();
-    }
+    };
 
-    function editThisPost() {
-        setEditModalVisiblity((currentState) => !currentState);
-    }
+    const toggleEditModal = () => setShowEditModal((prev) => !prev);
 
     return (
         <>
             <div className={styles["post-btns-container"]}>
                 <button
-                    onClick={deleteThisPost}
+                    onClick={handleDelete}
                     className={styles["delete-post-btn"]}
                 >
                     <Image
                         src={deleteIcon}
-                        alt="delete"
+                        alt="Delete"
                         width={24}
                         height={24}
                     />
                 </button>
                 <button
-                    onClick={editThisPost}
+                    onClick={toggleEditModal}
                     className={styles["edit-post-btn"]}
                 >
-                    <Image src={editIcon} alt="edit" width={24} height={24} />
+                    <Image src={editIcon} alt="Edit" width={24} height={24} />
                 </button>
             </div>
             <EditPostModal
                 post={post}
                 isShown={showEditModal}
-                onClose={() => setEditModalVisiblity(false)}
+                onClose={() => setShowEditModal(false)}
             />
         </>
     );
@@ -150,21 +124,15 @@ function PostBtns({ post }: { post: PostType }) {
 function Post({ post }: { post: PostType }) {
     return (
         <div className={styles["post"]}>
-            <div className={styles["post-title-container"]}>
-                <h2 className={styles["post-title"]}>{post.title}</h2>
-            </div>
-            <div className={styles["post-description-container"]}>
-                <div
-                    className={styles["post-description"]}
-                    dangerouslySetInnerHTML={{ __html: post.description }}
-                />
-            </div>
-            <div className={styles["post-author-container"]}>
-                <p className={styles["post-author"]}>
-                    Objavio {post.author.username}
-                </p>
-            </div>
-            <PostBtns post={post} />
+            <h2 className={styles["post-title"]}>{post.title}</h2>
+            <div
+                className={styles["post-description"]}
+                dangerouslySetInnerHTML={{ __html: post.description }}
+            />
+            <p className={styles["post-author"]}>
+                Posted by {post.author.username}
+            </p>
+            <PostButtons post={post} />
         </div>
     );
 }
@@ -172,9 +140,9 @@ function Post({ post }: { post: PostType }) {
 export default function PostsList({ posts }: Props) {
     return (
         <div className={styles["posts"]}>
-            {posts.map((post) => {
-                return <Post key={post.id} post={post} />;
-            })}
+            {posts.map((post) => (
+                <Post key={post.id} post={post} />
+            ))}
         </div>
     );
 }
