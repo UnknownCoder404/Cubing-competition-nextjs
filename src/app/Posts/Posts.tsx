@@ -36,7 +36,8 @@ function EditPostModal({
         const dialog = modalRef.current;
         if (!dialog) return;
 
-        isShown ? dialog.showModal() : dialog.close();
+        if (isShown) dialog.showModal();
+        else dialog.close();
 
         const handleDialogClose = () => onClose();
         dialog.addEventListener("close", handleDialogClose);

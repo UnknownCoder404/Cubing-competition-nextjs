@@ -9,9 +9,13 @@
         "dev": "next dev --turbo --port 2500",
         "build": "next build",
         "start": "next start --port 2500",
-        "lint": "tsc && next lint && stylelint \"**/*.css\" --fix",
-        "format": "prettier . --write",
-        "check-code": "pnpm run format && pnpm run lint"
+        "preview": "pnpm build && pnpm start",
+        "check": "pnpm lint && pnpm typecheck",
+        "lint": "next lint && stylelint \"**/*.css\"",
+        "lint:fix": "next lint --fix && stylelint \"**/*.css\" --fix",
+        "typecheck": "tsc --noEmit",
+        "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
+        "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache"
     },
     "dependencies": {
         "clsx": "^2.1.1",
@@ -27,10 +31,10 @@
     },
     "devDependencies": {
         "@types/dompurify": "^3.0.5",
-        "@types/node": "^22.8.5",
+        "@types/node": "^22.8.6",
         "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
-        "eslint": "^9.13.0",
+        "eslint": "^9.14.0",
         "eslint-config-next": "15.0.2",
         "stylelint": "^16.10.0",
         "stylelint-config-standard": "^36.0.1",

@@ -13,7 +13,9 @@
     flex: 1 1 auto; /* Allow the cards to grow and shrink */
     min-width: 200px; /* Set minimum width */
     border-radius: 5px;
-    transition: background-color 0.25s, box-shadow 0.3s;
+    transition:
+        background-color 0.25s,
+        box-shadow 0.3s;
 }
 
 .card:hover {
