@@ -155,7 +155,6 @@
     grid-template-columns: 1fr;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
 }
 
 .edit-post-form h2 {
@@ -172,7 +171,7 @@
 
 .edit-title-input,
 .edit-description-textarea {
-    width: 100%;
+    width: 90%;
     padding: 8px;
     margin-top: 5px;
     margin-bottom: 15px;
