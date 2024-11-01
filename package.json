@@ -14,8 +14,8 @@
         "lint": "next lint && stylelint \"**/*.css\"",
         "lint:fix": "next lint --fix && stylelint \"**/*.css\" --fix",
         "typecheck": "tsc --noEmit",
-        "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
-        "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache"
+        "format:write": "prettier . --write --cache",
+        "format:check": "prettier . --check --cache"
     },
     "dependencies": {
         "clsx": "^2.1.1",
