@@ -1,8 +1,18 @@
+import { Metadata } from "next";
 import rulesStyles from "./Rules.module.css";
-export const metadata = {
+
+export const metadata: Metadata = {
     title: "Pravila - Cro Cube Comp",
     description: "Pravila za Cro Cube Comp natjecanja",
+    keywords: [
+        "Cro Cube Comp",
+        "Cro Cube Club",
+        "Cro.cube.club@gmail.com",
+        "Pravila Cro Cube Comp",
+        "Pravila",
+    ],
 };
+
 export default function Rules() {
     return (
         <>
