@@ -1,8 +1,10 @@
+import { Metadata } from "next";
 import ScramblePage from "./ScramblePage";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Vježbanje - Cro Cube Comp",
     description: "Vježbaj za natjecanje iz Rubikove kocke",
+    keywords: ["Miješanje Rubikove kocke"],
 };
 
 export default function Scramble() {

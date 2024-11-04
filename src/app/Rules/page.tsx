@@ -3,7 +3,8 @@ import rulesStyles from "./Rules.module.css";
 
 export const metadata: Metadata = {
     title: "Pravila - Cro Cube Comp",
-    description: "Pravila za Cro Cube Comp natjecanja",
+    description:
+        "Pravila za Cro Cube Comp natjecanja koja prate WCA pravilnik.",
     keywords: [
         "Cro Cube Comp",
         "Cro Cube Club",
