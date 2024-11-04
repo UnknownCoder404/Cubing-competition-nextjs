@@ -1,13 +1,18 @@
+import { Metadata } from "next";
 import { CompetitionType } from "../Types/solve";
 import { getCompetitions } from "../utils/competitions";
 import CompButtons from "./CompButtons";
 import styles from "./CompetitionDashboard.module.css";
 import { CreateCompButton } from "./CreateCompetition";
 
-export const metadata = {
-    title: "Upravljanje natjecanjima",
-};
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export const metadata: Metadata = {
+    title: "Upravljanje natjecanjima",
+    description: "Upravljanje Cro Cube Comp natjecanjima",
+    keywords: ["Cro Cube Comp", "Upravljanje natjecanjima"],
+};
 
 function CurrentCompetitions({
     competitions,

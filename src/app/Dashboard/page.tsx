@@ -3,12 +3,15 @@ import dashboardStyles from "./Dashboard.module.css";
 import Link from "next/link";
 import { getUsers } from "../utils/users";
 import { getCompetitions } from "../utils/competitions";
+import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Ensure no caching between requests
-export const metadata = {
+
+export const metadata: Metadata = {
     title: "Radna ploča - Cro Cube Comp",
     description: "Prikaz korisnika i njihovih natjecanja",
+    keywords: ["Cro Cube Comp", "Radna ploča"],
 };
 
 function Buttons() {
@@ -22,6 +25,7 @@ function Buttons() {
         </nav>
     );
 }
+
 export default async function Dashboard() {
     const [users, competitions] = await Promise.all([
         getUsers(),
