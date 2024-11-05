@@ -22,6 +22,11 @@ function Buttons() {
                     Napredna radna ploča
                 </button>
             </Link>
+            <Link href="/Register">
+                <button className={dashboardStyles["register-btn"]}>
+                    Registracija korisnika
+                </button>
+            </Link>
         </nav>
     );
 }

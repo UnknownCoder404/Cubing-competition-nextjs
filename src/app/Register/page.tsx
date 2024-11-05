@@ -1,5 +1,6 @@
 // Server component
 import { Metadata } from "next";
+import RegisterPage from "./RegisterPage";
 
 export const metadata: Metadata = {
     title: "Registracija - Cro Cube Comp",
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Register() {
-    return <div>Register</div>;
+    return <RegisterPage />;
 }
