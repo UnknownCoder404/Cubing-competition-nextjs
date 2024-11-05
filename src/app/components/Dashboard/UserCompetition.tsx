@@ -14,6 +14,7 @@ function saveSelectedCompetition(selectedCompetition: CompetitionType) {
     );
 }
 
+// CompetitionSelect component allows user to choose a competition from a list
 const CompetitionSelect = memo(function CompetitionSelect({
     setSelectedCompetition,
     competitions,
@@ -24,31 +25,34 @@ const CompetitionSelect = memo(function CompetitionSelect({
     selectedCompetition: CompetitionType | undefined;
 }) {
     if (!competitions) {
-        return <p>Učitavanje...</p>;
+        return <p>Učitavanje...</p>; // Loading message in case competitions are not available
     }
 
     return (
-        <select
-            aria-label="Izaberi natjecanje"
-            className={clsx(dashboardStyles["select-comp"])}
-            value={selectedCompetition?._id || ""}
-            onChange={(e) => {
-                const selectedComp = competitions.find(
-                    (c) => c._id === e.target.value,
-                )!;
-                setSelectedCompetition(selectedComp);
-                saveSelectedCompetition(selectedComp);
-            }}
-        >
-            {competitions.map((competition: CompetitionType) => (
-                <option key={competition._id} value={competition._id}>
-                    {competition.name}
-                </option>
-            ))}
-        </select>
+        <section aria-labelledby="competition-select">
+            <select
+                aria-label="Izaberi natjecanje"
+                className={clsx(dashboardStyles["select-comp"])}
+                value={selectedCompetition?._id || ""}
+                onChange={(e) => {
+                    const selectedComp = competitions.find(
+                        (c) => c._id === e.target.value,
+                    )!;
+                    setSelectedCompetition(selectedComp);
+                    saveSelectedCompetition(selectedComp);
+                }}
+            >
+                {competitions.map((competition: CompetitionType) => (
+                    <option key={competition._id} value={competition._id}>
+                        {competition.name}
+                    </option>
+                ))}
+            </select>
+        </section>
     );
 });
 
+// Component displaying competition details and events
 const CompResults = memo(function CompResults({
     user,
     selectedCompetition,
@@ -64,15 +68,21 @@ const CompResults = memo(function CompResults({
     const dateString = compDate.toLocaleString();
 
     return (
-        <div className={clsx(dashboardStyles["comp-results"])}>
-            <div className={clsx(dashboardStyles["comp-results-info"])}>
-                <h2 className={clsx(dashboardStyles["comp-name"])}>
+        <article
+            className={clsx(dashboardStyles["comp-results"])}
+            aria-labelledby="competition-details"
+        >
+            <header className={clsx(dashboardStyles["comp-results-info"])}>
+                <h2
+                    id="competition-details"
+                    className={clsx(dashboardStyles["comp-name"])}
+                >
                     {selectedCompetition.name}
                 </h2>
                 <p className={clsx(dashboardStyles["comp-date"])}>
                     {dateString}
                 </p>
-            </div>
+            </header>
             {selectedCompetition.events.map((event) => (
                 <Event
                     isLocked={selectedCompetition.isLocked}
@@ -85,7 +95,7 @@ const CompResults = memo(function CompResults({
                     )}
                 />
             ))}
-        </div>
+        </article>
     );
 });
 
@@ -103,6 +113,7 @@ function CompetitionWindow({
     >(undefined);
 
     useEffect(() => {
+        // Retrieve the last selected competition from sessionStorage, if available
         const rememberedCompetitionId = sessionStorage.getItem(
             "selectedCompetitionId",
         );
@@ -115,7 +126,7 @@ function CompetitionWindow({
             );
             return;
         }
-        setSelectedCompetition(competitions[0]);
+        setSelectedCompetition(competitions[0]); // Default to the first competition if none is stored
     }, [competitions]);
 
     if (!selectedCompetition) return <></>;
@@ -131,6 +142,8 @@ function CompetitionWindow({
                 ease: "easeInOut",
                 duration: 0.3,
             }}
+            aria-live="polite" // Notify screen readers of visibility change
+            aria-hidden={!show} // Helps assistive tech identify visibility status
         >
             <CompetitionSelect
                 setSelectedCompetition={setSelectedCompetition}
@@ -151,6 +164,7 @@ type Props = {
     competitions: CompetitionType[];
 };
 
+// Main UserCompetition component wrapping CompetitionWindow for display
 export default function UserCompetition({ user, show, competitions }: Props) {
     return (
         <CompetitionWindow
