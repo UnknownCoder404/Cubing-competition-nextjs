@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "next dev --turbo --port 2500",
         "build": "next build",
-        "start": "next start --port 3000",
+        "start": "next start --port 2500",
         "preview": "pnpm build && pnpm start",
         "check": "pnpm lint && pnpm typecheck",
         "lint": "next lint && stylelint \"**/*.css\"",
