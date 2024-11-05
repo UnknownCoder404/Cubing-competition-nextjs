@@ -57,7 +57,9 @@
     color: white;
     padding: 5px 10px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
 }
 
 .user-btn:active {
@@ -133,7 +135,9 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
 }
 
 .solve-input:focus {
@@ -160,7 +164,9 @@
     border-radius: 4px;
     outline: none;
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    transition:
+        background-color 0.3s,
+        box-shadow 0.3s;
 }
 
 .solve-add-btn.locked {
