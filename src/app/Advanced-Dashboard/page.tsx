@@ -1,3 +1,4 @@
+// Server component
 import AdvancedDashboard from "./AdvancedDashboard";
 import { getUsers } from "../utils/users";
 import { getCompetitions } from "../utils/competitions";
