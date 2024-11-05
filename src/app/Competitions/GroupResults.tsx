@@ -24,12 +24,14 @@ export default function GroupResults({
                 opacity: 0,
                 paddingTop: 0,
                 paddingBottom: 0,
+                scale: 0.5,
             }}
             animate={{
                 height: areGroupResultsShown ? "auto" : 0,
                 opacity: areGroupResultsShown ? 1 : 0,
                 paddingTop: areGroupResultsShown ? "1rem" : 0,
                 paddingBottom: areGroupResultsShown ? "1rem" : 0,
+                scale: areGroupResultsShown ? 1 : 0.5,
             }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{ overflow: "hidden" }}
