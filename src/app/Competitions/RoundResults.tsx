@@ -1,4 +1,4 @@
-"use client";
+// Client component
 import CompetitionStyles from "./Competitions.module.css";
 import { Result } from "../Types/solve";
 import { formatTime } from "../utils/solveTime";

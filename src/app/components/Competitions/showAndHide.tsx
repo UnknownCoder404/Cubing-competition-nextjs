@@ -20,16 +20,12 @@ export default function ShowAndHide({
             aria-pressed={show} // Indicates the current state of the button
             aria-label={show ? "Sakrij sadržaj" : "Prikaži sadržaj"}
         >
-            <span className={CompetitionStyles["icon"]}>
-                <Image
-                    src={show ? showImg : hideImg}
-                    width={undefined}
-                    height={24}
-                    alt={
-                        show ? "Sakrij sadržaj ikona" : "Prikaži sadržaj ikona"
-                    }
-                />
-            </span>
+            <Image
+                src={show ? showImg : hideImg}
+                width={undefined}
+                height={24}
+                alt={show ? "Sakrij sadržaj ikona" : "Prikaži sadržaj ikona"}
+            />
         </button>
     );
 }

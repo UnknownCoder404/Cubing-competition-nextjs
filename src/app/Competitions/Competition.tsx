@@ -1,17 +1,18 @@
-"use server";
-
+// Server component
 import { AllowedEvents, CompetitionResultType } from "../Types/solve";
 import CompetitionEvent from "./CompetitionEvent";
-import CompetitionStyles from "./Competitions.module.css";
+import competitionStyles from "./Competitions.module.css";
 
+// Component for displaying the competition name
 function CompetitionName({ name }: { name: string }) {
     return (
-        <h2 className={CompetitionStyles["comp-name"]}>
-            {name ? name : "Ime natjecanja nije dostupno"}
+        <h2 className={competitionStyles["comp-name"]} itemProp="name">
+            {name || "Ime natjecanja nije dostupno"}
         </h2>
     );
 }
 
+// Component for displaying the competition date
 function CompetitionDate({ date }: { date: string }) {
     const dateInLocalString = new Date(date).toLocaleString(["hr-HR"], {
         day: "2-digit",
@@ -21,40 +22,43 @@ function CompetitionDate({ date }: { date: string }) {
         minute: "2-digit",
     });
     return (
-        <>
-            <p className={CompetitionStyles["comp-date"]}>
-                {dateInLocalString}
-            </p>
-        </>
+        <time className={competitionStyles["comp-date"]} dateTime={date}>
+            {dateInLocalString}
+        </time>
     );
 }
 
+// Main Competition component
 export default async function Competition(props: {
     competition: CompetitionResultType;
     competitionName: string;
 }) {
-    const competition = props.competition;
-    const competitionName = props.competitionName;
+    const { competition, competitionName } = props;
     const competitionDateString = competition.date;
     const competitionEvents = Object.keys(
         competition.events,
     ) as AllowedEvents[];
+
     return (
-        <>
-            <div className={CompetitionStyles["comp-info"]}>
-                <CompetitionName name={competitionName} />
-                <CompetitionDate date={competitionDateString} />
+        <div
+            className={competitionStyles["comp-info"]}
+            itemScope
+            itemType="http://schema.org/SportEvent"
+        >
+            <CompetitionName name={competitionName} />
+            <CompetitionDate date={competitionDateString} />
+            <div itemProp="event" itemScope itemType="http://schema.org/Event">
+                {competitionEvents.map((eventName, index) => {
+                    const event = competition.events[eventName];
+                    return (
+                        <CompetitionEvent
+                            eventName={eventName}
+                            key={index}
+                            event={event}
+                        />
+                    );
+                })}
             </div>
-            {competitionEvents.map((eventName, index) => {
-                const event = competition.events[eventName];
-                return (
-                    <CompetitionEvent
-                        eventName={eventName}
-                        key={index}
-                        event={event}
-                    />
-                );
-            })}
-        </>
+        </div>
     );
 }

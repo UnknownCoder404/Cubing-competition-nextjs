@@ -1,3 +1,4 @@
+// Server component
 import { url } from "@/globals";
 import Competitions from "./Competitions";
 import { CompetitionResultsType } from "../Types/solve";
