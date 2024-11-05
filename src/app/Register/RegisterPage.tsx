@@ -22,67 +22,69 @@ export default function RegisterPage() {
     };
 
     return (
-        <form
-            id="registerForm"
-            onSubmit={handleSubmit}
-            className={styles.registerForm}
-        >
-            <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Korisničko ime"
-                className={styles.usernameInput}
-                autoCapitalize="words"
-                autoFocus
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <br />
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Lozinka"
-                className={styles.passwordInput}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <br />
-            <br />
-            <div className={styles.groupsContainer}>
-                <div className={styles.groupContainer}>
-                    <label htmlFor="group-1">Grupa 1</label>
-                    <input
-                        checked={group === 1}
-                        type="radio"
-                        id="group-1"
-                        name="group"
-                        className={styles.radioInput}
-                        value="1"
-                        onChange={(e) => setGroup(parseInt(e.target.value))}
-                    />
+        <div className={styles["form-container"]}>
+            <form
+                id="registerForm"
+                onSubmit={handleSubmit}
+                className={styles["register-form"]}
+            >
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Korisničko ime"
+                    className={styles["username-input"]}
+                    autoCapitalize="words"
+                    autoFocus
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <br />
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Lozinka"
+                    className={styles["password-input"]}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <br />
+                <br />
+                <div className={styles["groups-container"]}>
+                    <div className={styles["group-container"]}>
+                        <label htmlFor="group-1">Grupa 1</label>
+                        <input
+                            checked={group === 1}
+                            type="radio"
+                            id="group-1"
+                            name="group"
+                            className={styles["radio-input"]}
+                            value="1"
+                            onChange={(e) => setGroup(parseInt(e.target.value))}
+                        />
+                    </div>
+                    <div className={styles["group-container"]}>
+                        <label htmlFor="group-2">Grupa 2</label>
+                        <input
+                            checked={group === 2}
+                            type="radio"
+                            id="group-2"
+                            name="group"
+                            className={styles["radio-input"]}
+                            value="2"
+                            onChange={(e) => setGroup(parseInt(e.target.value))}
+                        />
+                    </div>
                 </div>
-                <div className={styles.groupContainer}>
-                    <label htmlFor="group-2">Grupa 2</label>
-                    <input
-                        checked={group === 2}
-                        type="radio"
-                        id="group-2"
-                        name="group"
-                        className={styles.radioInput}
-                        value="2"
-                        onChange={(e) => setGroup(parseInt(e.target.value))}
-                    />
+                <br />
+                <button className={styles["submit-btn"]} type="submit">
+                    Registriraj
+                </button>
+                <div className={styles.messageContainer}>
+                    <p id="message">{message}</p>
                 </div>
-            </div>
-            <br />
-            <button className={styles.submitBtn} type="submit">
-                Registriraj
-            </button>
-            <div className={styles.messageContainer}>
-                <p id="message">{message}</p>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 }
