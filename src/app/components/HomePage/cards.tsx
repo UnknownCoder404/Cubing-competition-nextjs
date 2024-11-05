@@ -40,8 +40,8 @@ const cardData: () => CardProp[] = () => [
         title: "Natjecanja",
         description: (
             <p>
-                Listu natjecanja i rezultate možete pronaći{" "}
-                <Link href="/Competitions">ovdje</Link>.
+                Pogledajte{" "}
+                <Link href="/Competitions">listu natjecanja i rezultate</Link>.
             </p>
         ),
     },
@@ -68,14 +68,19 @@ const cardData: () => CardProp[] = () => [
         description: (
             <>
                 <p>
-                    <span className={styles.share} onClick={handleInvite}>
+                    <span
+                        className={styles.share}
+                        onClick={handleInvite}
+                        role="button"
+                        aria-label="Pozovi prijatelje"
+                    >
                         Pozovi
                     </span>{" "}
                     svoje prijatelje
                 </p>
                 <Image
                     src={qrcode}
-                    alt="qrcode to website"
+                    alt="QR kod za pristup stranici"
                     className={styles.qrcode}
                     width={100}
                     height={100}
@@ -98,10 +103,12 @@ const cardData: () => CardProp[] = () => [
                         logOut();
                         window.location.reload(); // Refresh the page after logout
                     }}
+                    role="button"
+                    aria-label="Odjavite se"
                 >
                     ovu poveznicu
-                </span>{" "}
-                da se odjavite.
+                </span>
+                .
             </p>
         ),
         shouldRender: (loggedIn?: boolean) => !!loggedIn,
@@ -110,7 +117,7 @@ const cardData: () => CardProp[] = () => [
         title: "Radna ploča",
         description: (
             <p>
-                <Link href="/Dashboard">Ovdje</Link> možete pronaći radnu ploču.
+                Pristupite <Link href="/Dashboard">radnoj ploči ovdje</Link>.
             </p>
         ),
         shouldRender: () => {
@@ -122,8 +129,8 @@ const cardData: () => CardProp[] = () => [
         title: "Objava",
         description: (
             <p>
-                Ti si administrator! Oni mogu objaviti bilo što! Klikni{" "}
-                <Link href="/Posts">ovdje</Link> da objaviš nešto.
+                Kao administrator možete objaviti sadržaj. Kliknite{" "}
+                <Link href="/Posts">ovdje za objavu</Link>.
             </p>
         ),
         shouldRender: () => {
@@ -135,9 +142,11 @@ const cardData: () => CardProp[] = () => [
         title: "Natjecanja",
         description: (
             <p>
-                Ti si administrator! Možeš{" "}
-                <Link href="/Competitions-Dashboard">upravljati</Link>{" "}
-                natjecanjima.
+                Kao administrator možete{" "}
+                <Link href="/Competitions-Dashboard">
+                    upravljati natjecanjima
+                </Link>
+                .
             </p>
         ),
         shouldRender: () => {
