@@ -1,13 +1,17 @@
+// Server component
 import AdvancedDashboard from "./AdvancedDashboard";
 import { getUsers } from "../utils/users";
 import { getCompetitions } from "../utils/competitions";
+import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Ensure no caching between requests
-export const metadata = {
+
+export const metadata: Metadata = {
     title: "Napredna radna ploča - Cro Cube Comp",
     description:
         "Rezultati za printanje, sigurnosne kopije baze podataka i mijenjanje lozinke.",
+    keywords: ["Cro Cube Comp", "Napredna radna ploča"],
 };
 
 export default async function AdvancedDashboardPage() {

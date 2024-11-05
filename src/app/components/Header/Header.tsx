@@ -6,12 +6,12 @@ import ClientTitle from "./Title";
 
 export default function Header() {
     return (
-        <header className={headerStyles["header"]}>
+        <header className={headerStyles["header"]} role="banner">
             <div className={headerStyles["interaction-container"]}>
                 <div className={headerStyles["logo-container"]}>
-                    <Link href="/">
+                    <Link href="/" aria-label="Idite na početnu stranicu">
                         <Image
-                            alt="logo"
+                            alt="Logo of website"
                             className={headerStyles["logo"]}
                             src="/favicon.ico"
                             width={20}
@@ -25,8 +25,7 @@ export default function Header() {
                 </div>
             </div>
             <div className={headerStyles["account-container"]}>
-                <ClientLoginStatus />{" "}
-                {/* Render the client-side login status */}
+                <ClientLoginStatus />
             </div>
         </header>
     );

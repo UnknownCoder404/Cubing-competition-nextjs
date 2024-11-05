@@ -1,10 +1,13 @@
+// Server component
 import { url } from "@/globals";
 import Competitions from "./Competitions";
 import { CompetitionResultsType } from "../Types/solve";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Rezultati - Cro Cube Comp",
-    description: "Rezultati za sva natjecanja",
+    description: "Rezultati za Cro Cube Comp natjecanja",
+    keywords: ["Cro Cube Comp", "Rezultati"],
 };
 
 async function getResults(): Promise<

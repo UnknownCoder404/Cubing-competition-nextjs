@@ -1,21 +1,35 @@
+import { Metadata } from "next";
 import rulesStyles from "./Rules.module.css";
-export const metadata = {
+import SmoothAnchor from "../components/Common/SmoothAnchor";
+
+export const metadata: Metadata = {
     title: "Pravila - Cro Cube Comp",
-    description: "Pravila za Cro Cube Comp natjecanja",
+    description:
+        "Pravila za Cro Cube Comp natjecanja koja prate WCA pravilnik.",
+    keywords: [
+        "Cro Cube Comp",
+        "Cro Cube Club",
+        "Cro.cube.club@gmail.com",
+        "Pravila Cro Cube Comp",
+        "Pravila",
+    ],
 };
+
 export default function Rules() {
     return (
         <>
             <nav>
                 <ol>
                     <li>
-                        <a href="#pravila1">SLOŽENO STANJE I KAZNE</a>
+                        <SmoothAnchor href="#pravila1">
+                            SLOŽENO STANJE I KAZNE
+                        </SmoothAnchor>
                     </li>
                     <li>
-                        <a href="#pravila2">INSPEKCIJA</a>
+                        <SmoothAnchor href="#pravila2">INSPEKCIJA</SmoothAnchor>
                     </li>
                     <li>
-                        <a href="#pravila3">PROSJEK</a>
+                        <SmoothAnchor href="#pravila3">PROSJEK</SmoothAnchor>
                     </li>
                 </ol>
             </nav>

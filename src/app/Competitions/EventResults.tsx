@@ -1,9 +1,9 @@
-"use server";
-
+// Server component
 import Group from "./Group";
 import CompetitionStyles from "./Competitions.module.css";
 import { Result } from "../Types/solve";
 
+// Function to separate results by group
 function separateResultsByGroup(round: Result[]) {
     const groups: Result[][] = [[], []];
     round.forEach((result) => {
@@ -16,29 +16,33 @@ interface EventProps {
     event: Result[][];
 }
 
+// Main component for displaying event results
 export default async function EventResults({ event }: EventProps) {
     const groups: Result[][][] = [[], []];
+
     event.forEach((round) => {
         const solversSeparatedByGroup = separateResultsByGroup(round);
 
-        // We could use a for loop here but it would be less readable
         groups[0].push(solversSeparatedByGroup[0]);
         groups[1].push(solversSeparatedByGroup[1]);
     });
 
     return (
-        <div className={CompetitionStyles["event-results"]}>
-            <div className={CompetitionStyles["groups"]}>
-                {groups.map((group, index) => {
-                    return (
-                        <Group
-                            group={group}
-                            key={index}
-                            groupNumber={index + 1}
-                        />
-                    );
-                })}
+        <section
+            className={CompetitionStyles["event-results"]}
+            itemScope
+            itemType="http://schema.org/SportEvent"
+        >
+            <div
+                className={CompetitionStyles["groups"]}
+                itemProp="subEvent"
+                itemScope
+                itemType="http://schema.org/SportEvent"
+            >
+                {groups.map((group, index) => (
+                    <Group group={group} key={index} groupNumber={index + 1} />
+                ))}
             </div>
-        </div>
+        </section>
     );
 }

@@ -11,6 +11,8 @@ const robots = (): MetadataRoute.Robots => ({
                 "/Register",
                 "/Advanced-Dashboard",
                 "/Dashboard",
+                "/Competitions-Dashboard",
+                "/Posts",
             ],
         },
     ],

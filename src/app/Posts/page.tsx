@@ -5,6 +5,7 @@ import PostsPage from "./PostsPage";
 export const metadata: Metadata = {
     title: "Objave - Cro Cube Comp",
     description: "Upravljaj objavama na Cro Cube Comp stranici.",
+    keywords: ["Upravljanje objavama", "Cro Cube Comp"],
 };
 
 export const dynamic = "force-dynamic";

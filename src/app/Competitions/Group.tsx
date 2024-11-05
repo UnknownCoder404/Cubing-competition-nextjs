@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { Result } from "../Types/solve";
 import CompetitionStyles from "./Competitions.module.css";
@@ -6,6 +7,7 @@ import ShowAndHide from "../components/Competitions/showAndHide";
 import dynamic from "next/dynamic";
 import { Loader } from "../components/Loader/Loader";
 import { clsx } from "clsx";
+
 const GroupResults = dynamic(() => import("./GroupResults"), {
     ssr: false,
     loading: () => <LoadingGroup />,
@@ -26,8 +28,6 @@ type Props = {
 
 export default function Group({ group, groupNumber }: Props) {
     const [areGroupResultsShown, setGroupResultsVisibility] = useState(true);
-
-    // Initialize an array of visibility states, one for each round
     const [roundVisibilities, setRoundVisibilities] = useState<boolean[]>(
         group.map(() => false), // Default to false (hidden) for each round
     );
@@ -47,14 +47,19 @@ export default function Group({ group, groupNumber }: Props) {
     const groupIndex = groupNumber - 1;
 
     return (
-        <div
+        <section
+            itemProp="event" // Associate with structured data
             className={clsx(CompetitionStyles["group"], {
                 [CompetitionStyles["no-gap"]]: !areGroupResultsShown,
             })} // Apply the no-gap class when group results are hidden
             id={`group-${groupIndex}`}
+            aria-labelledby={`group-title-${groupIndex}`}
         >
             <div className={CompetitionStyles["group-title-container"]}>
-                <h4 className={CompetitionStyles["group-title"]}>
+                <h4
+                    id={`group-title-${groupIndex}`}
+                    className={CompetitionStyles["group-title"]}
+                >
                     Grupa {groupNumber}
                 </h4>
                 <ShowAndHide
@@ -69,6 +74,6 @@ export default function Group({ group, groupNumber }: Props) {
                 group={group}
                 toggleRoundVisibility={toggleRoundVisibility}
             />
-        </div>
+        </section>
     );
 }

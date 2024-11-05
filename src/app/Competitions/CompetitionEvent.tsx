@@ -1,5 +1,4 @@
-"use server";
-
+// Server component
 import EventResults from "./EventResults";
 import { Result } from "../Types/solve";
 

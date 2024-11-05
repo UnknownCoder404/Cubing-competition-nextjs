@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useCallback } from "react";
 import { User, Users } from "../Types/solve";
 import styles from "./AdvancedDashboard.module.css";

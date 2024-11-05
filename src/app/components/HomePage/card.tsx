@@ -36,25 +36,48 @@ export default function Card({
     if (!shouldCardRender) return null;
 
     return (
-        <div className={styles.card}>
+        <article className={styles.card} role="article">
             <div className={styles["card-inside-container"]}>
-                <div className={styles["post-title-container"]}>
-                    <h2 className={styles["post-title"]}>{title}</h2>
-                </div>
-                <div className={styles["post-description-container"]}>
+                <header className={styles["post-title-container"]}>
+                    <h2 className={styles["post-title"]} aria-label={title}>
+                        {title}
+                    </h2>
+                </header>
+                <div
+                    className={styles["post-description-container"]}
+                    aria-label="Post Description"
+                >
                     <Description description={description} />
                 </div>
                 {author && (
-                    <div className={styles["post-author-container"]}>
+                    <footer className={styles["post-author-container"]}>
                         <p className={styles["post-author-p"]}>
-                            Objavio{" "}
-                            <span className={styles["post-author"]}>
+                            <span aria-label="Posted by">Objavio</span>{" "}
+                            <span
+                                className={styles["post-author"]}
+                                aria-label={author.username}
+                            >
                                 {author.username}
                             </span>
                         </p>
-                    </div>
+                    </footer>
                 )}
             </div>
-        </div>
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    headline: title,
+                    author: {
+                        "@type": "Person",
+                        name: author?.username,
+                    },
+                    description:
+                        typeof description === "string"
+                            ? description
+                            : undefined,
+                })}
+            </script>
+        </article>
     );
 }
