@@ -1,4 +1,5 @@
-"use client"; // This makes this component a client-side component
+"use client";
+
 import Link from "next/link";
 import headerStyles from "./Header.module.css";
 import { getUsername, logOut } from "@/app/utils/credentials";
@@ -13,21 +14,23 @@ function ClientLoginStatus() {
     const [username, setUsername] = useState<string | null>(null);
     const [loaded, setLoaded] = useState<boolean>(false);
     const loggedIn = !!username;
+
     useEffect(() => {
         setUsername(getUsername());
         setLoaded(true);
     }, []);
-    if (!loaded) {
-        return <div className={headerStyles["account-container"]}></div>;
-    }
-    return (
-        <>
-            <h2 className={headerStyles["log-in"]}>
-                {username ? username : <Link href="Login/">Prijava</Link>}
-            </h2>
 
+    if (!loaded) {
+        return <div className={headerStyles["account-container"]}></div>; // TODO: Add loading text, kind of like on youtube
+    }
+
+    return (
+        <header className={headerStyles["account-container"]}>
+            <h2 className={headerStyles["log-in"]}>
+                {username ? username : <Link href="/Login">Log In</Link>}
+            </h2>
             <Image
-                alt="account circle"
+                alt={loggedIn ? "User account options" : "Account login"}
                 className={clsx(headerStyles["account-circle"], {
                     [headerStyles["logged-in"]]: loggedIn,
                 })}
@@ -42,8 +45,10 @@ function ClientLoginStatus() {
                     }
                 }}
                 priority={true}
+                role="button" // Indicates the image is clickable
+                tabIndex={0} // Allows keyboard navigation
             />
-        </>
+        </header>
     );
 }
 

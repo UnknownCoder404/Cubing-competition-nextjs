@@ -17,13 +17,19 @@ export default function ShowAndHide({
             className={CompetitionStyles["show-hide"]}
             onClick={toggleVisibility}
             disabled={disabled}
+            aria-pressed={show} // Indicates the current state of the button
+            aria-label={show ? "Sakrij sadržaj" : "Prikaži sadržaj"}
         >
-            <Image
-                src={show ? showImg : hideImg}
-                width={undefined}
-                height={24}
-                alt={show ? "Hide" : "Show"}
-            />
+            <span className={CompetitionStyles["icon"]}>
+                <Image
+                    src={show ? showImg : hideImg}
+                    width={undefined}
+                    height={24}
+                    alt={
+                        show ? "Sakrij sadržaj ikona" : "Prikaži sadržaj ikona"
+                    }
+                />
+            </span>
         </button>
     );
 }
