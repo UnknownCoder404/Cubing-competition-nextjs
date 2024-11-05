@@ -57,28 +57,23 @@
     color: white;
     padding: 5px 10px;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .user-btn:active {
     transform: translateY(2px);
 }
 
-.remove-btn:hover,
-.remove-btn:focus {
+.remove-btn:hover {
     background-color: rgb(234 45 16);
 }
 
-.add-btn:hover,
-.add-btn:focus {
+.add-btn:hover {
     background-color: rgb(142 213 36);
     color: black;
 }
 
-.comp-btn:hover,
-.comp-btn:focus {
+.comp-btn:hover {
     background-color: rgb(44 153 153);
     color: white;
 }
@@ -138,9 +133,7 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .solve-input:focus {
@@ -167,9 +160,7 @@
     border-radius: 4px;
     outline: none;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        box-shadow 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .solve-add-btn.locked {

@@ -1,5 +1,4 @@
-"use client";
-
+// Client component
 import { useEffect, useState, memo } from "react";
 import clsx from "clsx";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
