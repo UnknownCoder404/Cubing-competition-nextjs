@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import rulesStyles from "./Rules.module.css";
+import SmoothAnchor from "../components/Common/SmoothAnchor";
 
 export const metadata: Metadata = {
     title: "Pravila - Cro Cube Comp",
@@ -20,13 +21,15 @@ export default function Rules() {
             <nav>
                 <ol>
                     <li>
-                        <a href="#pravila1">SLOŽENO STANJE I KAZNE</a>
+                        <SmoothAnchor href="#pravila1">
+                            SLOŽENO STANJE I KAZNE
+                        </SmoothAnchor>
                     </li>
                     <li>
-                        <a href="#pravila2">INSPEKCIJA</a>
+                        <SmoothAnchor href="#pravila2">INSPEKCIJA</SmoothAnchor>
                     </li>
                     <li>
-                        <a href="#pravila3">PROSJEK</a>
+                        <SmoothAnchor href="#pravila3">PROSJEK</SmoothAnchor>
                     </li>
                 </ol>
             </nav>
