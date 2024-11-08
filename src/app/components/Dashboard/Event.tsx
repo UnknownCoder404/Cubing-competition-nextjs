@@ -48,7 +48,8 @@ function DeleteSolveButton({
 
         if (!solveDeletion.success) {
             return alert(
-                solveDeletion.data.message || "Greška pri brisanju slaganja.",
+                (solveDeletion.data && solveDeletion.data.message) ||
+                    "Greška pri brisanju slaganja.",
             );
         }
 
@@ -114,7 +115,8 @@ function AddSolveInputAndButton({
 
         if (!response.success) {
             alert(
-                response.data.message || "Greška prilikom dodavanja slaganja.",
+                (response.data && response.data.message) ||
+                    "Greška prilikom dodavanja slaganja.",
             );
             return;
         }

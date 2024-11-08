@@ -26,10 +26,11 @@
         border-color 0.3s,
         box-shadow 0.3s;
 }
+
 .username-input:focus,
 .password-input:focus {
     border-color: #66afe9;
-    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: 0 0 8px rgb(102 175 233 / 60%);
     outline: none;
 }
 
@@ -70,11 +71,13 @@
         box-shadow 0.3s,
         transform 0.3s var(--exponential);
 }
+
 .submit-btn:hover {
     transform: scale(1.05);
     background-color: #559dd6;
-    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: 0 0 8px rgb(102 175 233 / 60%);
 }
+
 .submit-btn:focus {
     outline: none;
 }
@@ -82,14 +85,15 @@
 .message-container {
     width: 300px;
 }
+
 #message {
     margin-top: 10px;
     text-align: center;
     text-wrap: wrap;
-    color: rgb(255, 255, 255);
+    color: rgb(255 255 255);
     font-weight: 700;
 }
 
 .error {
-    color: rgb(255, 73, 73);
+    color: rgb(255 73 73);
 }

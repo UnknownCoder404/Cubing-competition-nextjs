@@ -38,7 +38,8 @@ export function ChangePasswordForm({ users }: { users: Users }) {
                     ...prev,
                     message: passwordChange.success
                         ? "Lozinka je uspješno promijenjena."
-                        : passwordChange.data.message ||
+                        : (passwordChange.data &&
+                              passwordChange.data.message) ||
                           "Greška prilikom promjene lozinke.",
                 }));
 

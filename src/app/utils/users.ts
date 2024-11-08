@@ -75,7 +75,7 @@ export async function deleteUserById({
  */
 export async function assignAdminToUser({
     id,
-}: AssignAdminToUserParams): Promise<ApiResponse<any>> {
+}: AssignAdminToUserParams): Promise<ApiResponse<{ message?: string }>> {
     try {
         const adminAssignmentUrl = new URL(url);
         adminAssignmentUrl.pathname = `admin/assign/${id}`;
@@ -105,7 +105,7 @@ export async function addSolve({
     event,
     roundIndex,
     solves,
-}: AddSolveParams): Promise<ApiResponse<any>> {
+}: AddSolveParams): Promise<ApiResponse<{ message?: string }>> {
     try {
         const solvesUrl = new URL(url);
         solvesUrl.pathname = `solves/add/${userId}`;
@@ -143,7 +143,7 @@ export async function deleteSolve({
     eventName,
     roundIndex,
     solveIndex,
-}: DeleteSolveParams): Promise<ApiResponse<any>> {
+}: DeleteSolveParams): Promise<ApiResponse<{ message?: string }>> {
     try {
         const solvesUrl = new URL(url);
         solvesUrl.pathname = `solves/delete/${userId}`;
@@ -176,7 +176,7 @@ export async function deleteSolve({
 export async function changePasswordByUsername({
     username,
     newPassword,
-}: ChangePasswordParams): Promise<ApiResponse<any>> {
+}: ChangePasswordParams): Promise<ApiResponse<{ message?: string }>> {
     try {
         const changePasswordUrl = new URL(url);
         changePasswordUrl.pathname = "users/change-password";
@@ -231,7 +231,12 @@ export async function registerUser({
     username,
     password,
     group,
-}: RegisterUserParams): Promise<ApiResponse<any>> {
+}: RegisterUserParams): Promise<
+    ApiResponse<{
+        message?: string;
+        registeredUser?: { username: string; password: string; group: number };
+    }>
+> {
     try {
         const registerUrl = new URL(url);
         registerUrl.pathname = "register";
