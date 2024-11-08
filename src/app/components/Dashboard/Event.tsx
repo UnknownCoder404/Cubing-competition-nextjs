@@ -37,18 +37,18 @@ function DeleteSolveButton({
 
     const deleteThisSolve = async () => {
         setLoading(true);
-        const solveDeletion = await deleteSolve(
+        const solveDeletion = await deleteSolve({
             userId,
             competitionId,
-            event,
-            roundNumber - 1,
-            solveNumber - 1,
-        );
+            eventName: event,
+            roundIndex: roundNumber - 1,
+            solveIndex: solveNumber - 1,
+        });
         setLoading(false);
 
         if (!solveDeletion.success) {
             return alert(
-                solveDeletion.parsed.message || "Greška pri brisanju slaganja.",
+                solveDeletion.data.message || "Greška pri brisanju slaganja.",
             );
         }
 
@@ -103,19 +103,18 @@ function AddSolveInputAndButton({
         if (!solves.length) return;
 
         setLoading(true);
-        const response = await addSolve(
-            userId,
+        const response = await addSolve({
+            userId: userId,
             competitionId,
-            eventName,
-            roundNumber - 1,
+            event: eventName,
+            roundIndex: roundNumber - 1,
             solves,
-        );
+        });
         setLoading(false);
 
         if (!response.success) {
             alert(
-                response.parsed.message ||
-                    "Greška prilikom dodavanja slaganja.",
+                response.data.message || "Greška prilikom dodavanja slaganja.",
             );
             return;
         }

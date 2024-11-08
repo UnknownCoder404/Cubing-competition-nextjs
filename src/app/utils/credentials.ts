@@ -36,11 +36,11 @@ function logOut(): void {
     localStorage.removeItem("role");
 }
 async function tokenValid(): Promise<boolean> {
-    // action, if true it will logout user if token is not valid
-    const tokenValidUrl = addToken(`${url.toString()}/token`);
-    if (!tokenValidUrl) {
-        return false;
-    }
+    const token = getToken();
+    if (!token) return false;
+    const tokenValidUrl = new URL(url);
+    tokenValidUrl.pathname = "token";
+    tokenValidUrl.searchParams.append("token", token);
     const data = await fetch(tokenValidUrl);
     return data.ok;
 }
@@ -55,19 +55,10 @@ function isAdmin(role: Role): boolean {
     return role.toUpperCase() === "ADMIN";
 }
 
-function addToken<T extends string | object | URL | null>(
-    data: T,
-): T | string | null {
+function addToken<T extends object | URL | null>(data: T): T {
     const token = getToken();
     if (!token) {
-        return null;
-    }
-
-    if (!data) {
-        return token; // Return the token if data is null
-    }
-    if (typeof data === "string") {
-        return `${data}${data.includes("?") ? "&" : "?"}token=${token}`;
+        throw new Error("No token");
     }
 
     if (typeof data === "object") {
@@ -79,7 +70,7 @@ function addToken<T extends string | object | URL | null>(
         return { ...data, Authorization: token }; // Return a new object with token added
     }
 
-    return null;
+    throw new Error("Invalid data type");
 }
 
 export {

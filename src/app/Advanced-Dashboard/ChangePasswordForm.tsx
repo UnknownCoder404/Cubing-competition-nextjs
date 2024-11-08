@@ -29,16 +29,16 @@ export function ChangePasswordForm({ users }: { users: Users }) {
             setState((prev) => ({ ...prev, message: "", loading: true }));
 
             try {
-                const passwordChange = await changePasswordByUsername(
-                    selectedUserToChangePassword.username,
+                const passwordChange = await changePasswordByUsername({
+                    username: selectedUserToChangePassword.username,
                     newPassword,
-                );
+                });
 
                 setState((prev) => ({
                     ...prev,
                     message: passwordChange.success
                         ? "Lozinka je uspješno promijenjena."
-                        : passwordChange.parsed.message ||
+                        : passwordChange.data.message ||
                           "Greška prilikom promjene lozinke.",
                 }));
 
