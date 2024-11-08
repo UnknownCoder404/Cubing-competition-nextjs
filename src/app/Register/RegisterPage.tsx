@@ -2,23 +2,30 @@
 
 import { FormEvent, useState } from "react";
 import styles from "./Register.module.css";
+import { registerUser } from "../utils/users";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [group, setGroup] = useState<number>(1); // Default group
+    const [group, setGroup] = useState<number>(1);
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Basic validation
         if (!username || !password) {
-            setMessage("Please fill in all fields.");
+            setMessage("Ime i lozinka su obavezni");
             return;
         }
-
-        // Handle registration logic here
-        setMessage("Registration successful!"); // Update this based on your logic
+        const userRegistration = await registerUser(username, password, group);
+        if (!userRegistration.success) {
+            setMessage(
+                userRegistration.message || "Greška prilikom registracije",
+            );
+            return;
+        }
+        setMessage(`Korisnik ${username} je registriran!`);
     };
 
     return (

@@ -220,3 +220,37 @@ export async function getUsers(): Promise<
         };
     }
 }
+
+export async function registerUser(
+    username: string,
+    password: string,
+    group: number,
+) {
+    const registerUrl = new URL(url);
+    registerUrl.pathname = "register";
+    const headers =
+        addToken({
+            "Content-Type": "application/json",
+        }) || {};
+    try {
+        const response = await fetch(registerUrl, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({ username, password, group }),
+            signal: AbortSignal.timeout(5000),
+        });
+        const data = await response.json();
+        return {
+            success: response.ok,
+            user: data.registeredUser,
+            message: data.message,
+        } as const;
+    } catch (error) {
+        console.error("Error:\n", error);
+        return {
+            success: false,
+            user: null,
+            message: null,
+        } as const;
+    }
+}
