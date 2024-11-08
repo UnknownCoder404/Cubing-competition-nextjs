@@ -17,9 +17,14 @@ export const metadata: Metadata = {
 function Buttons() {
     return (
         <nav>
-            <Link href="/Advanced-Dashboard">
+            <Link href="/Advanced-Dashboard" prefetch={true}>
                 <button className={dashboardStyles["advanced-dashboard-btn"]}>
                     Napredna radna ploča
+                </button>
+            </Link>
+            <Link href="/Register" prefetch={true}>
+                <button className={dashboardStyles["register-btn"]}>
+                    Registracija korisnika
                 </button>
             </Link>
         </nav>

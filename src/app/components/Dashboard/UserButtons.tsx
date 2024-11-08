@@ -23,7 +23,7 @@ function DeleteUserButton({
                 if (id === getId()) {
                     return alert("Ne možete izbrisati vlastiti računa.");
                 }
-                const userDeletion = await deleteUserById(id);
+                const userDeletion = await deleteUserById({ id });
                 if (!userDeletion.success) {
                     return alert(
                         userDeletion.message ||
@@ -54,7 +54,7 @@ function AdminButton({
                 [dashboardStyles["add-btn"]]: !isAdmin(role),
             })}
             onClick={async () => {
-                const adminAssignment = await assignAdminToUser(id);
+                const adminAssignment = await assignAdminToUser({ id });
                 if (!adminAssignment.success) {
                     return alert(
                         adminAssignment.message ||

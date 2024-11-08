@@ -2,19 +2,45 @@ import { url } from "@/globals";
 import { addToken, getId, getToken } from "./credentials";
 import { AllowedEvents, Users } from "../Types/solve";
 
-/**
- * Delete a user by id
- * @param {string} id - Id of user to delete
- * @returns {Promise<{success: boolean, data?: any, response?: Response, message?: string}>}
- */
-export async function deleteUserById(id: string): Promise<{
+type ApiResponse<T> = {
     success: boolean;
-    data?: {
-        message?: string;
-    };
+    data?: T;
     response?: Response;
     message?: string;
-}> {
+};
+
+type DeleteUserByIdParams = { id: string };
+type AssignAdminToUserParams = { id: string };
+type AddSolveParams = {
+    userId: string;
+    competitionId: string;
+    event: string;
+    roundIndex: number;
+    solves: number[];
+};
+type DeleteSolveParams = {
+    userId: string;
+    competitionId: string;
+    eventName: AllowedEvents;
+    roundIndex: number;
+    solveIndex: number;
+};
+type ChangePasswordParams = {
+    username: string;
+    newPassword: string;
+};
+type RegisterUserParams = {
+    username: string;
+    password: string;
+    group: number;
+};
+
+/**
+ * Delete a user by ID
+ */
+export async function deleteUserById({
+    id,
+}: DeleteUserByIdParams): Promise<ApiResponse<{ message?: string }>> {
     if (id === getId()) {
         return {
             success: false,
@@ -24,179 +50,157 @@ export async function deleteUserById(id: string): Promise<{
     try {
         const userDeletionUrl = new URL(url);
         userDeletionUrl.pathname = `users/${id}`;
-        const body = {
+        const response = await fetch(userDeletionUrl, {
             method: "DELETE",
             headers: addToken({}) || {},
-        };
-        const response = await fetch(userDeletionUrl, body);
+        });
         const data = await response.json();
 
-        if (response.ok) {
-            return { success: true, data, response };
-        }
         return {
-            success: false,
+            success: response.ok,
             data,
             response,
-            message: "Greška prilikom brisanja korisnika.",
+            message: response.ok
+                ? undefined
+                : "Greška prilikom brisanja korisnika.",
         };
     } catch (error) {
         console.error(`Error deleting user: \n${error}`);
-        return {
-            success: false,
-        };
+        return { success: false };
     }
 }
+
 /**
  * Assign admin role to a user
- * @param {string} id - Id of user to which the admin role will be assigned
- * @returns {Promise<{success: boolean, data?: any, response?: Response, message?: string}>} Returns a success message if the admin role was assigned successfullys
  */
-export async function assignAdminToUser(id: string): Promise<{
-    success: boolean;
-    data?: {
-        message?: string;
-    };
-    response?: Response;
-    message?: string;
-}> {
-    const body = {
-        method: "POST",
-        headers: addToken({}) || {},
-    };
+export async function assignAdminToUser({
+    id,
+}: AssignAdminToUserParams): Promise<ApiResponse<{ message?: string }>> {
     try {
         const adminAssignmentUrl = new URL(url);
         adminAssignmentUrl.pathname = `admin/assign/${id}`;
-        const response = await fetch(adminAssignmentUrl, body);
+        const response = await fetch(adminAssignmentUrl, {
+            method: "POST",
+            headers: addToken({}) || {},
+        });
         const data = await response.json();
-        if (response.ok) {
-            return { success: true, data };
-        }
+
         return {
-            success: false,
-            message: data.message,
+            success: response.ok,
+            data,
+            message: response.ok ? undefined : data.message,
         };
     } catch (error) {
         console.error(error);
-        return {
-            success: false,
-        };
+        return { success: false };
     }
 }
 
-export async function addSolve(
-    userId: string,
-    competitionId: string,
-    event: string,
-    roundIndex: number,
-    solves: number[],
-) {
-    const solvesUrl = new URL(url);
-    solvesUrl.pathname = `solves/add/${userId}`;
-    const roundNumber = roundIndex + 1;
-    const solveData = {
-        round: roundNumber,
-        solves: {
-            event: event,
-            rounds: solves,
-        },
-        competitionId,
-    };
+/**
+ * Add a solve for a user
+ */
+export async function addSolve({
+    userId,
+    competitionId,
+    event,
+    roundIndex,
+    solves,
+}: AddSolveParams): Promise<ApiResponse<{ message?: string }>> {
+    try {
+        const solvesUrl = new URL(url);
+        solvesUrl.pathname = `solves/add/${userId}`;
+        const response = await fetch(solvesUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: getToken() || "",
+            },
+            body: JSON.stringify({
+                round: roundIndex + 1,
+                solves: { event, rounds: solves },
+                competitionId,
+            }),
+        });
+        const data = await response.json();
 
-    // Šalje podatke na server
-    const response = await fetch(solvesUrl, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: getToken() || "",
-        },
-        body: JSON.stringify(solveData),
-    });
-
-    const data = await response.json();
-    return {
-        success: response.ok,
-        parsed: data,
-        response,
-        statusCode: response.status,
-    };
+        return {
+            success: response.ok,
+            data,
+            response,
+        };
+    } catch (error) {
+        console.error("Error adding solve: \n", error);
+        return { success: false };
+    }
 }
-export async function deleteSolve(
-    userId: string,
-    compId: string,
-    eventName: AllowedEvents,
-    roundIndex: number,
-    solveIndex: number,
-) {
+
+/**
+ * Delete a specific solve for a user
+ */
+export async function deleteSolve({
+    userId,
+    competitionId,
+    eventName,
+    roundIndex,
+    solveIndex,
+}: DeleteSolveParams): Promise<ApiResponse<{ message?: string }>> {
     try {
         const solvesUrl = new URL(url);
         solvesUrl.pathname = `solves/delete/${userId}`;
-        const roundNumber = +roundIndex + 1;
-        const solveNumber = +solveIndex + 1;
-        const headers =
-            addToken({
-                "Content-Type": "application/json",
-            }) || {};
         const response = await fetch(solvesUrl, {
             method: "DELETE",
-            headers: headers,
+            headers: addToken({ "Content-Type": "application/json" }) || {},
             body: JSON.stringify({
-                round: roundNumber,
-                solve: solveNumber,
+                round: roundIndex + 1,
+                solve: solveIndex + 1,
                 event: eventName,
-                competitionId: compId,
+                competitionId,
             }),
         });
+        const data = await response.json();
 
-        // Handle errors
-        const parsed = await response.json();
         return {
-            parsed,
             success: response.ok,
-            statusCode: response.status,
+            data,
             response,
         };
     } catch (error) {
-        return {
-            success: false,
-            error,
-        };
+        console.error("Error deleting solve: \n", error);
+        return { success: false };
     }
 }
 
-export async function changePasswordByUsername(
-    username: string,
-    newPassword: string,
-) {
+/**
+ * Change password for a user by username
+ */
+export async function changePasswordByUsername({
+    username,
+    newPassword,
+}: ChangePasswordParams): Promise<ApiResponse<{ message?: string }>> {
     try {
-        const body = {
-            username,
-            newPassword,
-        };
-        const request = {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: addToken({ "Content-Type": "application/json" }) || {},
-        };
-
         const changePasswordUrl = new URL(url);
         changePasswordUrl.pathname = "users/change-password";
-        const response = await fetch(changePasswordUrl, request);
-        const parsed = await response.json();
+        const response = await fetch(changePasswordUrl, {
+            method: "POST",
+            headers: addToken({ "Content-Type": "application/json" }) || {},
+            body: JSON.stringify({ username, newPassword }),
+        });
+        const data = await response.json();
+
         return {
-            parsed,
             success: response.ok,
-            statusCode: response.status,
+            data,
             response,
         };
     } catch (error) {
-        return {
-            error,
-            success: false,
-        };
+        console.error("Error changing password: \n", error);
+        return { success: false };
     }
 }
 
+/**
+ * Get all users
+ */
 export async function getUsers(): Promise<
     | { success: false; error: unknown }
     | { parsed: Users; success: boolean; status: number }
@@ -204,19 +208,53 @@ export async function getUsers(): Promise<
     try {
         const usersUrl = new URL(url);
         usersUrl.pathname = "users";
-        const data = await fetch(usersUrl, {
+        const response = await fetch(usersUrl, {
             signal: AbortSignal.timeout(5000),
         });
-        const parsedJSON = await data.json();
+        const data = (await response.json()) as Users;
+
         return {
-            parsed: parsedJSON,
-            success: data.ok,
-            status: data.status,
+            parsed: data,
+            success: response.ok,
+            status: response.status,
         };
     } catch (error) {
+        console.error("Error fetching users: \n", error);
+        return { success: false, error };
+    }
+}
+
+/**
+ * Register a new user
+ */
+export async function registerUser({
+    username,
+    password,
+    group,
+}: RegisterUserParams): Promise<
+    ApiResponse<{
+        message?: string;
+        registeredUser?: { username: string; password: string; group: number };
+    }>
+> {
+    try {
+        const registerUrl = new URL(url);
+        registerUrl.pathname = "register";
+        const response = await fetch(registerUrl, {
+            method: "POST",
+            headers: addToken({ "Content-Type": "application/json" }) || {},
+            body: JSON.stringify({ username, password, group }),
+            signal: AbortSignal.timeout(5000),
+        });
+        const data = await response.json();
+
         return {
-            success: false,
-            error,
+            success: response.ok,
+            data,
+            message: data.message,
         };
+    } catch (error) {
+        console.error("Error registering user: \n", error);
+        return { success: false };
     }
 }
