@@ -1,9 +1,10 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useMutation } from "react-query";
 import styles from "./Register.module.css";
 import { registerUser } from "../utils/users";
-import { useRouter } from "next/navigation";
+import { Loader } from "../components/Loader/Loader";
 
 export default function RegisterPage() {
     const [username, setUsername] = useState("");
@@ -11,21 +12,27 @@ export default function RegisterPage() {
     const [group, setGroup] = useState<number>(1);
     const [message, setMessage] = useState("");
 
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    const { mutate, isLoading } = useMutation(registerUser, {
+        onSuccess: (data) => {
+            if (data.success) {
+                setMessage(`Korisnik ${username} je registriran!`);
+            } else {
+                setMessage(data.message || "Greška prilikom registracije");
+            }
+        },
+        onError: () => {
+            setMessage("Greška prilikom registracije");
+        },
+    });
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // Basic validation
         if (!username || !password) {
             setMessage("Ime i lozinka su obavezni");
             return;
         }
-        const userRegistration = await registerUser(username, password, group);
-        if (!userRegistration.success) {
-            setMessage(
-                userRegistration.message || "Greška prilikom registracije",
-            );
-            return;
-        }
-        setMessage(`Korisnik ${username} je registriran!`);
+        mutate({ username, password, group });
     };
 
     return (
@@ -85,8 +92,12 @@ export default function RegisterPage() {
                     </div>
                 </div>
                 <br />
-                <button className={styles["submit-btn"]} type="submit">
-                    Registriraj
+                <button
+                    className={styles["submit-btn"]}
+                    type="submit"
+                    disabled={isLoading}
+                >
+                    {isLoading ? <Loader /> : "Registriraj"}
                 </button>
                 <div className={styles.messageContainer}>
                     <p id="message">{message}</p>

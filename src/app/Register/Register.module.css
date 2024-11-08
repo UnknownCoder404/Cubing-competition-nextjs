@@ -52,6 +52,9 @@
 }
 
 .submit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px 12px;
     width: 50vw;
     font-size: 18px;

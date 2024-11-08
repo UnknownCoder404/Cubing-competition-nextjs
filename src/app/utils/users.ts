@@ -221,11 +221,17 @@ export async function getUsers(): Promise<
     }
 }
 
-export async function registerUser(
-    username: string,
-    password: string,
-    group: number,
-) {
+type RegisterParams = {
+    username: string;
+    password: string;
+    group: number;
+};
+
+export async function registerUser({
+    username,
+    password,
+    group,
+}: RegisterParams) {
     const registerUrl = new URL(url);
     registerUrl.pathname = "register";
     const headers =
