@@ -12,6 +12,9 @@ export const metadata: Metadata = {
         "Cro Cube Club",
         "Cro.cube.club@gmail.com",
     ],
+    verification: {
+        google: "p4gzWQ-1iXVG0l_lfeyeSHMr_37F_pq6QH3hu8zmL40",
+    },
 };
 
 export default async function Home() {
