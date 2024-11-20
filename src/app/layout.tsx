@@ -3,7 +3,6 @@ import Header from "./components/Header/Header";
 import { headers } from "next/headers";
 import { Roboto } from "next/font/google";
 import ReactQueryProvider from "./components/Providers/react-query-provider";
-import Head from "next/head";
 
 const hideHeaderRoutes: string[] = [];
 const roboto = Roboto({
