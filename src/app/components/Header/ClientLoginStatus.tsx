@@ -27,7 +27,7 @@ function ClientLoginStatus() {
     return (
         <header className={headerStyles["account-container"]}>
             <h2 className={headerStyles["log-in"]}>
-                {username ? username : <Link href="/Login">Log In</Link>}
+                {username ? username : <Link href="/Login">Prijava</Link>}
             </h2>
             <Image
                 alt={loggedIn ? "User account options" : "Account login"}
