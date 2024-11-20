@@ -22,6 +22,11 @@ export default async function RootLayout({
 
     return (
         <html lang="hr" className={roboto.className}>
+            <meta
+                name="google-site-verification"
+                content="p4gzWQ-1iXVG0l_lfeyeSHMr_37F_pq6QH3hu8zmL40"
+            />
+
             <body>
                 {shouldShowHeader && <Header />}
                 <ReactQueryProvider>{children}</ReactQueryProvider>
