@@ -3,7 +3,7 @@
 import loginStyles from "./Login.module.css";
 import { url } from "@/globals";
 import { Dispatch, SetStateAction, useState } from "react";
-import { getRole, isAdmin, isUser, loggedIn } from "../utils/credentials";
+import { isAdmin } from "../utils/credentials";
 import { ArrowLoader } from "../components/Loader/Loader";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
