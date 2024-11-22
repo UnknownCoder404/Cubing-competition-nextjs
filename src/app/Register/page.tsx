@@ -1,6 +1,7 @@
 // Server component
 import { Metadata } from "next";
 import RegisterPage from "./RegisterPage";
+import ProtectedRoute from "../components/Common/ProtectedRoute";
 
 export const metadata: Metadata = {
     title: "Registracija - Cro Cube Comp",
@@ -9,5 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function Register() {
-    return <RegisterPage />;
+    return (
+        <ProtectedRoute require="admin" redirectTo="/Login" validateToken>
+            <RegisterPage />
+        </ProtectedRoute>
+    );
 }

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import LoginPage from "./LoginPage";
+import ProtectedRoute from "../components/Common/ProtectedRoute";
 
 export const metadata: Metadata = {
     title: "Prijava - Cro Cube Comp",
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function Login() {
-    return <LoginPage />;
+    return (
+        <ProtectedRoute require="loggedout" redirectTo="/">
+            <LoginPage />
+        </ProtectedRoute>
+    );
 }
