@@ -104,7 +104,7 @@ const cardData: () => CardProp[] = () => [
                         window.location.reload(); // Refresh the page after logout
                     }}
                     role="button"
-                    aria-label="Odjavite se"
+                    aria-label="Kliknite na ovu poveznicu da biste se odjavili"
                 >
                     ovu poveznicu
                 </span>
