@@ -125,8 +125,8 @@ function LoginForm() {
 // Main Login component can be server-side
 export default function LoginPage() {
     return (
-        <div className={loginStyles["form-container"]}>
+        <main className={loginStyles["form-container"]}>
             <LoginForm />
-        </div>
+        </main>
     );
 }

@@ -16,7 +16,7 @@ export default function PostsPage({ posts }: { posts: Posts }) {
     const descriptionInput = useRef<HTMLTextAreaElement>(null);
 
     return (
-        <div className={postsStyles["form"]}>
+        <main className={postsStyles["form"]}>
             <div>
                 <TitleInput
                     ref={titleInput}
@@ -45,6 +45,6 @@ export default function PostsPage({ posts }: { posts: Posts }) {
                 setTitle={setTitle}
             />
             <PostsList posts={posts} />
-        </div>
+        </main>
     );
 }
