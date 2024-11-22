@@ -1,47 +1,63 @@
 "use client";
-
 import { getRole, isAdmin, tokenValid } from "@/app/utils/credentials";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
-    redirectTo: string;
+    redirectTo?: string; // Optional for non-redirect behavior
     require: "admin" | "loggedin" | "loggedout";
     validateToken?: boolean;
+    children: React.ReactNode;
 };
 
 export default function ProtectedRoute({
     require,
     redirectTo,
     validateToken,
+    children,
 }: Props) {
     const router = useRouter();
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const role = getRole();
 
-    function offlineValidation() {
-        if (require === "loggedin" && !role) return false;
-        if (require === "admin" && (!role || !isAdmin(role))) return false;
-        if (require === "loggedout" && role) return false;
-        return true;
-    }
-
     async function handleValidation() {
-        if (!offlineValidation()) {
-            router.push(redirectTo);
+        // Offline validation
+        if (
+            (require === "loggedin" && !role) ||
+            (require === "admin" && (!role || !isAdmin(role))) ||
+            (require === "loggedout" && role)
+        ) {
+            if (redirectTo) {
+                router.push(redirectTo); // Redirect if specified
+            }
             return;
         }
 
+        // Async token validation
         if (validateToken) {
             const tokenIsValid = await tokenValid();
             if (!tokenIsValid) {
-                router.push(redirectTo);
+                if (redirectTo) {
+                    router.push(redirectTo);
+                }
+                return;
             }
         }
+
+        setIsAuthorized(true); // Authorize if all checks pass
     }
 
     useEffect(() => {
         handleValidation();
     }, [redirectTo, require, validateToken, role]);
 
-    return null;
+    if (!isAuthorized && !redirectTo) {
+        return null; // Hide protected content without redirecting
+    }
+
+    if (!isAuthorized) {
+        return null; // Render nothing while validation is in progress
+    }
+
+    return children; // Render protected content
 }

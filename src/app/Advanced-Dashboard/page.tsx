@@ -29,12 +29,11 @@ export default async function AdvancedDashboardPage() {
     }
 
     return (
-        <>
-            <ProtectedRoute require="admin" redirectTo="/Login" validateToken />
+        <ProtectedRoute require="admin" redirectTo="/Login" validateToken>
             <AdvancedDashboard
                 users={users.parsed}
                 competitions={competitions.parsed}
             />
-        </>
+        </ProtectedRoute>
     );
 }
