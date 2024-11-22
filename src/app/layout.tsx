@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 import { headers } from "next/headers";
 import { Roboto } from "next/font/google";
 import ReactQueryProvider from "./components/Providers/react-query-provider";
-import { VercelToolbar } from "@vercel/toolbar/next";
+import { AdminToolbar } from "./components/AdminToolbar";
 
 const hideHeaderRoutes: string[] = [];
 const roboto = Roboto({
@@ -33,7 +33,7 @@ export default async function RootLayout({
             <body>
                 {shouldShowHeader && <Header />}
                 <ReactQueryProvider>{children}</ReactQueryProvider>
-                {showToolBar && <VercelToolbar />}
+                {showToolBar && <AdminToolbar />}
             </body>
         </html>
     );
