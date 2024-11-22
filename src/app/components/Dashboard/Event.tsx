@@ -24,6 +24,7 @@ function DeleteSolveButton({
     solveNumber,
     userId,
     isLocked,
+    show,
 }: {
     competitionId: string;
     event: AllowedEvents;
@@ -31,6 +32,7 @@ function DeleteSolveButton({
     solveNumber: number;
     userId: string;
     isLocked: boolean;
+    show: boolean;
 }) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -63,6 +65,7 @@ function DeleteSolveButton({
                 [dashboardStyles.locked]: isLocked,
             })}
             disabled={loading}
+            tabIndex={show ? 0 : -1}
         >
             <Image src={trashIcon} width={24} height={24} alt="delete" />
         </button>
@@ -75,12 +78,14 @@ function AddSolveInputAndButton({
     eventName,
     userId,
     isLocked,
+    show,
 }: {
     competitionId: string;
     roundNumber: number;
     eventName: string;
     userId: string;
     isLocked: boolean;
+    show: boolean;
 }) {
     const router = useRouter();
     const [inputValue, setInputValue] = useState("");
@@ -139,6 +144,7 @@ function AddSolveInputAndButton({
                 onChange={handleChange}
                 disabled={loading}
                 onKeyDown={(e) => e.key === "Enter" && addSolveToUser()}
+                tabIndex={show ? 0 : -1}
             />
             <button
                 onClick={addSolveToUser}
@@ -146,6 +152,7 @@ function AddSolveInputAndButton({
                     [dashboardStyles.locked]: isLocked,
                 })}
                 disabled={loading}
+                tabIndex={show ? 0 : -1}
             >
                 {loading ? "..." : "Dodaj"}
             </button>
@@ -161,6 +168,7 @@ function Solve({
     userId,
     solveNumber,
     isLocked,
+    show,
 }: {
     solve: number;
     competitionId: string;
@@ -169,6 +177,7 @@ function Solve({
     userId: string;
     solveNumber: number;
     isLocked: boolean;
+    show: boolean;
 }) {
     return (
         <li className={dashboardStyles.solve}>
@@ -180,6 +189,7 @@ function Solve({
                 roundNumber={roundNumber}
                 userId={userId}
                 isLocked={isLocked}
+                show={show}
             />
         </li>
     );
@@ -192,6 +202,7 @@ function Round({
     eventName,
     userId,
     isLocked,
+    show,
 }: {
     roundNumber: number;
     round: number[] | undefined;
@@ -199,6 +210,7 @@ function Round({
     eventName: AllowedEvents;
     userId: string;
     isLocked: boolean;
+    show: boolean;
 }) {
     return (
         <div className={dashboardStyles.round}>
@@ -215,6 +227,7 @@ function Round({
                         roundNumber={roundNumber}
                         userId={userId}
                         isLocked={isLocked}
+                        show={show}
                     />
                 ))}
             </ol>
@@ -225,6 +238,7 @@ function Round({
                     eventName={eventName}
                     userId={userId}
                     isLocked={isLocked}
+                    show={show}
                 />
             )}
         </div>
@@ -237,12 +251,14 @@ function EventResults({
     competitionId,
     userId,
     isLocked,
+    show,
 }: {
     event: EventDetail;
     userEvent: UserEvent | undefined;
     competitionId: string;
     userId: string;
     isLocked: boolean;
+    show: boolean;
 }) {
     return (
         <div className={dashboardStyles["event-results"]}>
@@ -257,6 +273,7 @@ function EventResults({
                         eventName={event.name}
                         userId={userId}
                         isLocked={isLocked}
+                        show={show}
                     />
                 );
             })}
@@ -270,12 +287,14 @@ export default function Event({
     userId,
     competitionId,
     isLocked,
+    show,
 }: {
     event: EventDetail;
     userComp: UserComp | undefined;
     userId: string;
     competitionId: string;
     isLocked: boolean;
+    show: boolean;
 }) {
     return (
         <div className={dashboardStyles.event}>
@@ -288,6 +307,7 @@ export default function Event({
                 competitionId={competitionId}
                 userId={userId}
                 isLocked={isLocked}
+                show={show}
             />
         </div>
     );

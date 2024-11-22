@@ -18,10 +18,12 @@ const CompetitionSelect = memo(function CompetitionSelect({
     setSelectedCompetition,
     competitions,
     selectedCompetition,
+    show,
 }: {
     setSelectedCompetition: (arg0: CompetitionType) => void;
     competitions: CompetitionType[];
     selectedCompetition: CompetitionType | undefined;
+    show: boolean;
 }) {
     if (!competitions) {
         return <p>Učitavanje...</p>; // Loading message in case competitions are not available
@@ -40,6 +42,7 @@ const CompetitionSelect = memo(function CompetitionSelect({
                     setSelectedCompetition(selectedComp);
                     saveSelectedCompetition(selectedComp);
                 }}
+                tabIndex={show ? 0 : -1}
             >
                 {competitions.map((competition: CompetitionType) => (
                     <option key={competition._id} value={competition._id}>
@@ -55,9 +58,11 @@ const CompetitionSelect = memo(function CompetitionSelect({
 const CompResults = memo(function CompResults({
     user,
     selectedCompetition,
+    show,
 }: {
     user: User;
     selectedCompetition: CompetitionType | undefined;
+    show: boolean;
 }) {
     if (!selectedCompetition) {
         return <></>;
@@ -92,6 +97,7 @@ const CompResults = memo(function CompResults({
                     userComp={user.competitions.find(
                         (c) => c.competitionId === selectedCompetition._id,
                     )}
+                    show={show}
                 />
             ))}
         </article>
@@ -148,10 +154,12 @@ function CompetitionWindow({
                 setSelectedCompetition={setSelectedCompetition}
                 competitions={competitions}
                 selectedCompetition={selectedCompetition}
+                show={show}
             />
             <CompResults
                 user={user}
                 selectedCompetition={selectedCompetition}
+                show={show}
             />
         </motion.div>
     );
