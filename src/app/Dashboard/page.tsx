@@ -47,7 +47,7 @@ export default async function Dashboard() {
     return (
         <>
             <Buttons />
-            <div className={dashboardStyles["users"]}>
+            <main className={dashboardStyles["users"]}>
                 {users.parsed.map((user) => (
                     <UserDashboard
                         key={user._id}
@@ -55,7 +55,7 @@ export default async function Dashboard() {
                         competitions={competitions.parsed}
                     />
                 ))}
-            </div>
+            </main>
         </>
     );
 }

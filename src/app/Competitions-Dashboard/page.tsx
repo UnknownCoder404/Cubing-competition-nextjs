@@ -20,7 +20,7 @@ function CurrentCompetitions({
     competitions: CompetitionType[];
 }) {
     return (
-        <div className={styles["competitions"]}>
+        <main className={styles["competitions"]}>
             {competitions.map((comp) => {
                 const { name, isLocked, date, _id, events } = comp;
                 const dateFormatted = new Date(date).toLocaleDateString(
@@ -53,7 +53,7 @@ function CurrentCompetitions({
                     </div>
                 );
             })}
-        </div>
+        </main>
     );
 }
 

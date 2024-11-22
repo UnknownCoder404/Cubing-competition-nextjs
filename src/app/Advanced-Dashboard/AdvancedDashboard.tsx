@@ -13,10 +13,10 @@ export default function AdvancedDashboard({
     competitions: CompetitionType[];
 }) {
     return (
-        <div className={styles["options"]}>
+        <main className={styles["options"]}>
             <Excel competitions={competitions} />
             <ChangePasswordForm users={users} />
             <Backup />
-        </div>
+        </main>
     );
 }

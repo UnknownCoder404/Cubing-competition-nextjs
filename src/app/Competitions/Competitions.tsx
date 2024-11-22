@@ -14,7 +14,7 @@ export default async function Competitions(props: Props) {
 
     const competitionNames = Object.keys(props.competitions.parsed);
     return (
-        <>
+        <main>
             {competitionNames.map((compName, index) => {
                 const competition = competitions[compName];
                 return (
@@ -25,6 +25,6 @@ export default async function Competitions(props: Props) {
                     />
                 );
             })}
-        </>
+        </main>
     );
 }

@@ -104,7 +104,7 @@ const cardData: () => CardProp[] = () => [
                         window.location.reload(); // Refresh the page after logout
                     }}
                     role="button"
-                    aria-label="Odjavite se"
+                    aria-label="Kliknite na ovu poveznicu da biste se odjavili"
                 >
                     ovu poveznicu
                 </span>
@@ -160,14 +160,14 @@ type CardsProps = { posts: PostProp[] };
 
 function Cards({ posts }: CardsProps) {
     return (
-        <div className={styles.cards} suppressHydrationWarning>
+        <main className={styles.cards} suppressHydrationWarning>
             {cardData().map((card, index) => (
                 <Card key={`card-${index}`} {...card} loggedIn={loggedIn()} />
             ))}
             {posts.map((post) => (
                 <Card key={post.id} {...post} />
             ))}
-        </div>
+        </main>
     );
 }
 

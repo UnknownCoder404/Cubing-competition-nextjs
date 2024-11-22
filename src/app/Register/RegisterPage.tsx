@@ -36,7 +36,7 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className={styles["form-container"]}>
+        <main className={styles["form-container"]}>
             <form
                 id="registerForm"
                 onSubmit={handleSubmit}
@@ -103,6 +103,6 @@ export default function RegisterPage() {
                     <p id="message">{message}</p>
                 </div>
             </form>
-        </div>
+        </main>
     );
 }

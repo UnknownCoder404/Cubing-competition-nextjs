@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function Rules() {
     return (
-        <>
+        <main>
             <nav>
                 <ol>
                     <li>
@@ -166,6 +166,6 @@ export default function Rules() {
                     <span className={rulesStyles["red"]}>DNF</span>.
                 </p>
             </main>
-        </>
+        </main>
     );
 }
