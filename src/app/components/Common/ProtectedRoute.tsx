@@ -20,6 +20,11 @@ export default function ProtectedRoute({
     const [isAuthorized, setIsAuthorized] = useState(false);
     const role = getRole();
 
+    if (require === "loggedout" && validateToken) {
+        throw new Error(
+            "Invalid use of ProtectedRoute: Cannot validate token for logged out users",
+        );
+    }
     async function handleValidation() {
         // Offline validation
         if (

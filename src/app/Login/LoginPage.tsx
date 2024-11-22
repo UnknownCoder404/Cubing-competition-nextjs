@@ -5,10 +5,13 @@ import { url } from "@/globals";
 import { Dispatch, SetStateAction, useState } from "react";
 import { getRole, isAdmin, isUser, loggedIn } from "../utils/credentials";
 import { ArrowLoader } from "../components/Loader/Loader";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 // This function handles form submission and should be client-side
 async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
     setMsg: Dispatch<SetStateAction<string>>,
+    router: AppRouterInstance,
 ) {
     event.preventDefault();
     try {
@@ -47,6 +50,12 @@ async function handleSubmit(
             localStorage.setItem("token", token);
             localStorage.setItem("username", username);
             localStorage.setItem("role", role);
+
+            if (isAdmin(role)) {
+                router.push("/Dashboard");
+            } else {
+                router.push("/");
+            }
         }
     } catch (error) {
         setMsg(`Greška prilikom prijave.\n${error}`);
@@ -77,21 +86,15 @@ function LoginButton({ loading }: { loading: boolean }) {
 }
 // LoginForm component handles user input and should be client-side
 function LoginForm() {
+    const router = useRouter();
     const [message, setMessage] = useState<string>("");
     const [isLoading, setLoading] = useState<boolean>(false);
-    const role = getRole();
-    if (loggedIn() && role && isUser(role)) {
-        window.location.href = "/";
-    }
 
-    if (loggedIn() && role && isAdmin(role)) {
-        window.location.href = "../Dashboard";
-    }
     return (
         <form
             onSubmit={async (event) => {
                 setLoading(true);
-                await handleSubmit(event, setMessage);
+                await handleSubmit(event, setMessage, router);
                 setLoading(false);
             }}
             id="login-form"

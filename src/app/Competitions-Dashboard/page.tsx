@@ -4,6 +4,7 @@ import { getCompetitions } from "../utils/competitions";
 import CompButtons from "./CompButtons";
 import styles from "./CompetitionDashboard.module.css";
 import { CreateCompButton } from "./CreateCompetition";
+import ProtectedRoute from "../components/Common/ProtectedRoute";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -62,9 +63,9 @@ export default async function CompetitionsDashboard() {
     if (!competitions.success)
         return <p>Dogodila se greška prilikom dobivanja natjecanje</p>;
     return (
-        <>
+        <ProtectedRoute require="admin" redirectTo="/Login" validateToken>
             <CurrentCompetitions competitions={competitions.parsed} />
             <CreateCompButton />
-        </>
+        </ProtectedRoute>
     );
 }
