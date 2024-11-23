@@ -21,6 +21,7 @@ async function handleSubmit(
 
         const loginUrl = url;
         loginUrl.pathname = "/login";
+
         const response = await fetch(loginUrl, {
             method: "POST",
             headers: {
@@ -31,6 +32,7 @@ async function handleSubmit(
                 password: formPassword,
             }),
         });
+
         const data = await response.json();
         if (response.status === 429) {
             setMsg(
@@ -42,14 +44,18 @@ async function handleSubmit(
             setMsg("Netočno korisničko ime ili lozinka.");
             return;
         }
+
         setMsg(data.message);
+
         const { id, token, username, role } = data.info;
         if (typeof window !== "undefined") {
-            // This code works, however it throws error on server, so make sure window is defined.
             localStorage.setItem("id", id);
             localStorage.setItem("token", token);
             localStorage.setItem("username", username);
             localStorage.setItem("role", role);
+
+            // Notify other components about the login event
+            window.dispatchEvent(new Event("storage"));
 
             if (isAdmin(role)) {
                 router.push("/Dashboard");
