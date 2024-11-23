@@ -16,12 +16,21 @@ function ClientLoginStatus() {
     const loggedIn = !!username;
 
     useEffect(() => {
+        const syncUsername = () => {
+            setUsername(getUsername());
+        };
+
         setUsername(getUsername());
         setLoaded(true);
+
+        window.addEventListener("storage", syncUsername); // Listen for changes in storage
+        return () => {
+            window.removeEventListener("storage", syncUsername);
+        };
     }, []);
 
     if (!loaded) {
-        return <div className={headerStyles["account-container"]}></div>; // TODO: Add loading text, kind of like on youtube
+        return <div className={headerStyles["account-container"]}></div>;
     }
 
     return (
@@ -40,13 +49,13 @@ function ClientLoginStatus() {
                 onClick={() => {
                     if (loggedIn) {
                         logOut();
-                        router.refresh();
                         setUsername(null);
+                        router.refresh();
                     }
                 }}
                 priority={true}
-                role="button" // Indicates the image is clickable
-                tabIndex={0} // Allows keyboard navigation
+                role="button"
+                tabIndex={0}
             />
         </header>
     );

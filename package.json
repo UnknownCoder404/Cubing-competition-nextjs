@@ -1,6 +1,6 @@
 {
     "name": "cubing-competition",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": true,
     "engines": {
         "node": ">=20.18.0"
@@ -21,24 +21,23 @@
         "@vercel/toolbar": "^0.1.27",
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",
-        "dompurify": "^3.1.7",
-        "framer-motion": "^11.11.11",
+        "dompurify": "^3.2.1",
+        "framer-motion": "^11.11.17",
         "next": "15.0.3",
         "react": "19.0.0-rc-45804af1-20241021",
         "react-dom": "19.0.0-rc-45804af1-20241021",
         "react-query": "^3.39.3",
-        "react-select": "^5.8.2",
+        "react-select": "^5.8.3",
         "scramble-display": "^0.5.5"
     },
     "devDependencies": {
-        "@types/dompurify": "^3.0.5",
-        "@types/node": "^22.9.0",
+        "@types/node": "^22.9.3",
         "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
-        "eslint": "^9.14.0",
+        "eslint": "^9.15.0",
         "eslint-config-next": "15.0.3",
         "stylelint": "^16.10.0",
         "stylelint-config-standard": "^36.0.1",
-        "typescript": "^5.6.3"
+        "typescript": "^5.7.2"
     }
 }
