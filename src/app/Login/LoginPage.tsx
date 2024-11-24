@@ -4,9 +4,10 @@ import loginStyles from "./Login.module.css";
 import { url } from "@/globals";
 import { Dispatch, SetStateAction, useState } from "react";
 import { isAdmin } from "../utils/credentials";
-import { ArrowLoader } from "../components/Loader/Loader";
+import { Loader } from "../components/Loader/Loader";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { clsx } from "clsx";
 // This function handles form submission and should be client-side
 async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
@@ -79,10 +80,15 @@ function ErrorMessage({ message }: { message: string }) {
 }
 function LoginButton({ loading }: { loading: boolean }) {
     return (
-        <button className={loginStyles["submit-btn"]} type="submit">
+        <button
+            className={clsx(loginStyles["submit-btn"], {
+                ["loading"]: loading,
+            })}
+            type="submit"
+        >
             {loading ? (
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    <ArrowLoader color="#000" />
+                    <Loader />
                 </div>
             ) : (
                 "Prijava"
