@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Login() {
     return (
-        <ProtectedRoute require="loggedout" redirectTo="/">
+        <ProtectedRoute require="loggedout" redirectTo="/" validateToken>
             <LoginPage />
         </ProtectedRoute>
     );
