@@ -1,4 +1,4 @@
-import { createPost } from "@/app/utils/posts";
+import { createPost, isErrorWithMessage } from "@/app/utils/posts";
 import styles from "../../Posts/Posts.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -32,8 +32,9 @@ export default function UploadPostButton({
                 setDescription("");
             } else {
                 alert(
-                    postCreation.parsed.message ||
-                        "Greška prilikom izrade objave.",
+                    isErrorWithMessage(postCreation.parsed)
+                        ? postCreation.parsed.message
+                        : "Greška prilikom izrade objave.",
                 );
             }
         } catch (error) {

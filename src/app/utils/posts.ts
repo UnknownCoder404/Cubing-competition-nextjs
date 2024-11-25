@@ -44,9 +44,7 @@ export async function getPosts(): Promise<{
 }
 
 export async function deletePost(id: string): Promise<{
-    parsed: {
-        message?: string;
-    };
+    parsed: unknown;
     response: Response;
     statusCode: number;
     success: boolean;
@@ -180,4 +178,15 @@ export async function editPost(
     } catch (error) {
         throw new Error(`Error editing post: \n${error}`);
     }
+}
+
+export function isErrorWithMessage(
+    error: unknown,
+): error is { message: string } {
+    return (
+        typeof error === "object" &&
+        error !== null &&
+        "message" in error &&
+        typeof (error as { message: unknown }).message === "string"
+    );
 }
