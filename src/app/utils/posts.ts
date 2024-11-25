@@ -25,6 +25,13 @@ export async function getPosts(): Promise<{
 
         const response = await withTimeout(fetch(postsUrl), TIMEOUT_DURATION);
         const posts: Posts = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                `Failed to fetch posts. Status: ${response.status}`,
+            );
+        }
+
         return {
             parsed: posts,
             response: response,
@@ -62,6 +69,12 @@ export async function deletePost(id: string): Promise<{
         );
         const postDeletion = await response.json();
 
+        if (!response.ok) {
+            throw new Error(
+                `Failed to delete post. Status: ${response.status}`,
+            );
+        }
+
         return {
             parsed: postDeletion,
             response: response,
@@ -73,7 +86,15 @@ export async function deletePost(id: string): Promise<{
     }
 }
 
-export async function createPost(title: string, description: string) {
+export async function createPost(
+    title: string,
+    description: string,
+): Promise<{
+    parsed: unknown;
+    response: Response;
+    statusCode: number;
+    success: boolean;
+}> {
     if (!title || !description) {
         throw new Error("Title and description are required");
     }
@@ -96,6 +117,12 @@ export async function createPost(title: string, description: string) {
         );
         const data = await response.json();
 
+        if (!response.ok) {
+            throw new Error(
+                `Failed to create post. Status: ${response.status}`,
+            );
+        }
+
         return {
             success: response.ok,
             statusCode: response.status,
@@ -103,12 +130,7 @@ export async function createPost(title: string, description: string) {
             response: response,
         };
     } catch (error) {
-        console.error("Failed to create post:", error);
-        return {
-            error,
-            statusCode: 500,
-            success: false,
-        };
+        throw new Error(`Error creating post: \n${error}`);
     }
 }
 
@@ -116,9 +138,14 @@ export async function editPost(
     id: string,
     newTitle: string,
     newDescription: string,
-) {
+): Promise<{
+    parsed: unknown;
+    response: Response;
+    statusCode: number;
+    success: boolean;
+}> {
     if (!id || !newTitle || !newDescription) {
-        throw new Error("Unesi novi naslov i novi opis objave te ID.");
+        throw new Error("New title, description, and ID are required.");
     }
     const headers =
         addToken({
@@ -139,6 +166,11 @@ export async function editPost(
             TIMEOUT_DURATION,
         );
         const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`Failed to edit post. Status: ${response.status}`);
+        }
+
         return {
             parsed: data,
             response: response,
@@ -146,11 +178,6 @@ export async function editPost(
             success: response.ok,
         };
     } catch (error) {
-        console.error("Error editing post:\n", error);
-        return {
-            error,
-            statusCode: 500,
-            success: false,
-        };
+        throw new Error(`Error editing post: \n${error}`);
     }
 }
