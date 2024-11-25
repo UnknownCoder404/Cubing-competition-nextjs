@@ -2,6 +2,17 @@ import { url } from "@/globals";
 import { Posts } from "../Types/posts";
 import { addToken, getToken } from "./credentials";
 
+const TIMEOUT_DURATION = 5000; // Timeout in milliseconds
+
+function withTimeout<T>(promise: Promise<T>, timeout: number): Promise<T> {
+    return Promise.race([
+        promise,
+        new Promise<T>((_, reject) =>
+            setTimeout(() => reject(new Error("Request timed out")), timeout),
+        ),
+    ]);
+}
+
 export async function getPosts(): Promise<{
     parsed: Posts;
     response: Response;
@@ -12,7 +23,7 @@ export async function getPosts(): Promise<{
         const postsUrl = new URL(url);
         postsUrl.pathname = "/posts";
 
-        const response = await fetch(postsUrl);
+        const response = await withTimeout(fetch(postsUrl), TIMEOUT_DURATION);
         const posts: Posts = await response.json();
         return {
             parsed: posts,
@@ -40,12 +51,15 @@ export async function deletePost(id: string): Promise<{
     try {
         const postsUrl = new URL(url);
         postsUrl.pathname = `/posts/delete/${id}`;
-        const response = await fetch(postsUrl, {
-            method: "DELETE",
-            headers: {
-                Authorization: token,
-            },
-        });
+        const response = await withTimeout(
+            fetch(postsUrl, {
+                method: "DELETE",
+                headers: {
+                    Authorization: token,
+                },
+            }),
+            TIMEOUT_DURATION,
+        );
         const postDeletion = await response.json();
 
         return {
@@ -60,7 +74,6 @@ export async function deletePost(id: string): Promise<{
 }
 
 export async function createPost(title: string, description: string) {
-    // Validate input
     if (!title || !description) {
         throw new Error("Title and description are required");
     }
@@ -72,12 +85,15 @@ export async function createPost(title: string, description: string) {
             }) || {};
         const createPostUrl = new URL(url);
         createPostUrl.pathname = "/posts/new";
-        // Attempt to create a new post
-        const response = await fetch(createPostUrl, {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify({ title, description }),
-        });
+
+        const response = await withTimeout(
+            fetch(createPostUrl, {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify({ title, description }),
+            }),
+            TIMEOUT_DURATION,
+        );
         const data = await response.json();
 
         return {
@@ -87,7 +103,6 @@ export async function createPost(title: string, description: string) {
             response: response,
         };
     } catch (error) {
-        // Handle errors
         console.error("Failed to create post:", error);
         return {
             error,
@@ -112,14 +127,17 @@ export async function editPost(
     const editPostUrl = new URL(url);
     editPostUrl.pathname = `/posts/edit/${id}`;
     try {
-        const response = await fetch(editPostUrl, {
-            method: "PUT",
-            headers: headers,
-            body: JSON.stringify({
-                title: newTitle,
-                description: newDescription,
+        const response = await withTimeout(
+            fetch(editPostUrl, {
+                method: "PUT",
+                headers: headers,
+                body: JSON.stringify({
+                    title: newTitle,
+                    description: newDescription,
+                }),
             }),
-        });
+            TIMEOUT_DURATION,
+        );
         const data = await response.json();
         return {
             parsed: data,
