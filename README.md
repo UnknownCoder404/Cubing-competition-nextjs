@@ -2,14 +2,6 @@
 
 This is [Cubing Competition repository](https://github.com/Cro-Cube-Comp/Cubing-competition) rewritten in [Next.js](https://nextjs.org/).
 
-## Previews
-
-These are the previews of the app. When you visit it for the first time, you will have to wait a minute.
-
-Preview: [https://cubing-competition-nextjs.onrender.com](https://cubing-competition-nextjs.onrender.com)
-
-Beta preview: [https://cubing-competition-nextjs-beta.onrender.com](https://cubing-competition-nextjs-beta.onrender.com)
-
 ## Getting Started
 
 You have to have [pnpm](https://pnpm.io/) installed.
@@ -33,6 +25,12 @@ pnpm preview
 ```
 
 And if there are no errors, you can commit.
+
+## Environment variables
+
+Create a `.env` file in the root directory of the project and add the following variables:
+
+-   `SHOW_TOOLBAR` - Determines if the toolbar is forced to be shown to all users (even non-admins). Set to `true` to enable.
 
 ## Learn More
 
