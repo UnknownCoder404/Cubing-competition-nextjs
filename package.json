@@ -18,6 +18,8 @@
         "format:check": "prettier . --check --cache"
     },
     "dependencies": {
+        "@vercel/analytics": "^1.4.1",
+        "@vercel/speed-insights": "^1.1.0",
         "@vercel/toolbar": "^0.1.27",
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",
