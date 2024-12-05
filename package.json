@@ -14,8 +14,8 @@
         "lint": "next lint && stylelint \"**/*.css\"",
         "lint:fix": "next lint --fix && stylelint \"**/*.css\" --fix",
         "typecheck": "tsc --noEmit",
-        "format:write": "prettier . --write --cache",
-        "format:check": "prettier . --check --cache"
+        "format:write": "prettier **/*.{js,jsx,ts,tsx,css,scss,md,json,html} --write --cache",
+        "format:check": "prettier **/*.{js,jsx,ts,tsx,css,scss,md,json,html} --check --cache"
     },
     "dependencies": {
         "@vercel/analytics": "^1.4.1",
