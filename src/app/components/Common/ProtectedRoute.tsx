@@ -75,7 +75,7 @@ export default function ProtectedRoute({
     }, [require, validateToken, redirectTo, router, loggedIn()]);
 
     if (!isAuthorized) {
-        return null; // Hide content for unauthorized users
+        return null; // Hide content for unauthorized users or loading state
     }
 
     return <>{children}</>; // Render protected content
