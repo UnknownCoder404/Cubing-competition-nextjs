@@ -1,5 +1,5 @@
 import { url } from "@/globals";
-import { CompetitionType } from "../Types/solve";
+import { CompetitionResultsType, CompetitionType } from "../Types/solve";
 import { addToken } from "./credentials";
 
 export async function getCompetitions(): Promise<
@@ -31,6 +31,28 @@ export async function getCompetitions(): Promise<
                 error instanceof Error
                     ? error.message
                     : "An unknown error occurred",
+        };
+    }
+}
+
+export async function getResults(): Promise<
+    | { success: false; error: unknown }
+    | { parsed: CompetitionResultsType; success: true; status: number }
+> {
+    const resultsUrl = new URL(url);
+    resultsUrl.pathname = "competitions/results";
+    try {
+        const data = await fetch(resultsUrl);
+        const parsedJSON = await data.json();
+        return {
+            parsed: parsedJSON,
+            success: true,
+            status: data.status,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error,
         };
     }
 }

@@ -13,7 +13,8 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function Posts() {
-    const posts = (await getPosts()).parsed;
+    const fetchedPosts = await getPosts();
+    const posts = fetchedPosts.success ? fetchedPosts.parsed : [];
 
     return (
         <ProtectedRoute require="admin" redirectTo="/Login" validateToken>
