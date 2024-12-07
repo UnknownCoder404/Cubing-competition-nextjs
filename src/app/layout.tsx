@@ -1,13 +1,11 @@
 import "@/globals.css";
 import Header from "./components/Header/Header";
-import { headers } from "next/headers";
 import { Roboto } from "next/font/google";
 import ReactQueryProvider from "./components/Providers/react-query-provider";
 import { AdminToolbar } from "./components/AdminToolbar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
-const hideHeaderRoutes: string[] = [];
 const roboto = Roboto({
     weight: ["400", "500", "700"],
     subsets: ["latin"],
@@ -21,10 +19,6 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const headersList = await headers();
-    const pathName = headersList.get("x-pathname")!;
-    const shouldShowHeader = !hideHeaderRoutes.includes(pathName);
-
     return (
         <html lang="hr" className={roboto.className}>
             <meta
@@ -33,7 +27,7 @@ export default async function RootLayout({
             />
 
             <body>
-                {shouldShowHeader && <Header />}
+                <Header />
                 <ReactQueryProvider>{children}</ReactQueryProvider>
                 {showToolBar && <AdminToolbar />}
                 <SpeedInsights />
