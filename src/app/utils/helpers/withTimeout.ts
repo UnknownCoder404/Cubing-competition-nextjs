@@ -1,3 +1,7 @@
+/*
+Example usage:
+const var = await withTimeout(fetch("url"), 5000);
+*/
 export function withTimeout<T>(
     promise: Promise<T>,
     timeout: number,
