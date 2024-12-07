@@ -1,6 +1,12 @@
 "use client";
 
-import { getRole, isAdmin, tokenValid } from "@/app/utils/credentials";
+import {
+    getRole,
+    isAdmin,
+    loggedIn,
+    logOut,
+    tokenValid,
+} from "@/app/utils/credentials";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -27,16 +33,24 @@ export default function ProtectedRoute({
 
                 if (validateToken) {
                     const tokenIsValid = await tokenValid();
-                    if (!tokenIsValid) {
+                    if (!tokenIsValid && require !== "loggedout") {
                         handleRedirect();
                         return;
+                    }
+                    if (
+                        require === "loggedout" &&
+                        !tokenIsValid &&
+                        loggedIn()
+                    ) {
+                        // User has invalid token, but is logged in locally
+                        logOut();
                     }
                 }
 
                 if (
                     (require === "loggedin" && !role) ||
                     (require === "admin" && (!role || !isAdmin(role))) ||
-                    (require === "loggedout" && role)
+                    (require === "loggedout" && role && require !== "loggedout")
                 ) {
                     handleRedirect();
                     return;
