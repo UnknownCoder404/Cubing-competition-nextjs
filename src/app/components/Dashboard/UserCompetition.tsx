@@ -1,5 +1,5 @@
 // Client component
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import dashboardStyles from "@/app/Dashboard/Dashboard.module.css";
 import Event from "./Event";
@@ -14,7 +14,7 @@ function saveSelectedCompetition(selectedCompetition: CompetitionType) {
 }
 
 // CompetitionSelect component allows user to choose a competition from a list
-const CompetitionSelect = memo(function CompetitionSelect({
+function CompetitionSelect({
     setSelectedCompetition,
     competitions,
     selectedCompetition,
@@ -52,10 +52,10 @@ const CompetitionSelect = memo(function CompetitionSelect({
             </select>
         </section>
     );
-});
+}
 
 // Component displaying competition details and events
-const CompResults = memo(function CompResults({
+function CompResults({
     user,
     selectedCompetition,
     show,
@@ -102,7 +102,7 @@ const CompResults = memo(function CompResults({
             ))}
         </article>
     );
-});
+}
 
 function CompetitionWindow({
     user,

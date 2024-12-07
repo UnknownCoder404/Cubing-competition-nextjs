@@ -3,7 +3,7 @@ import { Posts, Post as PostType } from "../Types/posts";
 import styles from "./Posts.module.css";
 import deleteIcon from "@/app/public/delete.svg";
 import editIcon from "@/app/public/edit.svg";
-import { deletePost, editPost } from "../utils/posts";
+import { deletePost, editPost, isErrorWithMessage } from "../utils/posts";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Loader } from "../components/Loader/Loader";
@@ -50,7 +50,7 @@ function EditPostModal({
             const { success } = await editPost(post.id, title, description);
             if (success) router.refresh();
         } catch {
-            alert("An error occurred while editing the post.");
+            alert("Greška prilikom editiranja objave.");
         } finally {
             setIsLoading(false);
         }
@@ -86,7 +86,12 @@ function PostButtons({ post }: { post: PostType }) {
 
     const handleDelete = async () => {
         const { success, parsed } = await deletePost(post.id);
-        if (!success) alert(parsed?.message || "Error deleting post.");
+        if (!success)
+            alert(
+                isErrorWithMessage(parsed)
+                    ? parsed.message
+                    : "Error deleting post.",
+            );
         router.refresh();
     };
 

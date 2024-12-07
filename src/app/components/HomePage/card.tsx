@@ -1,5 +1,5 @@
 import styles from "./cards.module.css";
-import { CardProp } from "./cards";
+import { CardProp } from "../../Types/cards";
 import DomPurify from "dompurify";
 import { useState, useEffect } from "react";
 
@@ -63,21 +63,6 @@ export default function Card({
                     </footer>
                 )}
             </div>
-            <script type="application/ld+json">
-                {JSON.stringify({
-                    "@context": "https://schema.org",
-                    "@type": "BlogPosting",
-                    headline: title,
-                    author: {
-                        "@type": "Person",
-                        name: author?.username,
-                    },
-                    description:
-                        typeof description === "string"
-                            ? description
-                            : undefined,
-                })}
-            </script>
         </article>
     );
 }

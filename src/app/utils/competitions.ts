@@ -1,6 +1,9 @@
 import { url } from "@/globals";
-import { CompetitionType } from "../Types/solve";
+import { CompetitionResultsType, CompetitionType } from "../Types/solve";
 import { addToken } from "./credentials";
+import { withTimeout } from "./helpers/withTimeout";
+
+const TIMEOUT_DURATION = 5000; // Timeout in milliseconds
 
 export async function getCompetitions(): Promise<
     | {
@@ -15,9 +18,10 @@ export async function getCompetitions(): Promise<
     try {
         const competitionsUrl = new URL(url);
         competitionsUrl.pathname = "competitions";
-        const data = await fetch(competitionsUrl, {
-            signal: AbortSignal.timeout(5000),
-        });
+        const data = await withTimeout(
+            fetch(competitionsUrl),
+            TIMEOUT_DURATION,
+        );
         if (!data.ok)
             throw new Error(
                 `Failed to fetch competitions. Status: ${data.status}`,
@@ -35,6 +39,28 @@ export async function getCompetitions(): Promise<
     }
 }
 
+export async function getResults(): Promise<
+    | { success: false; error: unknown }
+    | { parsed: CompetitionResultsType; success: true; status: number }
+> {
+    const resultsUrl = new URL(url);
+    resultsUrl.pathname = "competitions/results";
+    try {
+        const data = await withTimeout(fetch(resultsUrl), TIMEOUT_DURATION);
+        const parsedJSON = await data.json();
+        return {
+            parsed: parsedJSON,
+            success: true,
+            status: data.status,
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error,
+        };
+    }
+}
+
 export async function createCompetition(
     name: string,
     date: string,
@@ -48,11 +74,14 @@ export async function createCompetition(
     compCreationUrl.pathname = "competitions/create";
 
     try {
-        const response = await fetch(compCreationUrl, {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify({ name, date, events }),
-        });
+        const response = await withTimeout(
+            fetch(compCreationUrl, {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify({ name, date, events }),
+            }),
+            TIMEOUT_DURATION,
+        );
         const parsedData = await response.json();
         return {
             status: response.status,
@@ -77,10 +106,13 @@ export async function deleteCompetition(id: string) {
     const headers = addToken({ "Content-Type": "application/json" }) || {};
 
     try {
-        const response = await fetch(deleteCompUrl, {
-            method: "DELETE",
-            headers: headers,
-        });
+        const response = await withTimeout(
+            fetch(deleteCompUrl, {
+                method: "DELETE",
+                headers: headers,
+            }),
+            TIMEOUT_DURATION,
+        );
         return {
             status: response.status,
             success: response.ok,
@@ -104,10 +136,13 @@ export async function lockCompetition(id: string) {
     const headers = addToken({ "Content-Type": "application/json" }) || {};
 
     try {
-        const response = await fetch(lockUrl, {
-            method: "POST",
-            headers: headers,
-        });
+        const response = await withTimeout(
+            fetch(lockUrl, {
+                method: "POST",
+                headers: headers,
+            }),
+            TIMEOUT_DURATION,
+        );
         return {
             status: response.status,
             success: response.ok,
@@ -136,11 +171,14 @@ export async function editCompetition(
     const headers = addToken({ "Content-Type": "application/json" }) || {};
 
     try {
-        const response = await fetch(editCompUrl, {
-            method: "PUT",
-            headers: headers,
-            body: JSON.stringify({ name, date, events }),
-        });
+        const response = await withTimeout(
+            fetch(editCompUrl, {
+                method: "PUT",
+                headers: headers,
+                body: JSON.stringify({ name, date, events }),
+            }),
+            TIMEOUT_DURATION,
+        );
         return {
             status: response.status,
             success: response.ok,

@@ -1,10 +1,17 @@
 "use client";
-import { getRole, isAdmin, tokenValid } from "@/app/utils/credentials";
+
+import {
+    getRole,
+    isAdmin,
+    loggedIn,
+    logOut,
+    tokenValid,
+} from "@/app/utils/credentials";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
-    redirectTo?: string; // Optional for non-redirect behavior
+    redirectTo?: string; // Optional redirection URL
     require: "admin" | "loggedin" | "loggedout";
     validateToken?: boolean;
     children: React.ReactNode;
@@ -17,55 +24,60 @@ export default function ProtectedRoute({
     children,
 }: Props) {
     const router = useRouter();
-    const [isAuthorized, setIsAuthorized] = useState(false);
-    const role = getRole();
-
-    if (require === "loggedout" && validateToken) {
-        throw new Error(
-            "Invalid use of ProtectedRoute: Cannot validate token for logged out users",
-        );
-    }
-    const handleValidation = useCallback(
-        async function () {
-            // Offline validation
-            if (
-                (require === "loggedin" && !role) ||
-                (require === "admin" && (!role || !isAdmin(role))) ||
-                (require === "loggedout" && role)
-            ) {
-                if (redirectTo) {
-                    router.push(redirectTo); // Redirect if specified
-                }
-                return;
-            }
-
-            // Async token validation
-            if (validateToken) {
-                const tokenIsValid = await tokenValid();
-                if (!tokenIsValid) {
-                    if (redirectTo) {
-                        router.push(redirectTo);
-                    }
-                    return;
-                }
-            }
-
-            setIsAuthorized(true); // Authorize if all checks pass
-        },
-        [require, role, redirectTo, validateToken, router],
-    );
+    const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null); // null indicates "loading"
+    const isLoggedIn = loggedIn();
 
     useEffect(() => {
-        handleValidation();
-    }, [handleValidation]);
+        const validateAccess = async () => {
+            try {
+                const role = getRole();
 
-    if (!isAuthorized && !redirectTo) {
-        return null; // Hide protected content without redirecting
-    }
+                if (validateToken) {
+                    const tokenIsValid = await tokenValid();
+                    if (!tokenIsValid && require !== "loggedout") {
+                        handleRedirect();
+                        return;
+                    }
+                    if (
+                        require === "loggedout" &&
+                        !tokenIsValid &&
+                        isLoggedIn
+                    ) {
+                        // User has invalid token, but is logged in locally
+                        logOut();
+                    }
+                }
+
+                if (
+                    (require === "loggedin" && !role) ||
+                    (require === "admin" && (!role || !isAdmin(role))) ||
+                    (require === "loggedout" && role && require !== "loggedout")
+                ) {
+                    handleRedirect();
+                    return;
+                }
+
+                setIsAuthorized(true); // User is authorized
+            } catch (error) {
+                console.error("Error during validation:", error);
+                handleRedirect(); // Redirect on error
+            }
+        };
+
+        const handleRedirect = () => {
+            if (redirectTo) {
+                router.push(redirectTo);
+            } else {
+                setIsAuthorized(false); // Deny access without redirect
+            }
+        };
+
+        validateAccess();
+    }, [require, validateToken, redirectTo, router, isLoggedIn]);
 
     if (!isAuthorized) {
-        return null; // Render nothing while validation is in progress
+        return null; // Hide content for unauthorized users or loading state
     }
 
-    return children; // Render protected content
+    return <>{children}</>; // Render protected content
 }
