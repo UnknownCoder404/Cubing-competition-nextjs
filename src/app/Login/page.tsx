@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import LoginPage from "./LoginPage";
 import ProtectedRoute from "../components/Common/ProtectedRoute";
 
+export const dynamic = "error";
+
 export const metadata: Metadata = {
     title: "Prijava - Cro Cube Comp",
     description: "Prijava na Cro Cube Comp račun",

@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     ],
 };
 
+export const dynamic = "error";
+
 export default function Rules() {
     return (
         <main>
