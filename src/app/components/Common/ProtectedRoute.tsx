@@ -72,7 +72,7 @@ export default function ProtectedRoute({
         };
 
         validateAccess();
-    }, [require, validateToken, redirectTo, router]);
+    }, [require, validateToken, redirectTo, router, loggedIn()]);
 
     if (!isAuthorized) {
         return null; // Hide content for unauthorized users
