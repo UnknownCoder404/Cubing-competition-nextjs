@@ -1,17 +1,9 @@
 import { url } from "@/globals";
 import { Posts } from "../Types/posts";
 import { addToken, getToken } from "./credentials";
+import { withTimeout } from "./helpers/withTimeout";
 
 const TIMEOUT_DURATION = 5000; // Timeout in milliseconds
-
-function withTimeout<T>(promise: Promise<T>, timeout: number): Promise<T> {
-    return Promise.race([
-        promise,
-        new Promise<T>((_, reject) =>
-            setTimeout(() => reject(new Error("Request timed out")), timeout),
-        ),
-    ]);
-}
 
 export async function getPosts(): Promise<{
     parsed: Posts;
