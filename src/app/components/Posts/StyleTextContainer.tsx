@@ -151,21 +151,23 @@ export default function StyleTextContainer({
     descriptionInputRef,
     setDescription,
 }: {
-    titleInputRef: RefObject<HTMLInputElement>;
-    descriptionInputRef: RefObject<HTMLTextAreaElement>;
+    titleInputRef: RefObject<HTMLInputElement | null>;
+    descriptionInputRef: RefObject<HTMLTextAreaElement | null>;
     description: string;
     setDescription: (arg0: string) => void;
 }) {
     useEffect(() => {
         function handleKeyDown(event: KeyboardEvent) {
-            // Check if CTRL key is pressed
             if (event.ctrlKey) {
                 const button = buttons.find(
                     (b) => b.shortcut === event.key.toLowerCase(),
                 );
                 if (button && descriptionInputRef.current) {
                     event.preventDefault();
-                    button.action(descriptionInputRef, setDescription);
+                    button.action(
+                        descriptionInputRef as RefObject<HTMLTextAreaElement>,
+                        setDescription,
+                    );
                 }
             }
         }
@@ -188,7 +190,11 @@ export default function StyleTextContainer({
                         src={button.src}
                         alt={button.alt}
                         onClick={() => {
-                            button.action(descriptionInputRef, setDescription);
+                            if (!descriptionInputRef.current) return;
+                            button.action(
+                                descriptionInputRef as RefObject<HTMLTextAreaElement>,
+                                setDescription,
+                            );
                         }}
                     />
                 ))}
