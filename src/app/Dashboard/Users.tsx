@@ -88,6 +88,7 @@ export default function Users({ users, competitions }: Props) {
                     }}
                 />
                 <select
+                    value={filters.group || "all"}
                     onChange={(e) =>
                         updateGroupFilter(
                             e.target.value === "all"
@@ -101,6 +102,7 @@ export default function Users({ users, competitions }: Props) {
                     <option value="2">Grupa 2</option>
                 </select>
                 <select
+                    value={filters.role || "all"}
                     onChange={(e) =>
                         updateRoleFilter(
                             e.target.value === "all"
