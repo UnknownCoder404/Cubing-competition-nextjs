@@ -75,6 +75,10 @@ export default function Users({ users, competitions }: Props) {
     return (
         <>
             <div className={dashboardStyles["filter"]}>
+                <div className={dashboardStyles["filter-header"]}>
+                    <h2>Filteri</h2>
+                    <button onClick={clearFilters}>Očisti filtere</button>
+                </div>
                 <input
                     type="text"
                     placeholder="Ime korisnika"
@@ -109,7 +113,6 @@ export default function Users({ users, competitions }: Props) {
                     <option value="user">Korisnik</option>
                     <option value="admin">Administrator</option>
                 </select>
-                <button onClick={clearFilters}>Očisti filtere</button>
             </div>
             <main className={dashboardStyles["users"]}>
                 {filteredUsers.map((user) => (

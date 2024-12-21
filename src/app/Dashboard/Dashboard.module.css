@@ -8,7 +8,16 @@
     gap: 0.5rem;
     align-items: center;
 }
+.filter-header {
+    display: block;
+    width: 100%;
+    margin: 0.5rem 0;
+}
 
+.filter-header > h2 {
+    display: inline-block;
+    margin-right: 1rem;
+}
 .filter > input {
     padding: 0.5rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -52,7 +61,7 @@
     font-size: 0.9rem;
 }
 
-.filter > button {
+.filter-header > button {
     padding: 0.5rem 1rem;
     background-color: hsl(225, 73%, 57%);
     color: white;
@@ -120,9 +129,7 @@
     color: white;
     padding: 5px 10px;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .user-btn:active {
@@ -198,9 +205,7 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .solve-input:focus {
@@ -227,9 +232,7 @@
     border-radius: 4px;
     outline: none;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        box-shadow 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .solve-add-btn.locked {
