@@ -10,6 +10,7 @@
 }
 .filter-header {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     margin: 0.5rem 0;
     align-items: center;
@@ -21,7 +22,6 @@
 }
 
 .filter-header > button {
-    height: 50px;
     padding: 0.5rem 1rem;
     background-color: hsl(225, 73%, 57%);
     color: white;
