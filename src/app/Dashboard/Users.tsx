@@ -74,41 +74,43 @@ export default function Users({ users, competitions }: Props) {
 
     return (
         <>
-            <input
-                type="text"
-                placeholder="Ime korisnika"
-                value={filters.searchTerm}
-                onChange={(e) => {
-                    updateSearchTerm(e.target.value);
-                }}
-            />
-            <select
-                onChange={(e) =>
-                    updateGroupFilter(
-                        e.target.value === "all"
-                            ? undefined
-                            : (Number(e.target.value) as 1 | 2),
-                    )
-                }
-            >
-                <option value="all">Sve grupe</option>
-                <option value="1">Grupa 1</option>
-                <option value="2">Grupa 2</option>
-            </select>
-            <select
-                onChange={(e) =>
-                    updateRoleFilter(
-                        e.target.value === "all"
-                            ? undefined
-                            : (e.target.value as Role),
-                    )
-                }
-            >
-                <option value="all">Sve uloge</option>
-                <option value="user">Korisnik</option>
-                <option value="admin">Administrator</option>
-            </select>
-            <button onClick={clearFilters}>Očisti filtere</button>
+            <div className={dashboardStyles["filter"]}>
+                <input
+                    type="text"
+                    placeholder="Ime korisnika"
+                    value={filters.searchTerm}
+                    onChange={(e) => {
+                        updateSearchTerm(e.target.value);
+                    }}
+                />
+                <select
+                    onChange={(e) =>
+                        updateGroupFilter(
+                            e.target.value === "all"
+                                ? undefined
+                                : (Number(e.target.value) as 1 | 2),
+                        )
+                    }
+                >
+                    <option value="all">Sve grupe</option>
+                    <option value="1">Grupa 1</option>
+                    <option value="2">Grupa 2</option>
+                </select>
+                <select
+                    onChange={(e) =>
+                        updateRoleFilter(
+                            e.target.value === "all"
+                                ? undefined
+                                : (e.target.value as Role),
+                        )
+                    }
+                >
+                    <option value="all">Sve uloge</option>
+                    <option value="user">Korisnik</option>
+                    <option value="admin">Administrator</option>
+                </select>
+                <button onClick={clearFilters}>Očisti filtere</button>
+            </div>
             <main className={dashboardStyles["users"]}>
                 {filteredUsers.map((user) => (
                     <UserDashboard
