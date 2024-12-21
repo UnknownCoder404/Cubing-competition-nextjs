@@ -4,6 +4,7 @@
     margin: 10px 0px;
     border-radius: 5px;
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
 }
@@ -17,6 +18,9 @@
     outline: none;
     font-size: 0.9rem;
     transition: all 0.2s ease-in-out;
+    width: 100%;
+
+    max-width: 180px;
 }
 
 .filter > input:focus {
