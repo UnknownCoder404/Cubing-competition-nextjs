@@ -69,7 +69,6 @@ function CurrentCompetitions({
                                             width={20}
                                             height={20}
                                         />
-                                        Zaključano
                                     </div>
                                 </div>
                             ) : null}
