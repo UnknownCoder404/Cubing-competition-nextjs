@@ -5,6 +5,8 @@ import CompButtons from "./CompButtons";
 import styles from "./CompetitionDashboard.module.css";
 import { CreateCompButton } from "./CreateCompetition";
 import ProtectedRoute from "../components/Common/ProtectedRoute";
+import Image from "next/image";
+import calendarImg from "../public/calendar.svg";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -36,16 +38,30 @@ function CurrentCompetitions({
                 );
                 return (
                     <div key={_id} className={styles["competition"]}>
-                        <h2>{name}</h2>
-                        <p>Datum: {dateFormatted}</p>
-                        <h2>Eventovi</h2>
-                        <ul className={styles["events-list"]}>
+                        <div className={styles["title-and-date-container"]}>
+                            <h2 className={styles["title"]}>{name}</h2>
+                            <div className={styles["calendar-date-container"]}>
+                                <Image
+                                    src={calendarImg}
+                                    alt="calendar"
+                                    className={styles["calendar"]}
+                                    width={20}
+                                    height={20}
+                                />
+                                <p className={styles["date"]}>
+                                    {dateFormatted}
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3 className={styles["events-title"]}>Eventovi</h3>
+                        <div className={styles["events-list"]}>
                             {events.map((event, index) => (
-                                <li key={index} className={styles["event"]}>
+                                <div key={index} className={styles["event"]}>
                                     {event.name} ({event.rounds})
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                         <CompButtons
                             isLocked={isLocked}
                             competitionId={_id}
