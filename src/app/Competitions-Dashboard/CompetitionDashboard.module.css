@@ -1,3 +1,61 @@
+.competitions {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    row-gap: 1rem;
+}
+
+.competition {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #333;
+    border-radius: 16px;
+    max-width: 500px;
+    flex: 1;
+}
+.title-and-date-container {
+    border-bottom: solid 1px gray;
+}
+.title {
+    margin: 0;
+    font-size: 1.25rem;
+}
+.calendar-date-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    column-gap: 0.2rem;
+}
+.date {
+    display: inline-block;
+}
+.events-title {
+}
+.events-list {
+    display: flex;
+    justify-content: start;
+    column-gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.3rem;
+}
+.event {
+    background-color: rgb(219, 234, 254);
+
+    color: rgb(30, 64, 175);
+
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+
+    /* Rounded corners */
+    border-radius: 9999px; /* pill shape */
+
+    /* Font size */
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
 .edit-comp-modal[open] {
     width: 90vw;
     border-radius: 3px;
@@ -8,6 +66,7 @@
 
 .comp-btns {
     display: flex;
+    justify-content: flex-end;
     column-gap: 0.3rem;
 }
 
