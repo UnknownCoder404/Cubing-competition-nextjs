@@ -7,6 +7,7 @@ import { CreateCompButton } from "./CreateCompetition";
 import ProtectedRoute from "../components/Common/ProtectedRoute";
 import Image from "next/image";
 import calendarImg from "../public/calendar.svg";
+import lockedImg from "../public/locked.svg";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -38,20 +39,40 @@ function CurrentCompetitions({
                 );
                 return (
                     <div key={_id} className={styles["competition"]}>
-                        <div className={styles["title-and-date-container"]}>
-                            <h2 className={styles["title"]}>{name}</h2>
-                            <div className={styles["calendar-date-container"]}>
-                                <Image
-                                    src={calendarImg}
-                                    alt="calendar"
-                                    className={styles["calendar"]}
-                                    width={20}
-                                    height={20}
-                                />
-                                <p className={styles["date"]}>
-                                    {dateFormatted}
-                                </p>
+                        <div className={styles["title-row"]}>
+                            <div className={styles["title-and-date-container"]}>
+                                <h2 className={styles["title"]}>{name}</h2>
+                                <div
+                                    className={
+                                        styles["calendar-date-container"]
+                                    }
+                                >
+                                    <Image
+                                        src={calendarImg}
+                                        alt="calendar"
+                                        className={styles["calendar"]}
+                                        width={20}
+                                        height={20}
+                                    />
+                                    <p className={styles["date"]}>
+                                        {dateFormatted}
+                                    </p>
+                                </div>
                             </div>
+                            {isLocked ? (
+                                <div className={styles["locked-container"]}>
+                                    <div className={styles["locked"]}>
+                                        <Image
+                                            src={lockedImg}
+                                            alt={"locked"}
+                                            className={styles["locked-img"]}
+                                            width={20}
+                                            height={20}
+                                        />
+                                        Zaključano
+                                    </div>
+                                </div>
+                            ) : null}
                         </div>
 
                         <h3 className={styles["events-title"]}>Eventovi</h3>
