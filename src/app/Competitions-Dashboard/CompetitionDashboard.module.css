@@ -32,8 +32,6 @@
 .date {
     display: inline-block;
 }
-.events-title {
-}
 .events-list {
     display: flex;
     justify-content: start;
