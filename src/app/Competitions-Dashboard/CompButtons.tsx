@@ -74,14 +74,7 @@ export default function CompButtons({
             >
                 <Image width={24} height={24} src={editImg} alt="edit" />
             </button>
-            <button
-                className={clsx(styles["delete-button"], {
-                    [styles["locked"]]: isLocked,
-                })}
-                onClick={deleteThisCompetition}
-            >
-                <Image width={24} height={24} src={deleteImg} alt="delete" />
-            </button>
+
             <button
                 className={clsx(styles["lock-button"], {
                     [styles["locked"]]: isLocked,
@@ -94,6 +87,14 @@ export default function CompButtons({
                     src={isLocked ? lockedImg : unlockedImg}
                     alt="lock"
                 />
+            </button>
+            <button
+                className={clsx(styles["delete-button"], {
+                    [styles["locked"]]: isLocked,
+                })}
+                onClick={deleteThisCompetition}
+            >
+                <Image width={24} height={24} src={deleteImg} alt="delete" />
             </button>
             <EditCompDialog
                 competition={competition}
