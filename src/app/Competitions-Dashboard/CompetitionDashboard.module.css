@@ -1,3 +1,130 @@
+/* Layout Styles */
+.competitions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Competition Item Styles */
+.competition {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #333;
+    border-radius: 16px;
+    min-width: 250px;
+    flex: 1;
+}
+
+/* Competition Title Row */
+.title-row {
+    border-bottom: solid 1px gray;
+    display: flex;
+}
+
+.title-and-date-container {
+    width: 100%;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+/* Calendar Date within Competition Title */
+.calendar-date-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 0.2rem;
+}
+
+.date {
+    display: inline-block;
+}
+
+/* Locked Status within Competition Title */
+.locked-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: 115px;
+}
+
+.locked {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    column-gap: 0.2rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.locked-img {
+    filter: var(--white-filter);
+}
+
+/* Event List within Competition */
+.events-list {
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.event {
+    background-color: rgb(219, 234, 254);
+    color: rgb(30, 64, 175);
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-radius: 9999px; /* pill shape */
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+/* Competition Actions (Buttons) */
+.comp-btns {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 0.3rem;
+    margin-top: 0.5rem;
+}
+
+.delete-button,
+.edit-button,
+.lock-button {
+    background-color: transparent;
+    border: none;
+    border-radius: 2px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+.delete-button:active,
+.edit-button:active {
+    transform: translateY(2px);
+}
+
+.lock-button:active {
+    transform: translateY(2px) scale(0.9);
+}
+
+.delete-button img {
+    filter: var(--red-filter);
+}
+
+.edit-button img,
+.lock-button img {
+    filter: var(--white-filter);
+}
+
+/* Edit Competition Modal */
 .edit-comp-modal[open] {
     width: 90vw;
     border-radius: 3px;
@@ -6,55 +133,7 @@
     grid-template-columns: 1fr;
 }
 
-.comp-btns {
-    display: flex;
-    column-gap: 0.3rem;
-}
-
-.delete-button {
-    background-color: rgb(225 83 83);
-    border: none;
-    border-radius: 2px;
-    padding: 2px 5px;
-    cursor: pointer;
-}
-
-.delete-button:active {
-    transform: translateY(2px);
-}
-
-.delete-button.locked {
-    background-color: rgb(113 104 104);
-}
-
-.edit-button {
-    background-color: rgb(38 174 83);
-    border: none;
-    border-radius: 2px;
-    padding: 2px 5px;
-    cursor: pointer;
-}
-
-.edit-button:active {
-    transform: translateY(2px);
-}
-
-.edit-button.locked {
-    background-color: rgb(113 104 104);
-}
-
-.lock-button {
-    background-color: rgb(211 207 207); /* Unlocked: show color for locking */
-    border: none;
-    border-radius: 2px;
-    padding: 2px 5px;
-    cursor: pointer;
-}
-
-.lock-button:active {
-    transform: translateY(2px) scale(0.9);
-}
-
+/* Make Competition Modal */
 .make-comp-modal {
     width: 400px;
     padding: 20px;
