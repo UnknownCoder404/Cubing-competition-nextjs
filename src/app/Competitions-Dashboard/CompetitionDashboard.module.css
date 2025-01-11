@@ -15,7 +15,7 @@
     padding: 1rem;
     background-color: #333;
     border-radius: 16px;
-    min-width: 270px;
+    min-width: 250px;
     flex: 1;
 }
 
@@ -37,7 +37,7 @@
 /* Calendar Date within Competition Title */
 .calendar-date-container {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     column-gap: 0.2rem;
 }
@@ -50,7 +50,7 @@
 .locked-container {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     max-width: 115px;
 }
 
@@ -71,7 +71,7 @@
 /* Event List within Competition */
 .events-list {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     column-gap: 0.3rem;
     flex-wrap: wrap;
 }
