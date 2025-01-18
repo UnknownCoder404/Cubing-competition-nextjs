@@ -65,7 +65,7 @@ function CurrentCompetitions({
                                             className={styles["locked-img"]}
                                             width={"20px"}
                                             height={"20px"}
-                                            islocked={"true"}
+                                            isLocked={true}
                                             fill={svgFillColor}
                                         />
                                     </div>

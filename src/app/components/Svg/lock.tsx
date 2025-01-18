@@ -24,13 +24,10 @@ function UnlockedLock(props: SvgProps) {
 }
 
 type Props = {
-    islocked: "true" | "false";
+    isLocked: boolean;
 } & SvgProps;
 
 export default function LockSvg(props: Props) {
-    return props.islocked ? (
-        <LockedLock {...props} />
-    ) : (
-        <UnlockedLock {...props} />
-    );
+    const { isLocked, ...rest } = props;
+    return isLocked ? <LockedLock {...rest} /> : <UnlockedLock {...rest} />;
 }
