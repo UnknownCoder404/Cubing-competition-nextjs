@@ -1,10 +1,10 @@
-import UserDashboard from "./UserDashboard";
 import dashboardStyles from "./Dashboard.module.css";
 import Link from "next/link";
 import { getUsers } from "../utils/users";
 import { getCompetitions } from "../utils/competitions";
 import { Metadata } from "next";
 import ProtectedRoute from "../components/Common/ProtectedRoute";
+import Users from "./Users";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0; // Ensure no caching between requests
@@ -48,15 +48,7 @@ export default async function Dashboard() {
     return (
         <ProtectedRoute require="admin" redirectTo="/Login" validateToken>
             <Buttons />
-            <main className={dashboardStyles["users"]}>
-                {users.parsed.map((user) => (
-                    <UserDashboard
-                        key={user._id}
-                        user={user}
-                        competitions={competitions.parsed}
-                    />
-                ))}
-            </main>
+            <Users users={users.parsed} competitions={competitions.parsed} />
         </ProtectedRoute>
     );
 }
