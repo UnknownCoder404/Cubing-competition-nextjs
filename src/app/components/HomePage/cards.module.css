@@ -12,10 +12,15 @@
     box-shadow: 4px 0 8px 0 rgb(0 0 0 / 20%);
     flex: 1 1 auto; /* Allow the cards to grow and shrink */
     min-width: 200px; /* Set minimum width */
+    max-width: 500px; /* Set maximum width for each card */
     border-radius: 5px;
-    transition:
-        background-color 0.25s,
-        box-shadow 0.3s;
+    transition: background-color 0.25s, box-shadow 0.3s;
+}
+
+/* Style for when there is only one card in the row */
+.cards:only-child .card {
+    flex-basis: 100%; /* Make the single card take full width */
+    max-width: none; /* Remove max-width constraint for single card */
 }
 
 .card:hover {
@@ -26,8 +31,12 @@
 .card-inside-container {
     padding: 3px 10px;
     height: 100%;
-    max-width: 500px;
+    /* max-width: 500px;  No need for max-width here, the card itself has it */
     word-wrap: break-word; /* Ensure text wraps properly */
+}
+
+.card-inside-container p {
+    width: 100%; /* Paragraphs take up the full width of the container */
 }
 
 .post-title {
