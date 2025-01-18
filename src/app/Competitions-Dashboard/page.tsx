@@ -5,9 +5,8 @@ import CompButtons from "./CompButtons";
 import styles from "./CompetitionDashboard.module.css";
 import { CreateCompButton } from "./CreateCompetition";
 import ProtectedRoute from "../components/Common/ProtectedRoute";
-import Image from "next/image";
-import lockedImg from "../public/locked.svg";
 import CalendarSvg from "../components/Svg/calendar";
+import LockSvg from "../components/Svg/lock";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -49,7 +48,11 @@ function CurrentCompetitions({
                                         styles["calendar-date-container"]
                                     }
                                 >
-                                    <CalendarSvg fill={svgFillColor} />
+                                    <CalendarSvg
+                                        fill={svgFillColor}
+                                        width={"20px"}
+                                        height={"20px"}
+                                    />
                                     <p className={styles["date"]}>
                                         {dateFormatted}
                                     </p>
@@ -58,12 +61,12 @@ function CurrentCompetitions({
                             {isLocked ? (
                                 <div className={styles["locked-container"]}>
                                     <div className={styles["locked"]}>
-                                        <Image
-                                            src={lockedImg}
-                                            alt={"locked"}
+                                        <LockSvg
                                             className={styles["locked-img"]}
-                                            width={20}
-                                            height={20}
+                                            width={"20px"}
+                                            height={"20px"}
+                                            islocked={"true"}
+                                            fill={svgFillColor}
                                         />
                                     </div>
                                 </div>

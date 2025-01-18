@@ -64,10 +64,6 @@
     align-items: center;
 }
 
-.locked-img {
-    filter: var(--white-filter);
-}
-
 /* Event List within Competition */
 .events-list {
     display: flex;
@@ -121,7 +117,6 @@
 
 .edit-button img,
 .lock-button img {
-    filter: var(--white-filter);
 }
 
 /* Edit Competition Modal */
