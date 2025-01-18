@@ -111,13 +111,6 @@
     transform: translateY(2px) scale(0.9);
 }
 
-.delete-button img {
-}
-
-.edit-button img,
-.lock-button img {
-}
-
 /* Edit Competition Modal */
 .edit-comp-modal[open] {
     width: 90vw;
