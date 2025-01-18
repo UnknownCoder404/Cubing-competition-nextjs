@@ -10,8 +10,8 @@ To solve this, we've built **custom React components for each SVG icon** we use.
 
 **Key Features:**
 
--   **Control Fill, Size:** Each SVG component accepts `fill`, `width`, and `height` props, allowing you to easily customize their appearance.
--   **Consistent Typing:** Most components use the `SvgProps` type, defined in `src/app/Types/svg`, ensuring consistent prop handling:
+- **Control Fill, Size:** Each SVG component accepts `fill`, `width`, and `height` props, allowing you to easily customize their appearance.
+- **Consistent Typing:** Most components use the `SvgProps` type, defined in `src/app/Types/svg`, ensuring consistent prop handling:
 
 ```typescript
 export type SvgProps = {
@@ -21,7 +21,7 @@ export type SvgProps = {
 } & React.HTMLAttributes<SVGElement>;
 ```
 
--   **Naming Convention:** SVG components are named descriptively, like `EditSvg` and `DeleteSvg`. This makes them easy to find and understand.
+- **Naming Convention:** SVG components are named descriptively, like `EditSvg` and `DeleteSvg`. This makes them easy to find and understand.
 
 ## Using the Components
 
