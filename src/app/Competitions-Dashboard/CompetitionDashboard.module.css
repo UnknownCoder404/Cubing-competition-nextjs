@@ -112,7 +112,6 @@
 }
 
 .delete-button img {
-    filter: var(--red-filter);
 }
 
 .edit-button img,
