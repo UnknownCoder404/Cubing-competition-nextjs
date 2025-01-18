@@ -6,11 +6,13 @@ import styles from "./CompetitionDashboard.module.css";
 import { CreateCompButton } from "./CreateCompetition";
 import ProtectedRoute from "../components/Common/ProtectedRoute";
 import Image from "next/image";
-import calendarImg from "../public/calendar.svg";
 import lockedImg from "../public/locked.svg";
+import CalendarSvg from "../components/Svg/calendar";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
+const svgFillColor = "#e8eaed";
 
 export const metadata: Metadata = {
     title: "Upravljanje natjecanjima",
@@ -47,13 +49,7 @@ function CurrentCompetitions({
                                         styles["calendar-date-container"]
                                     }
                                 >
-                                    <Image
-                                        src={calendarImg}
-                                        alt="calendar"
-                                        className={styles["calendar"]}
-                                        width={20}
-                                        height={20}
-                                    />
+                                    <CalendarSvg fill={svgFillColor} />
                                     <p className={styles["date"]}>
                                         {dateFormatted}
                                     </p>
