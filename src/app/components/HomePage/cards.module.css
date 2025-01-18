@@ -14,7 +14,9 @@
     min-width: 200px; /* Set minimum width */
     max-width: 500px; /* Set maximum width for each card */
     border-radius: 5px;
-    transition: background-color 0.25s, box-shadow 0.3s;
+    transition:
+        background-color 0.25s,
+        box-shadow 0.3s;
 }
 
 /* Style for when there is only one card in the row */
