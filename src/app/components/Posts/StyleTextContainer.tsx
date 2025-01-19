@@ -7,9 +7,7 @@ import italicImage from "@/app/public/italic.svg";
 import underlineImage from "@/app/public/underline.svg";
 import linkImage from "@/app/public/link.svg";
 import mailImage from "@/app/public/mail.svg";
-import header3Image from "@/app/public/header3.svg";
-import header4Image from "@/app/public/header4.svg";
-import header5Image from "@/app/public/header5.svg";
+// Removed individual header image imports
 import {
     boldSelectedTextFromInput,
     emailToSelectedTextFromInput,
@@ -19,8 +17,22 @@ import {
     underlineSelectedTextFromInput,
 } from "@/app/utils/text";
 import { clsx } from "clsx";
+import HeaderSvg from "@/app/components/Svg/header"; // Import the new HeaderSvg component
+import { StaticImageData } from "next/image";
 
-const buttons = [
+type ButtonConfig = {
+    className: string;
+    alt: string;
+    action: (
+        ref: RefObject<HTMLTextAreaElement>,
+        setDescription: (arg0: string) => void,
+    ) => void;
+    shortcut?: string;
+    src?: StaticImageData;
+    headingLevel?: 3 | 4 | 5;
+};
+
+const buttons: ButtonConfig[] = [
     {
         className: "bold-btn",
         src: boldImage,
@@ -86,7 +98,6 @@ const buttons = [
     },
     {
         className: "header-btn header3",
-        src: header3Image,
         alt: "Header 3",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -95,10 +106,10 @@ const buttons = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 3);
         },
+        headingLevel: 3,
     },
     {
         className: "header-btn header4",
-        src: header4Image,
         alt: "Header 4",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -107,10 +118,10 @@ const buttons = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 4);
         },
+        headingLevel: 4,
     },
     {
         className: "header-btn header5",
-        src: header5Image,
         alt: "Header 5",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -119,6 +130,7 @@ const buttons = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 5);
         },
+        headingLevel: 5,
     },
 ];
 
@@ -127,11 +139,13 @@ function Button({
     src,
     alt,
     onClick,
+    headingLevel,
 }: {
     className: string;
-    src: string;
+    src?: StaticImageData;
     alt: string;
     onClick: () => void;
+    headingLevel?: 3 | 4 | 5;
 }) {
     return (
         <button
@@ -141,7 +155,18 @@ function Button({
             )}
             onClick={onClick}
         >
-            <Image height={24} width={24} src={src} alt={alt} />
+            {headingLevel ? (
+                <HeaderSvg
+                    headingLevel={headingLevel}
+                    fill="currentColor"
+                    width="24"
+                    height="24"
+                />
+            ) : src ? (
+                <Image height={24} width={24} src={src} alt={alt} />
+            ) : (
+                <span>{alt}</span>
+            )}
         </button>
     );
 }
@@ -196,6 +221,7 @@ export default function StyleTextContainer({
                                 setDescription,
                             );
                         }}
+                        headingLevel={button.headingLevel}
                     />
                 ))}
             </div>
