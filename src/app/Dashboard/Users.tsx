@@ -16,6 +16,24 @@ type Filters = {
     hasCompetitions?: boolean;
 };
 
+// Helper function for filtering logic
+const userMatchesFilters = (user: Users[number], filters: Filters): boolean => {
+    const searchTermMatch = user.username
+        .toLowerCase()
+        .includes(filters.searchTerm.toLowerCase());
+
+    const groupMatch =
+        filters.group === undefined || user.group === filters.group;
+
+    const roleMatch = filters.role === undefined || user.role === filters.role;
+
+    const hasCompetitionsMatch =
+        filters.hasCompetitions === undefined ||
+        user.competitions.length > 0 === filters.hasCompetitions;
+
+    return searchTermMatch && groupMatch && roleMatch && hasCompetitionsMatch;
+};
+
 export default function Users({ users, competitions }: Props) {
     const defaultFilters = {
         searchTerm: "",
@@ -26,33 +44,7 @@ export default function Users({ users, competitions }: Props) {
     const [filters, setFilters] = useState<Filters>(defaultFilters);
 
     const filteredUsers = useMemo(() => {
-        return users.filter((user) => {
-            // Search term filter (case-insensitive)
-            const matchesSearch = user.username
-                .toLowerCase()
-                .includes(filters.searchTerm.toLowerCase());
-            if (!matchesSearch) return false;
-
-            // Group filter
-            if (filters.group !== undefined && user.group !== filters.group) {
-                return false;
-            }
-
-            // Role filter
-            if (filters.role && user.role !== filters.role) {
-                return false;
-            }
-
-            // Competition participation filter
-            if (filters.hasCompetitions !== undefined) {
-                const hasComps = user.competitions.length > 0;
-                if (hasComps !== filters.hasCompetitions) {
-                    return false;
-                }
-            }
-
-            return true;
-        });
+        return users.filter((user) => userMatchesFilters(user, filters));
     }, [users, filters]);
 
     // Filter update functions
