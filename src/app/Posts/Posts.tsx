@@ -2,11 +2,11 @@ import Image from "next/image";
 import { Posts, Post as PostType } from "../Types/posts";
 import styles from "./Posts.module.css";
 import deleteIcon from "@/app/public/delete.svg";
-import editIcon from "@/app/public/edit.svg";
 import { deletePost, editPost, isErrorWithMessage } from "../utils/posts";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Loader } from "../components/Loader/Loader";
+import EditSvg from "../components/Svg/edit";
 
 type Props = {
     posts: Posts;
@@ -115,7 +115,7 @@ function PostButtons({ post }: { post: PostType }) {
                     onClick={toggleEditModal}
                     className={styles["edit-post-btn"]}
                 >
-                    <Image src={editIcon} alt="Edit" width={24} height={24} />
+                    <EditSvg width="24px" height="24px" fill="black" />
                 </button>
             </div>
             <EditPostModal
