@@ -4,7 +4,6 @@ import {
     formatTime,
     getAverage,
 } from "@/app/utils/solveTime";
-import Image from "next/image";
 import { useRef, useState } from "react";
 import { addSolve, deleteSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";

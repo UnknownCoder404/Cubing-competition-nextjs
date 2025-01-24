@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Posts, Post as PostType } from "../Types/posts";
 import styles from "./Posts.module.css";
 import { deletePost, editPost, isErrorWithMessage } from "../utils/posts";
