@@ -158,7 +158,7 @@ function Button({
             {headingLevel ? (
                 <HeaderSvg
                     headingLevel={headingLevel}
-                    fill="currentColor"
+                    fill="#5e5d5d"
                     width="24"
                     height="24"
                 />

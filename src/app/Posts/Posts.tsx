@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { Posts, Post as PostType } from "../Types/posts";
 import styles from "./Posts.module.css";
-import deleteIcon from "@/app/public/delete.svg";
 import { deletePost, editPost, isErrorWithMessage } from "../utils/posts";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Loader } from "../components/Loader/Loader";
 import EditSvg from "../components/Svg/edit";
+import DeleteSvg from "../components/Svg/delete";
 
 type Props = {
     posts: Posts;
@@ -104,12 +104,7 @@ function PostButtons({ post }: { post: PostType }) {
                     onClick={handleDelete}
                     className={styles["delete-post-btn"]}
                 >
-                    <Image
-                        src={deleteIcon}
-                        alt="Delete"
-                        width={24}
-                        height={24}
-                    />
+                    <DeleteSvg fill="black" height="24px" width="24px" />
                 </button>
                 <button
                     onClick={toggleEditModal}
