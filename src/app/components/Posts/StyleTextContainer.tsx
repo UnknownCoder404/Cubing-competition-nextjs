@@ -5,9 +5,6 @@ import postsStyles from "@/app/Posts/Posts.module.css";
 import boldImage from "@/app/public/bold.svg";
 import italicImage from "@/app/public/italic.svg";
 import underlineImage from "@/app/public/underline.svg";
-import linkImage from "@/app/public/link.svg";
-import mailImage from "@/app/public/mail.svg";
-// Removed individual header image imports
 import {
     boldSelectedTextFromInput,
     emailToSelectedTextFromInput,
@@ -17,8 +14,11 @@ import {
     underlineSelectedTextFromInput,
 } from "@/app/utils/text";
 import { clsx } from "clsx";
-import HeaderSvg from "@/app/components/Svg/header"; // Import the new HeaderSvg component
-import { StaticImageData } from "next/image";
+import HeaderSvg from "@/app/components/Svg/header";
+import React from "react";
+import MailSvg from "../Svg/mail";
+import LinkSvg from "../Svg/link";
+import UnderlineSvg from "../Svg/underline";
 
 type ButtonConfig = {
     className: string;
@@ -28,14 +28,13 @@ type ButtonConfig = {
         setDescription: (arg0: string) => void,
     ) => void;
     shortcut?: string;
-    src?: StaticImageData;
-    headingLevel?: 3 | 4 | 5;
+    element?: React.ReactNode;
 };
 
 const buttons: ButtonConfig[] = [
     {
         className: "bold-btn",
-        src: boldImage,
+        element: <Image height={24} width={24} src={boldImage} alt="Bold" />,
         alt: "Bold",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -48,7 +47,9 @@ const buttons: ButtonConfig[] = [
     },
     {
         className: "italic-btn",
-        src: italicImage,
+        element: (
+            <Image height={24} width={24} src={italicImage} alt="Italic" />
+        ),
         alt: "Italic",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -61,7 +62,7 @@ const buttons: ButtonConfig[] = [
     },
     {
         className: "underline-btn",
-        src: underlineImage,
+        element: <UnderlineSvg fill="#5e5d5d" width="24px" height="24px" />,
         alt: "Underline",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -74,7 +75,7 @@ const buttons: ButtonConfig[] = [
     },
     {
         className: "hyperlink-btn",
-        src: linkImage,
+        element: <LinkSvg fill="#5e5d5d" width="24px" height="24px" />,
         alt: "Hyperlink",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -86,7 +87,7 @@ const buttons: ButtonConfig[] = [
     },
     {
         className: "mail-btn",
-        src: mailImage,
+        element: <MailSvg height="24px" width="24px" fill="#5e5d5d" />,
         alt: "Email",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -106,7 +107,9 @@ const buttons: ButtonConfig[] = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 3);
         },
-        headingLevel: 3,
+        element: (
+            <HeaderSvg headingLevel={3} fill="#5e5d5d" width="24" height="24" />
+        ),
     },
     {
         className: "header-btn header4",
@@ -118,7 +121,9 @@ const buttons: ButtonConfig[] = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 4);
         },
-        headingLevel: 4,
+        element: (
+            <HeaderSvg headingLevel={4} fill="#5e5d5d" width="24" height="24" />
+        ),
     },
     {
         className: "header-btn header5",
@@ -130,22 +135,22 @@ const buttons: ButtonConfig[] = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 5);
         },
-        headingLevel: 5,
+        element: (
+            <HeaderSvg headingLevel={5} fill="#5e5d5d" width="24" height="24" />
+        ),
     },
 ];
 
 function Button({
     className,
-    src,
     alt,
     onClick,
-    headingLevel,
+    element,
 }: {
     className: string;
-    src?: StaticImageData;
     alt: string;
     onClick: () => void;
-    headingLevel?: 3 | 4 | 5;
+    element?: React.ReactNode;
 }) {
     return (
         <button
@@ -155,18 +160,7 @@ function Button({
             )}
             onClick={onClick}
         >
-            {headingLevel ? (
-                <HeaderSvg
-                    headingLevel={headingLevel}
-                    fill="#5e5d5d"
-                    width="24"
-                    height="24"
-                />
-            ) : src ? (
-                <Image height={24} width={24} src={src} alt={alt} />
-            ) : (
-                <span>{alt}</span>
-            )}
+            {element ? element : <span>{alt}</span>}
         </button>
     );
 }
@@ -212,7 +206,6 @@ export default function StyleTextContainer({
                     <Button
                         key={button.className}
                         className={clsx(button.className)}
-                        src={button.src}
                         alt={button.alt}
                         onClick={() => {
                             if (!descriptionInputRef.current) return;
@@ -221,7 +214,7 @@ export default function StyleTextContainer({
                                 setDescription,
                             );
                         }}
-                        headingLevel={button.headingLevel}
+                        element={button.element}
                     />
                 ))}
             </div>
