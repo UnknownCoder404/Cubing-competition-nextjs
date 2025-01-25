@@ -1,15 +1,6 @@
 import { useEffect } from "react";
 import { RefObject } from "react";
-import Image from "next/image";
 import postsStyles from "@/app/Posts/Posts.module.css";
-import boldImage from "@/app/public/bold.svg";
-import italicImage from "@/app/public/italic.svg";
-import underlineImage from "@/app/public/underline.svg";
-import linkImage from "@/app/public/link.svg";
-import mailImage from "@/app/public/mail.svg";
-import header3Image from "@/app/public/header3.svg";
-import header4Image from "@/app/public/header4.svg";
-import header5Image from "@/app/public/header5.svg";
 import {
     boldSelectedTextFromInput,
     emailToSelectedTextFromInput,
@@ -19,11 +10,29 @@ import {
     underlineSelectedTextFromInput,
 } from "@/app/utils/text";
 import { clsx } from "clsx";
+import HeaderSvg from "@/app/components/Svg/header";
+import React from "react";
+import MailSvg from "../Svg/mail";
+import LinkSvg from "../Svg/link";
+import UnderlineSvg from "../Svg/underline";
+import BoldSvg from "../Svg/bold";
+import ItalicSvg from "../Svg/italic";
 
-const buttons = [
+type ButtonConfig = {
+    className: string;
+    alt: string;
+    action: (
+        ref: RefObject<HTMLTextAreaElement>,
+        setDescription: (arg0: string) => void,
+    ) => void;
+    shortcut?: string;
+    element?: React.ReactNode;
+};
+
+const buttons: ButtonConfig[] = [
     {
         className: "bold-btn",
-        src: boldImage,
+        element: <BoldSvg width="24px" height="24px" fill="#5e5d5d" />,
         alt: "Bold",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -36,7 +45,7 @@ const buttons = [
     },
     {
         className: "italic-btn",
-        src: italicImage,
+        element: <ItalicSvg width="24px" height="24px" fill="#5e5d5d" />,
         alt: "Italic",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -49,7 +58,7 @@ const buttons = [
     },
     {
         className: "underline-btn",
-        src: underlineImage,
+        element: <UnderlineSvg fill="#5e5d5d" width="24px" height="24px" />,
         alt: "Underline",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -62,7 +71,7 @@ const buttons = [
     },
     {
         className: "hyperlink-btn",
-        src: linkImage,
+        element: <LinkSvg fill="#5e5d5d" width="24px" height="24px" />,
         alt: "Hyperlink",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -74,7 +83,7 @@ const buttons = [
     },
     {
         className: "mail-btn",
-        src: mailImage,
+        element: <MailSvg height="24px" width="24px" fill="#5e5d5d" />,
         alt: "Email",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -86,7 +95,6 @@ const buttons = [
     },
     {
         className: "header-btn header3",
-        src: header3Image,
         alt: "Header 3",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -95,10 +103,12 @@ const buttons = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 3);
         },
+        element: (
+            <HeaderSvg headingLevel={3} fill="#5e5d5d" width="24" height="24" />
+        ),
     },
     {
         className: "header-btn header4",
-        src: header4Image,
         alt: "Header 4",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -107,10 +117,12 @@ const buttons = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 4);
         },
+        element: (
+            <HeaderSvg headingLevel={4} fill="#5e5d5d" width="24" height="24" />
+        ),
     },
     {
         className: "header-btn header5",
-        src: header5Image,
         alt: "Header 5",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
@@ -119,19 +131,22 @@ const buttons = [
             if (ref.current)
                 headerSelectedTextFromInput(ref.current, setDescription, 5);
         },
+        element: (
+            <HeaderSvg headingLevel={5} fill="#5e5d5d" width="24" height="24" />
+        ),
     },
 ];
 
 function Button({
     className,
-    src,
     alt,
     onClick,
+    element,
 }: {
     className: string;
-    src: string;
     alt: string;
     onClick: () => void;
+    element?: React.ReactNode;
 }) {
     return (
         <button
@@ -141,7 +156,7 @@ function Button({
             )}
             onClick={onClick}
         >
-            <Image height={24} width={24} src={src} alt={alt} />
+            {element ? element : <span>{alt}</span>}
         </button>
     );
 }
@@ -187,7 +202,6 @@ export default function StyleTextContainer({
                     <Button
                         key={button.className}
                         className={clsx(button.className)}
-                        src={button.src}
                         alt={button.alt}
                         onClick={() => {
                             if (!descriptionInputRef.current) return;
@@ -196,6 +210,7 @@ export default function StyleTextContainer({
                                 setDescription,
                             );
                         }}
+                        element={button.element}
                     />
                 ))}
             </div>

@@ -12,15 +12,12 @@
 .username-div {
     display: flex;
     align-items: center;
+    column-gap: 5px;
 }
 
 .username {
     font-weight: bold;
     display: inline-block;
-}
-
-.manage-accounts {
-    margin-left: 5px;
 }
 
 .role {

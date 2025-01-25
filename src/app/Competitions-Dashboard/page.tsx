@@ -5,12 +5,13 @@ import CompButtons from "./CompButtons";
 import styles from "./CompetitionDashboard.module.css";
 import { CreateCompButton } from "./CreateCompetition";
 import ProtectedRoute from "../components/Common/ProtectedRoute";
-import Image from "next/image";
-import calendarImg from "../public/calendar.svg";
-import lockedImg from "../public/locked.svg";
+import CalendarSvg from "../components/Svg/calendar";
+import LockSvg from "../components/Svg/lock";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
+const svgFillColor = "#e8eaed";
 
 export const metadata: Metadata = {
     title: "Upravljanje natjecanjima",
@@ -47,12 +48,10 @@ function CurrentCompetitions({
                                         styles["calendar-date-container"]
                                     }
                                 >
-                                    <Image
-                                        src={calendarImg}
-                                        alt="calendar"
-                                        className={styles["calendar"]}
-                                        width={20}
-                                        height={20}
+                                    <CalendarSvg
+                                        fill={svgFillColor}
+                                        width={"20px"}
+                                        height={"20px"}
                                     />
                                     <p className={styles["date"]}>
                                         {dateFormatted}
@@ -62,12 +61,12 @@ function CurrentCompetitions({
                             {isLocked ? (
                                 <div className={styles["locked-container"]}>
                                     <div className={styles["locked"]}>
-                                        <Image
-                                            src={lockedImg}
-                                            alt={"locked"}
+                                        <LockSvg
                                             className={styles["locked-img"]}
-                                            width={20}
-                                            height={20}
+                                            width={"20px"}
+                                            height={"20px"}
+                                            isLocked={true}
+                                            fill={svgFillColor}
                                         />
                                     </div>
                                 </div>

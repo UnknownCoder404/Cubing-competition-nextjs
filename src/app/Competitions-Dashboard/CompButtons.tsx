@@ -1,18 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./CompetitionDashboard.module.css";
-import editImg from "@/app/public/edit.svg";
-import deleteImg from "@/app/public/delete.svg";
-import lockedImg from "@/app/public/locked.svg";
-import unlockedImg from "@/app/public/unlocked.svg";
 import { clsx } from "clsx";
 import { useRouter } from "next/navigation";
 import { deleteCompetition, lockCompetition } from "../utils/competitions";
 import { CompetitionType } from "../Types/solve";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import EditSvg from "../components/Svg/edit";
+import LockSvg from "../components/Svg/lock";
+import DeleteSvg from "../components/Svg/delete";
 const EditCompDialog = dynamic(() => import("./EditCompDialog"));
+
+const svgFillColor = "#e8eaed";
 
 type Props = {
     isLocked: boolean;
@@ -65,42 +65,44 @@ export default function CompButtons({
     }
 
     return (
-        <div className={styles["comp-btns"]}>
-            <button
-                className={clsx(styles["edit-button"], {
-                    [styles["locked"]]: isLocked,
-                })}
-                onClick={editThisCompetition}
-            >
-                <Image width={24} height={24} src={editImg} alt="edit" />
-            </button>
+        <>
+            <div className={styles["comp-btns"]}>
+                <button
+                    className={clsx(styles["edit-button"], {
+                        [styles["locked"]]: isLocked,
+                    })}
+                    onClick={editThisCompetition}
+                >
+                    <EditSvg fill={svgFillColor} width="24px" height="24px" />
+                </button>
 
-            <button
-                className={clsx(styles["lock-button"], {
-                    [styles["locked"]]: isLocked,
-                })}
-                onClick={lockThisCompetition}
-            >
-                <Image
-                    width={24}
-                    height={24}
-                    src={isLocked ? lockedImg : unlockedImg}
-                    alt="lock"
-                />
-            </button>
-            <button
-                className={clsx(styles["delete-button"], {
-                    [styles["locked"]]: isLocked,
-                })}
-                onClick={deleteThisCompetition}
-            >
-                <Image width={24} height={24} src={deleteImg} alt="delete" />
-            </button>
+                <button
+                    className={clsx(styles["lock-button"], {
+                        [styles["locked"]]: isLocked,
+                    })}
+                    onClick={lockThisCompetition}
+                >
+                    <LockSvg
+                        width="24px"
+                        height="24px"
+                        isLocked={isLocked}
+                        fill={svgFillColor}
+                    />
+                </button>
+                <button
+                    className={clsx(styles["delete-button"], {
+                        [styles["locked"]]: isLocked,
+                    })}
+                    onClick={deleteThisCompetition}
+                >
+                    <DeleteSvg fill="#eb4034" width="24px" height="24px" />
+                </button>
+            </div>
             <EditCompDialog
                 competition={competition}
                 show={isEditDialogShown}
                 setVisibilityAction={setIsEditDialogShown}
             />
-        </div>
+        </>
     );
 }

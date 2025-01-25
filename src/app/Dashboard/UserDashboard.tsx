@@ -1,9 +1,8 @@
 import dashboardStyles from "./Dashboard.module.css";
-import manageAccounts from "../public/manage_accounts.svg";
-import Image from "next/image";
 import { isUser } from "../utils/credentials";
 import UserCompAndButtons from "./UserCompAndButtons";
 import { CompetitionType, User } from "../Types/solve";
+import ManageAccountsSvg from "../components/Svg/manage_accounts";
 
 function UsernameDiv({ username }: { username: string }) {
     return (
@@ -14,12 +13,11 @@ function UsernameDiv({ username }: { username: string }) {
             <p id="username" className={dashboardStyles["username"]}>
                 {username}
             </p>
-            <Image
+            <ManageAccountsSvg
+                width="24px"
+                height="24px"
+                fill="white"
                 className={dashboardStyles["manage-accounts"]}
-                src={manageAccounts}
-                width={24}
-                height={24}
-                alt="Manage accounts button for user settings"
             />
         </div>
     );

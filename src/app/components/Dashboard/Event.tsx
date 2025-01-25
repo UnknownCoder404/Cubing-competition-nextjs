@@ -4,8 +4,6 @@ import {
     formatTime,
     getAverage,
 } from "@/app/utils/solveTime";
-import Image from "next/image";
-import trashIcon from "@/app/public/delete.svg";
 import { useRef, useState } from "react";
 import { addSolve, deleteSolve } from "@/app/utils/users";
 import { useRouter } from "next/navigation";
@@ -16,6 +14,7 @@ import {
     UserEvent,
 } from "@/app/Types/solve";
 import { clsx } from "clsx";
+import DeleteSvg from "../Svg/delete";
 
 function DeleteSolveButton({
     competitionId,
@@ -67,7 +66,7 @@ function DeleteSolveButton({
             disabled={loading}
             tabIndex={show ? 0 : -1}
         >
-            <Image src={trashIcon} width={24} height={24} alt="delete" />
+            <DeleteSvg width="24px" height="24px" fill="black" />
         </button>
     );
 }
