@@ -3,11 +3,10 @@
 import Link from "next/link";
 import headerStyles from "./Header.module.css";
 import { getUsername, logOut } from "@/app/utils/credentials";
-import accountCircle from "../../public/account_circle.svg";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { clsx } from "clsx";
+import AccountCircleSvg from "../Svg/account_circle";
 
 function ClientLoginStatus() {
     const router = useRouter();
@@ -38,14 +37,13 @@ function ClientLoginStatus() {
             <h2 className={headerStyles["log-in"]}>
                 {username ? username : <Link href="/Login">Prijava</Link>}
             </h2>
-            <Image
-                alt={loggedIn ? "User account options" : "Account login"}
+            <AccountCircleSvg
                 className={clsx(headerStyles["account-circle"], {
                     [headerStyles["logged-in"]]: loggedIn,
                 })}
-                src={accountCircle}
-                width={24}
-                height={24}
+                width="24px"
+                height="24px"
+                fill="white"
                 onClick={() => {
                     if (loggedIn) {
                         logOut();
@@ -53,7 +51,6 @@ function ClientLoginStatus() {
                         router.refresh();
                     }
                 }}
-                priority={true}
                 role="button"
                 tabIndex={0}
             />
