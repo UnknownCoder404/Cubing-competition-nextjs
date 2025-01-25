@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { RefObject } from "react";
-import Image from "next/image";
 import postsStyles from "@/app/Posts/Posts.module.css";
-import italicImage from "@/app/public/italic.svg";
 import {
     boldSelectedTextFromInput,
     emailToSelectedTextFromInput,
@@ -18,6 +16,7 @@ import MailSvg from "../Svg/mail";
 import LinkSvg from "../Svg/link";
 import UnderlineSvg from "../Svg/underline";
 import BoldSvg from "../Svg/bold";
+import ItalicSvg from "../Svg/italic";
 
 type ButtonConfig = {
     className: string;
@@ -46,9 +45,7 @@ const buttons: ButtonConfig[] = [
     },
     {
         className: "italic-btn",
-        element: (
-            <Image height={24} width={24} src={italicImage} alt="Italic" />
-        ),
+        element: <ItalicSvg width="24px" height="24px" fill="#5e5d5d" />,
         alt: "Italic",
         action: (
             ref: RefObject<HTMLTextAreaElement>,
