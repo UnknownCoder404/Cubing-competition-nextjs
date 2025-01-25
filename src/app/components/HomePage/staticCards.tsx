@@ -1,7 +1,7 @@
 import Link from "next/link";
 import handleInvite from "@/app/utils/handleInvite";
 import Image from "next/image";
-import qrcode from "@/app/public/qrcode_to_website.webp";
+import qrcode from "@/public/images/qrcode_to_website.webp";
 import { getRole, getUsername, isAdmin, logOut } from "@/app/utils/credentials";
 import { CardProp } from "@/app/Types/cards";
 import styles from "./cards.module.css";
