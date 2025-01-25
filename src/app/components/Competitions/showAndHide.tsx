@@ -1,7 +1,6 @@
-import Image from "next/image";
-import showImg from "@/app/public/show.svg";
-import hideImg from "@/app/public/hide.svg";
 import CompetitionStyles from "../../Competitions/Competitions.module.css";
+import ShowSvg from "../Svg/show";
+import HideSvg from "../Svg/hide";
 
 export default function ShowAndHide({
     show,
@@ -20,12 +19,11 @@ export default function ShowAndHide({
             aria-pressed={show} // Indicates the current state of the button
             aria-label={show ? "Sakrij sadržaj" : "Prikaži sadržaj"}
         >
-            <Image
-                src={show ? showImg : hideImg}
-                width={undefined}
-                height={24}
-                alt={show ? "Sakrij sadržaj ikona" : "Prikaži sadržaj ikona"}
-            />
+            {show ? (
+                <ShowSvg width="24px" height="24px" fill="black" />
+            ) : (
+                <HideSvg width="24px" height="24px" fill="black" />
+            )}
         </button>
     );
 }
