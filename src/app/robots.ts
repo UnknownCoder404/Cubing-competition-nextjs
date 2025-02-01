@@ -7,7 +7,6 @@ const robots = (): MetadataRoute.Robots => ({
             userAgent: "*",
             allow: "*",
             disallow: [
-                "/Login",
                 "/Register",
                 "/Advanced-Dashboard",
                 "/Dashboard",

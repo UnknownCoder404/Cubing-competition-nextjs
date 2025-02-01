@@ -3,8 +3,7 @@ import type { MetadataRoute } from "next";
 export const dynamic = "error";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl =
-        process.env.BASE_URL || "https://cubing-competition-nextjs.vercel.app";
+    const baseUrl = process.env.BASE_URL || "https://cro-cube-comp.vercel.app";
     return [
         {
             url: baseUrl,
@@ -20,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: `${baseUrl}/Rules`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/Login`,
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.5,
