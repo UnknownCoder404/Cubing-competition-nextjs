@@ -35,7 +35,8 @@ export default function Rules() {
                     </li>
                 </ol>
             </nav>
-            <main>
+
+            <article>
                 <p>
                     Dragi natjecatelji, u nastavku ćete vidjeti pravila
                     natjecanja u Rubikovoj kocki. Ova pravila prate{" "}
@@ -55,7 +56,7 @@ export default function Rules() {
                     Rubikove kocke, nakon što je mjerač vremena zaustavljen.
                 </span>
                 <p>
-                    <span className={rulesStyles["numbering"]}>1a&#41; </span>{" "}
+                    <span className={rulesStyles["numbering"]}>1a&#41; </span>
                     Slagalica može biti u bilo kojoj orijentaciji na kraju
                     rješavanja.
                 </p>
@@ -87,9 +88,8 @@ export default function Rules() {
                 <p className={rulesStyles["indent"]}>
                     <span className={rulesStyles["numbering"]}>1b3&#41; </span>
                     Ako je potrebno više od jednog poteza, zagonetka se smatra
-                    neriješenom
+                    neriješenom{" "}
                     <span className={rulesStyles["red"]}>
-                        {" "}
                         (DNF=Did not finish)
                     </span>
                     .
@@ -98,9 +98,10 @@ export default function Rules() {
                     <span className={rulesStyles["numbering"]}>1c&#41; </span>
                     Natjecatelj ne smije dodirnuti Rubikovu kocku nakon
                     završetka mjerača vremena, u suprotnome dobiva vremensku
-                    kaznu
+                    kaznu{" "}
                     <span className={rulesStyles["yellow"]}>(+2 sekunde)</span>.
                 </p>
+
                 <a id="pravila2"></a>
                 <h2>2. INSPEKCIJA</h2>
                 <p className={rulesStyles["bold"]}>
@@ -115,7 +116,7 @@ export default function Rules() {
                 <p className={rulesStyles["indent"]}>
                     <span className={rulesStyles["numbering"]}>2a1&#41; </span>
                     Ako inspekcija natjecatelja traje više od 15, a manje od 17
-                    sekundi natjecatelj dobiva vremensku kaznu
+                    sekundi natjecatelj dobiva vremensku kaznu{" "}
                     <span className={rulesStyles["yellow"]}>(+2 sekunde)</span>.
                 </p>
                 <p className={rulesStyles["indent"]}>
@@ -137,6 +138,7 @@ export default function Rules() {
                     12 sekundi govoreći &quot;8 SEKUNDI!&quot; i &quot;12
                     SEKUNDI!&quot;
                 </p>
+
                 <a id="pravila3"></a>
                 <h2>3. PROSJEK</h2>
                 <p className={rulesStyles["bold"]}>
@@ -144,7 +146,7 @@ export default function Rules() {
                     5
                 </p>
                 <p>
-                    <span className={rulesStyles["numbering"]}>3a&#41; </span>{" "}
+                    <span className={rulesStyles["numbering"]}>3a&#41; </span>
                     Za &quot;Prosjek od 5&quot; runde, natjecatelji dobiju 5
                     pokušaja. Od tih 5 pokušaja, najbolji i najgori pokušaji se
                     izbacuju i aritmetička sredina od ostala 3 pokušaja se broji
@@ -158,16 +160,16 @@ export default function Rules() {
                 <p className={rulesStyles["indent"]}>
                     <span className={rulesStyles["numbering"]}>3a2&#41; </span>
                     Za &quot;Prosjek od 5&quot; runde, jedan{" "}
-                    <span className={rulesStyles["red"]}>DNF</span> ili
-                    <span className={rulesStyles["red"]}> DNS</span> je
-                    dozvoljen kako bi se brojao kao natjecateljev najgori
-                    rezultat runde. Ako natjecatelj ima više od jednog{" "}
-                    <span className={rulesStyles["red"]}>DNF</span> i/ili
-                    <span className={rulesStyles["red"]}> DNS</span> rezultata u
+                    <span className={rulesStyles["red"]}>DNF</span> ili{" "}
+                    <span className={rulesStyles["red"]}>DNS</span> je dozvoljen
+                    kako bi se brojao kao natjecateljev najgori rezultat runde.
+                    Ako natjecatelj ima više od jednog{" "}
+                    <span className={rulesStyles["red"]}>DNF</span> i/ili{" "}
+                    <span className={rulesStyles["red"]}>DNS</span> rezultata u
                     rundi, njegov prosječni rezultat u rundi je{" "}
                     <span className={rulesStyles["red"]}>DNF</span>.
                 </p>
-            </main>
+            </article>
         </main>
     );
 }
