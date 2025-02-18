@@ -36,7 +36,7 @@ export default function Rules() {
                 </ol>
             </nav>
 
-            <div>
+            <article>
                 <p>
                     Dragi natjecatelji, u nastavku ćete vidjeti pravila
                     natjecanja u Rubikovoj kocki. Ova pravila prate{" "}
@@ -169,7 +169,7 @@ export default function Rules() {
                     rundi, njegov prosječni rezultat u rundi je{" "}
                     <span className={rulesStyles["red"]}>DNF</span>.
                 </p>
-            </div>
+            </article>
         </main>
     );
 }
