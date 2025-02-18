@@ -30,7 +30,7 @@ async function handleSubmit(
 
         if (response.status === 429) {
             setMsg(
-                "Prekoračen je broj pokušaja. Pokušajte ponovo za par minuta.",
+                "Prekoračen je broj pokušaja. Pokušajte ponovno za par minuta.",
             );
             return;
         }
