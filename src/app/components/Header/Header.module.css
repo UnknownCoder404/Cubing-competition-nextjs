@@ -4,8 +4,9 @@
     background: rgb(24 24 24);
     color: #f1f1f1;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: auto 15%; /* Adjust for log in position */
     border-radius: 30px;
+    align-items: center; /* Vertically align items */
 }
 
 @media screen and (width <= 350px) {
@@ -17,6 +18,7 @@
 @media screen and (width <= 500px) {
     .header {
         grid-template-columns: 1fr;
+        justify-items: center; /* Center items on smaller screens */
     }
 }
 
@@ -24,6 +26,8 @@
     display: flex;
     flex-wrap: wrap;
     column-gap: 10px;
+    /* Ensure interaction-container doesn't exceed its parent's width */
+    max-width: 100%;
 }
 
 @media screen and (width <= 500px) {
@@ -62,11 +66,18 @@
 
 .title-container {
     display: flex;
+    /* Allow title to shrink if needed */
+    flex-shrink: 1;
 }
 
 .title {
     display: inline-block;
     min-height: 40px;
+    /* Allow title to shrink if needed */
+    flex-shrink: 1;
+    overflow: hidden; /* Prevent text overflow */
+    text-overflow: ellipsis; /* Indicate overflow with ellipsis */
+    white-space: nowrap; /* Prevent text from wrapping */
 }
 
 @media screen and (width <= 276px) {
@@ -98,8 +109,9 @@
 }
 
 .account-container {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Align to the right */
     align-items: center;
     column-gap: 10px;
 }
@@ -107,6 +119,8 @@
 .log-in {
     display: inline-block;
     margin: 5px;
+    /* Allow log-in to shrink if needed */
+    flex-shrink: 0; /* Or 1 if you want it to shrink */
 }
 
 .log-in a {
@@ -116,6 +130,8 @@
 
 .account-circle.logged-in {
     cursor: pointer;
+    /* Allow account-circle to shrink if needed */
+    flex-shrink: 0; /* Or 1 if you want it to shrink */
 }
 
 @media screen and (width <= 230px) {
