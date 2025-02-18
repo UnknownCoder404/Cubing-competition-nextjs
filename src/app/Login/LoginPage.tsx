@@ -58,7 +58,8 @@ async function handleSubmit(
 
         window.dispatchEvent(new Event("storage"));
 
-        isAdmin(role) ? router.push("/Dashboard") : router.push("/");
+        if (isAdmin(role)) router.push("/Dashboard");
+        else router.push("/");
     } catch (error) {
         setMsg(
             `Greška prilikom prijave: ${
