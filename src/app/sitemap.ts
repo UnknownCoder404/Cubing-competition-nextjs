@@ -3,7 +3,12 @@ import type { MetadataRoute } from "next";
 export const dynamic = "error";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = process.env.BASE_URL || "https://cro-cube-comp.vercel.app";
+    const productionDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+    const productionUrl = "https://" + productionDomain;
+    const baseUrl = productionDomain
+        ? productionUrl
+        : "https://cro-cube-comp.vercel.app";
+
     return [
         {
             url: baseUrl,
@@ -34,6 +39,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.4,
+        },
+        {
+            url: `${baseUrl}/robots.txt`, // Linking robots.txt in sitemap
+            lastModified: new Date(),
+            changeFrequency: "yearly",
+            priority: 0.1,
         },
     ];
 }
