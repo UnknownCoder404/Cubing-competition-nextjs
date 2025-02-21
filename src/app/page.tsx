@@ -3,7 +3,7 @@ import Cards from "./components/HomePage/cards";
 import { getPosts } from "./utils/posts";
 
 export const metadata: Metadata = {
-    title: "Cro Cube Comp",
+    title: "Cro Cube Comp - Početna",
     description:
         "CroCubeComp je natjecanje Rubikove kocke u Hrvatskoj. Ova natjecanja prate WCA pravilnik.",
     keywords: [
