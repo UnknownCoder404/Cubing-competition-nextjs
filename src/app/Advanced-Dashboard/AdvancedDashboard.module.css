@@ -37,13 +37,11 @@
     max-width: 150px;
     font-size: 16px;
     color: #fff;
-    background-color: #66afe9; /* Blue button */
+    background-color: var(--default-button-background-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        box-shadow 0.3s,
+    transition: background-color 0.3s, box-shadow 0.3s,
         transform 0.3s var(--exponential);
 }
 
@@ -53,8 +51,8 @@
     transform: scale(
         1.05
     ); /* Scale the element to 1.05 times its original size */
+    background-color: var(--default-button-hover-background-color);
 
-    background-color: #559dd6;
     box-shadow: 0 0 8px rgb(102 175 233 / 60%);
 }
 
@@ -71,9 +69,7 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .new-password:focus {
