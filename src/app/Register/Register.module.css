@@ -28,7 +28,7 @@
 .username-input:focus,
 .password-input:focus {
     border-color: var(--default-button-background-color);
-    box-shadow: 0 0 8px var(--default-button-background-color) / 60%;
+    box-shadow: 0 0 8px var(--default-button-shadow-color);
     outline: none;
 }
 

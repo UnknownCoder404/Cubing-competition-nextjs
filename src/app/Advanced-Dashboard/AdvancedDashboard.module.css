@@ -51,8 +51,8 @@
     transform: scale(
         1.05
     ); /* Scale the element to 1.05 times its original size */
-    background-color: var(--default-button-hover-background-color);
 
+    background-color: var(--default-button-hover-background-color);
     box-shadow: 0 0 8px rgb(102 175 233 / 60%);
 }
 
