@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./cards.module.css";
-import Card from "./card";
+import Card from "./Card";
 import { loggedIn } from "@/app/utils/credentials";
 import { staticCards } from "./staticCards";
 
