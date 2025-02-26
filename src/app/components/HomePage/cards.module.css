@@ -23,8 +23,7 @@
 
 .card-inside-container {
     padding: 3px 10px;
-    max-width: 500px;
-    word-break: break-word; /* Ensure text wraps */
+    word-break: break-all; /* Ensure text wraps */
 }
 
 .post-title {
@@ -51,13 +50,33 @@
     color: var(--anchor-unvisited-color);
     text-decoration: underline;
 }
-.showMoreButton {
+
+.show-more-button {
     background: none;
     border: none;
-    color: var(--anchor-unvisited-color); /* Or any color you prefer */
+    color: var(--anchor-unvisited-color);
     cursor: pointer;
-    padding: 0;
+    padding: 4px 8px;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9em;
+    transition: transform 0.3s var(--exponential), background-color 0.3s ease,
+        color 0.3s ease;
+    display: inline-block;
+}
+
+.show-more-button:hover {
+    background-color: rgb(255 255 255 / 0.1);
+    transform: scale(1.05);
     text-decoration: underline;
-    margin-top: 0.5rem; /* Add some spacing */
-    display: block; /* Make it a block element */
+}
+
+.show-more-button:active {
+    transform: scale(0.95);
+}
+
+/* Visited state styling */
+.show-more-button:visited {
+    color: var(--anchor-visited-color);
 }

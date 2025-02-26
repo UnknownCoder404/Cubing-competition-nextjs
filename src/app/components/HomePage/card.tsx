@@ -1,67 +1,7 @@
-import styles from "./cards.module.css";
+import styles from "./Cards.module.css";
 import { CardProp } from "../../Types/cards";
-import DomPurify from "dompurify";
 import { useState, useEffect } from "react";
-
-function Description({
-    description,
-    type,
-}: {
-    description: React.ReactNode | string;
-    type: "post" | "card";
-}) {
-    const [showMore, setShowMore] = useState(false);
-    const [truncatedDescription, setTruncatedDescription] = useState("");
-    const maxLength = 200; // Set maximum length before "show more" appears
-
-    useEffect(() => {
-        if (type === "post" && typeof description === "string") {
-            const sanitizedDescription = DomPurify.sanitize(description);
-            if (sanitizedDescription.length > maxLength) {
-                setTruncatedDescription(
-                    sanitizedDescription.substring(0, maxLength) + "...",
-                );
-            } else {
-                setTruncatedDescription(sanitizedDescription);
-            }
-        }
-    }, [description, type]);
-
-    if (typeof description === "string") {
-        const sanitizedDescription = DomPurify.sanitize(description);
-
-        if (type === "post") {
-            return (
-                <div>
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: showMore
-                                ? sanitizedDescription
-                                : truncatedDescription,
-                        }}
-                    />
-                    {sanitizedDescription.length > maxLength && (
-                        <button
-                            className={styles.showMoreButton}
-                            onClick={() => setShowMore(!showMore)}
-                        >
-                            {showMore ? "Prikaži manje" : "Prikaži više"}
-                        </button>
-                    )}
-                </div>
-            );
-        } else {
-            return (
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: sanitizedDescription,
-                    }}
-                />
-            );
-        }
-    }
-    return <>{description}</>;
-}
+import Description from "./Description";
 
 export default function Card({
     title,
@@ -69,7 +9,7 @@ export default function Card({
     author,
     shouldRender,
     loggedIn,
-    type,
+    isPost,
 }: CardProp) {
     const [shouldCardRender, setShouldCardRender] = useState(false);
 
@@ -91,7 +31,7 @@ export default function Card({
                     className={styles["post-description-container"]}
                     aria-label="Post Description"
                 >
-                    <Description description={description} type={type} />
+                    <Description description={description} isPost={!!isPost} />
                 </div>
                 {author && (
                     <footer className={styles["post-author-container"]}>

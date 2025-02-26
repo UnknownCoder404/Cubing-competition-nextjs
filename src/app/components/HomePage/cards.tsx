@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./cards.module.css";
+import styles from "./Cards.module.css";
 import Card from "./Card";
 import { loggedIn } from "@/app/utils/credentials";
 import { staticCards } from "./staticCards";
@@ -22,15 +22,10 @@ function Cards({ posts }: CardsProps) {
     return (
         <main className={styles.cards} suppressHydrationWarning>
             {staticCards().map((card, index) => (
-                <Card
-                    key={`card-${index}`}
-                    {...card}
-                    loggedIn={loggedIn()}
-                    type="card"
-                />
+                <Card key={`card-${index}`} {...card} loggedIn={loggedIn()} />
             ))}
             {posts.map((post) => (
-                <Card key={post.id} {...post} type="post" />
+                <Card key={post.id} {...post} isPost={true} />
             ))}
         </main>
     );

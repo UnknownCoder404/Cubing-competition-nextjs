@@ -6,5 +6,5 @@ export type CardProp = {
     };
     shouldRender?: (loggedIn?: boolean) => boolean;
     loggedIn?: boolean;
-    type: "post" | "card";
+    isPost?: boolean;
 };
