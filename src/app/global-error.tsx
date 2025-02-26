@@ -7,6 +7,7 @@ export default function GlobalError({
     error: Error & { digest?: string };
     reset: () => void;
 }) {
+    console.error(error);
     return (
         <>
             <h2>Nešto je pošlo po zlu</h2>
