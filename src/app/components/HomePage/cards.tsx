@@ -22,10 +22,15 @@ function Cards({ posts }: CardsProps) {
     return (
         <main className={styles.cards} suppressHydrationWarning>
             {staticCards().map((card, index) => (
-                <Card key={`card-${index}`} {...card} loggedIn={loggedIn()} />
+                <Card
+                    key={`card-${index}`}
+                    {...card}
+                    loggedIn={loggedIn()}
+                    type="card"
+                />
             ))}
             {posts.map((post) => (
-                <Card key={post.id} {...post} />
+                <Card key={post.id} {...post} type="post" />
             ))}
         </main>
     );

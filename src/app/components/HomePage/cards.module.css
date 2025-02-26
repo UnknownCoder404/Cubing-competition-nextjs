@@ -13,9 +13,7 @@
     flex: 1 1 auto; /* Allow the cards to grow and shrink */
     min-width: 200px; /* Set minimum width */
     border-radius: 5px;
-    transition:
-        background-color 0.25s,
-        box-shadow 0.3s;
+    transition: background-color 0.25s, box-shadow 0.3s;
 }
 
 .card:hover {
@@ -53,4 +51,14 @@
     cursor: pointer;
     color: var(--anchor-unvisited-color);
     text-decoration: underline;
+}
+.showMoreButton {
+    background: none;
+    border: none;
+    color: var(--anchor-unvisited-color); /* Or any color you prefer */
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    margin-top: 0.5rem; /* Add some spacing */
+    display: block; /* Make it a block element */
 }
