@@ -23,9 +23,8 @@
 
 .card-inside-container {
     padding: 3px 10px;
-    height: 100%;
     max-width: 500px;
-    word-wrap: break-word; /* Ensure text wraps properly */
+    word-break: break-word; /* Ensure text wraps */
 }
 
 .post-title {
