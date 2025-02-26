@@ -29,15 +29,13 @@
     border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    transition:
-        border-color 0.3s,
-        box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .username-input:focus,
 .password-input:focus {
-    border-color: #66afe9;
-    box-shadow: 0 0 8px rgb(102 175 233 / 60%);
+    border-color: var(--default-button-background-color);
+    box-shadow: 0 0 8px var(--default-button-shadow-color);
     outline: none;
 }
 
@@ -50,9 +48,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        box-shadow 0.3s,
+    transition: background-color 0.3s, box-shadow 0.3s,
         transform 0.3s var(--exponential);
 }
 
