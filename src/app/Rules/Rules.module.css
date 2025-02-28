@@ -1,24 +1,31 @@
+/* Set to flexbox because we need to add gap so we comply with WCAG */
+.navigation-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+/* Indentation for nested rules */
 .indent {
     margin-left: 20px;
 }
 
+/* Styling for numbering in rules */
 .numbering {
     color: orange;
 }
 
+/* Yellow text for warnings or penalties */
 .yellow {
     color: yellow;
 }
 
+/* Red text for severe penalties or errors */
 .red {
     color: red;
 }
 
+/* Bold text for emphasis */
 .bold {
     font-weight: bold;
 }
-
-/* 
-p {
-  margin-bottom: 10px;
-} */

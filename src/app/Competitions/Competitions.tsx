@@ -1,4 +1,3 @@
-// Server component
 import { CompetitionResultsType } from "../Types/solve";
 import Competition from "./Competition";
 

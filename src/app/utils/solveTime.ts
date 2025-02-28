@@ -4,8 +4,8 @@ export function getAverage(solves: number[] | undefined) {
     return typeof noFormatAverage === "string"
         ? formatTime(noFormatAverage)
         : noFormatAverage === -1
-          ? "Potrebno 5 slaganja"
-          : "DNF";
+        ? "Potrebno 5 slaganja"
+        : "DNF";
 }
 export function getAverageNoFormat(solves: number[]) {
     if (solves.length !== 5) {
@@ -16,9 +16,11 @@ export function getAverageNoFormat(solves: number[]) {
     const sortedSolves = solves.slice();
 
     sortedSolves.sort((a, b) => {
-        if (a === 0) return 1; // Place 0 at the last element
-        if (b === 0) return -1; // Place 0 at the last element
-        return a - b; // Regular sorting for other numbers
+        // Push DNFs (0) to the end of the array
+        if (a === 0) return 1;
+        if (b === 0) return -1;
+        // Regular sorting for other numbers
+        return a - b;
     });
     // Remove the smallest and largest elements
     const trimmedSolves = sortedSolves.slice(1, sortedSolves.length - 1);
@@ -27,7 +29,8 @@ export function getAverageNoFormat(solves: number[]) {
     const average =
         trimmedSolves.reduce((acc, val) => acc + val, 0) / trimmedSolves.length;
 
-    // Check if trimmedSolves contains DNF
+    // If the trimmed solves (after removing the fastest and slowest) include a DNF (0),
+    // the entire average is considered a DNF. Return 0 to represent a DNF average.
     if (trimmedSolves.includes(0)) {
         return 0;
     }
@@ -91,6 +94,6 @@ export function formatInputToSeconds(str: string) {
                 parseFloat(`${str.substring(2, 4)}.${str.substring(4)}`)
             );
         default:
-            return null; // or any other default value for invalid input
+            return null; // invalid input
     }
 }
