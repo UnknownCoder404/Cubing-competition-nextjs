@@ -94,10 +94,10 @@ function CompSelect({
             instanceId="prefix"
             onChange={(e) => {
                 // Handle null/undefined e
-                // @ts-expect-error
+                // @ts-expect-error We will fix this later, react-select is not typed correctly
                 if (e && e.value) {
                     const selectedComp = competitions.find(
-                        // @ts-expect-error
+                        // @ts-expect-error We will fix this later, react-select is not typed correctly
                         (c) => c._id === e.value,
                     );
                     if (selectedComp) {
