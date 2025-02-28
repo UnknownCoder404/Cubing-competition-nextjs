@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import getScramble from "./getScramble";
-import scrambleStyles from "./Scramble.module.css";
+import styles from "./Scramble.module.css";
 import { Loader } from "../components/Loader/Loader";
 import dynamic from "next/dynamic";
 
@@ -16,7 +16,7 @@ const ScrambleDisplay = dynamic(
 
 function LoadingScrambleDisplay() {
     return (
-        <div className={scrambleStyles["scramble-display-container"]}>
+        <div className={styles["scramble-display-container"]}>
             <Loader />
         </div>
     );
@@ -48,21 +48,19 @@ export default function ScramblePage() {
     }, []);
 
     return (
-        <main className={scrambleStyles["main"]}>
-            <p className={scrambleStyles["scramble"]}>{scramble}</p>
-            <div className={scrambleStyles["scramble-controls"]}>
+        <main className={styles["main"]}>
+            <p className={styles["scramble"]}>{scramble}</p>
+            <div className={styles["scramble-controls"]}>
                 <ScrambleDisplay
                     scramble={scramble}
                     event="333"
                     visualization="2D"
-                    containerClassName={
-                        scrambleStyles["scramble-display-container"]
-                    }
+                    containerClassName={styles["scramble-display-container"]}
                     onClick={() => handleScrambleShare(scramble)}
                 />
-                <div className={scrambleStyles["btn-rescramble-container"]}>
+                <div className={styles["btn-rescramble-container"]}>
                     <button
-                        className={scrambleStyles["btn-rescramble"]}
+                        className={styles["btn-rescramble"]}
                         onClick={() => generateNewScramble(setScramble)}
                     >
                         Promiješaj

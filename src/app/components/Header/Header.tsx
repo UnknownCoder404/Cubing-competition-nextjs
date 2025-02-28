@@ -1,4 +1,4 @@
-import headerStyles from "./Header.module.css";
+import styles from "./Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import ClientLoginStatus from "./ClientLoginStatus";
@@ -6,13 +6,13 @@ import ClientTitle from "./Title";
 
 export default function Header() {
     return (
-        <header className={headerStyles["header"]} role="banner">
-            <div className={headerStyles["interaction-container"]}>
-                <div className={headerStyles["logo-container"]}>
+        <header className={styles["header"]} role="banner">
+            <div className={styles["interaction-container"]}>
+                <div className={styles["logo-container"]}>
                     <Link href="/" aria-label="Idite na početnu stranicu">
                         <Image
                             alt="Logo of website"
-                            className={headerStyles["logo"]}
+                            className={styles["logo"]}
                             src="/favicon.ico"
                             width={20}
                             height={20}
@@ -20,11 +20,11 @@ export default function Header() {
                         />
                     </Link>
                 </div>
-                <div className={headerStyles["title-container"]}>
+                <div className={styles["title-container"]}>
                     <ClientTitle />
                 </div>
             </div>
-            <div className={headerStyles["account-container"]}>
+            <div className={styles["account-container"]}>
                 <ClientLoginStatus />
             </div>
         </header>

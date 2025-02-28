@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import headerStyles from "./Header.module.css";
+import styles from "./Header.module.css";
 import { getUsername, logOut } from "@/app/utils/credentials";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -29,17 +29,17 @@ function ClientLoginStatus() {
     }, []);
 
     if (!loaded) {
-        return <div className={headerStyles["account-container"]}></div>;
+        return <div className={styles["account-container"]}></div>;
     }
 
     return (
-        <header className={headerStyles["account-container"]}>
-            <h2 className={headerStyles["log-in"]}>
+        <header className={styles["account-container"]}>
+            <h2 className={styles["log-in"]}>
                 {username ? username : <Link href="/Login">Prijava</Link>}
             </h2>
             <AccountCircleSvg
-                className={clsx(headerStyles["account-circle"], {
-                    [headerStyles["logged-in"]]: loggedIn,
+                className={clsx(styles["account-circle"], {
+                    [styles["logged-in"]]: loggedIn,
                 })}
                 width="24px"
                 height="24px"

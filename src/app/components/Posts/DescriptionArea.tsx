@@ -1,5 +1,5 @@
 import React from "react";
-import postsStyles from "@/app/Posts/Posts.module.css";
+import styles from "@/app/Posts/Posts.module.css";
 
 interface DescriptionAreaProps {
     setValue: (value: string) => void;
@@ -15,7 +15,7 @@ function DescriptionArea(
             ref={ref}
             onChange={(e) => setValue(e.target.value)}
             value={value}
-            className={`${postsStyles["description"]} ${postsStyles["infoinputs"]}`}
+            className={`${styles["description"]} ${styles["infoinputs"]}`}
             maxLength={4000}
             placeholder="Opis"
         />
