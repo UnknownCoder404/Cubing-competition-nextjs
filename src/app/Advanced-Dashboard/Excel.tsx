@@ -94,8 +94,10 @@ function CompSelect({
             instanceId="prefix"
             onChange={(e) => {
                 // Handle null/undefined e
+                // @ts-expect-error
                 if (e && e.value) {
                     const selectedComp = competitions.find(
+                        // @ts-expect-error
                         (c) => c._id === e.value,
                     );
                     if (selectedComp) {
