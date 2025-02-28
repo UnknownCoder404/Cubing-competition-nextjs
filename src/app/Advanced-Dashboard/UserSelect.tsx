@@ -27,6 +27,7 @@ function UserSelect({
             isDisabled={disabled}
             isSearchable={true}
             onChange={(e) =>
+                // @ts-expect-error We will fix this later, react-select is not typed correctly
                 setSelectedUser(users.find((user) => user._id === e!.value)!)
             }
             {...rest} // Spread the rest of the props here
