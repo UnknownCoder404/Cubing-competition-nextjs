@@ -56,6 +56,7 @@ export function ChangePasswordForm({ users }: { users: Users }) {
                     users={users}
                     setSelectedUser={setSelectedUserToChangePassword}
                     disabled={loading}
+                    className={styles["user-select"]}
                 />
                 <div className={styles["password-input-container"]}>
                     <input
